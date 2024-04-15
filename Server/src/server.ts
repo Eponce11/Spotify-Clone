@@ -1,21 +1,8 @@
-import express, { Application } from "express";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import dotnev from "dotenv";
-import corsOptions from "./config/corsOptions.config";
+import makeApp from "./app";
+import { PrismaClient } from "@prisma/client";
 
-const app: Application = express();
 const PORT: Number = 8000;
-
-dotnev.config();
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
-
-// connect to DB
-
-// connect to route files
+const prisma = new PrismaClient();
+const app = makeApp({ prisma });
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
-
