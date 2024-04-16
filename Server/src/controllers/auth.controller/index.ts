@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import { Context, MockContext } from "../../config/context.config";
 import type { ExpressRouteFunction } from "../../common/types";
 import { loginValidator, registerValidator } from "./validation";
@@ -87,6 +88,34 @@ export const login = (ctx: Context | MockContext): ExpressRouteFunction => {
           username: user.username,
           token: accessToken,
         });
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
+
+export const handleRefreshToken = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const cookies = req.cookies;
+      if (!cookies?.jwt) return res.sendStatus(401);
+      const refreshToken = cookies.jwt;
+      const user = await ctx.prisma.user.findFirst({ where: { refreshToken } });
+      if (!user) return res.sendStatus(403);
+      const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || null;
+      if (!refreshTokenSecret) return res.sendStatus(500);
+      jwt.verify(
+        refreshToken,
+        refreshTokenSecret,
+        async (err: any, decoded: any) => {
+          if (err || user.id !== decoded.id) return res.sendStatus(403);
+          const accessToken = await generateToken({ id: user.id }, "ACCESS");
+          return res.json({ accessToken });
+        }
+      );
     } catch (err: any) {
       console.log(err);
       return res.sendStatus(400);
