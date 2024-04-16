@@ -1,0 +1,64 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  username     String   @db.VarChar(255)
+  email        String   @unique
+  password     String   @db.VarChar(60)
+  dob          DateTime
+  refreshToken String?
+
+  playlists Playlist[]
+  likes     Like[]
+
+  @@map("users")
+}
+
+model Playlist {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  public    Boolean  @default(false)
+
+  owner  User @relation(fields: [userId], references: [id])
+  userId Int
+
+  songs Song[]
+
+  @@map("playlists")
+}
+
+model Song {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  songId    String
+
+  playlists Playlist[]
+  likes     Like[]
+
+  @@map("songs")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Song   Song @relation(fields: [songId], references: [id])
+  songId Int
+  User   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@map("likes")
+}
