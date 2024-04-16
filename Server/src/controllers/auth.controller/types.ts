@@ -1,4 +1,4 @@
-export interface RegisterValidationInput {
+export interface RegisterValidatorInput {
   username: string;
   email: string;
   password: string;
@@ -14,4 +14,11 @@ export interface RegisterErrors {
   };
 }
 
-export type RegisterValidationReturn = RegisterErrors | null;
+export type RegisterValidatorReturn = RegisterErrors | null;
+
+export interface LoginValidatorInput {
+  email: string;
+  password: string;
+}
+
+export type LoginValidatorReturn = { id: number; username: string } | null;

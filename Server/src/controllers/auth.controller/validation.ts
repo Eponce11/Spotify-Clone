@@ -1,18 +1,21 @@
 import {
-  RegisterValidationInput,
+  RegisterValidatorInput,
   RegisterErrors,
-  RegisterValidationReturn,
+  RegisterValidatorReturn,
+  LoginValidatorInput,
+  LoginValidatorReturn,
 } from "./types";
+import bcrypt from "bcryptjs";
 import { Context, MockContext } from "../../config/context.config";
 
 export const emailValidator = (val: string): boolean => {
   return /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val);
 };
 
-export const registerValidation = async (
-  data: RegisterValidationInput,
+export const registerValidator = async (
+  data: RegisterValidatorInput,
   ctx: Context | MockContext
-): Promise<RegisterValidationReturn> => {
+): Promise<RegisterValidatorReturn> => {
   const { username, email, password, dob } = data;
   const errors: RegisterErrors = { errors: {} };
 
@@ -51,4 +54,22 @@ export const registerValidation = async (
   if (Object.keys(errors.errors).length > 0) return errors;
 
   return null;
+};
+
+export const loginValidator = async (
+  data: LoginValidatorInput,
+  ctx: Context | MockContext
+): Promise<LoginValidatorReturn> => {
+  const { email, password } = data;
+
+  const foundUser = await ctx.prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  if (!foundUser || !(await bcrypt.compare(password, foundUser.password)))
+    return null;
+
+  return { id: foundUser.id, username: foundUser.username };
 };
