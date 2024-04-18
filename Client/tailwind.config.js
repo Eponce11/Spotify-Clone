@@ -8,8 +8,10 @@ export default {
     extend: {
       colors: {
         'black': '#000000',
+        'secondaryBlack': '#17102D',
         'darkGrey': '#121212',
-        'hoverDarkGrey': '#1a1a1a'
+        'hoverDarkGrey': '#1a1a1a',
+        'lightGreen': '#19E68C'
       }
     },
   },
