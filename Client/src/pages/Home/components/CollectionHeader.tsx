@@ -2,11 +2,11 @@
 const CollectionHeader = () => {
   return (
     <section className="bg-[red] w-full pb-5 flex pt-20 px-6">
-      <div className="h-[232px] aspect-square bg-[green]" />
-      <div className="flex flex-col justify-end gap-3 text-white ml-7">
-        <p className="">Playlist</p>
-        <h1 className="text-8xl font-bold">Liked Songs</h1>
-        <p>Owner - 100 songs</p>
+      <div className="w-[232px] aspect-square bg-[green] rounded-md" />
+      <div className="flex flex-col justify-end text-white ml-7">
+        <p className="text-h6">Playlist</p>
+        <h1 className="text-h1">Liked Songs</h1>
+        <p className="text-h6"><strong>Owner</strong> - 100 songs</p>
       </div>
     </section>
   )
