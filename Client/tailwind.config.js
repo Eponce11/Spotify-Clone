@@ -11,6 +11,7 @@ export default {
         'secondaryBlack': '#17102D',
         'darkGrey': '#121212',
         'hoverDarkGrey': '#1a1a1a',
+        'hoverLightGrey': '#2E2C35',
         'lightGreen': '#1ED760',
         'txtGrey': '#bebebe'
 
@@ -20,6 +21,11 @@ export default {
           lineHeight: '115%',
           letterSpacing: '-5px',
           fontWeight: '700',
+        }],
+        'h5': ['15px', {
+          lineHeight: '110%',
+          letterSpacing: '-1px',
+          fontWeight: '500',
         }],
         'h6': ['14px', {
           lineHeight: '110%',

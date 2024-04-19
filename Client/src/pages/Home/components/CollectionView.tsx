@@ -1,5 +1,11 @@
-import { MainViewContainer, CollectionHeader, CollectionTopbar, CollectionPlaybar } from './';
-
+import {
+  MainViewContainer,
+  CollectionHeader,
+  CollectionTopbar,
+  CollectionPlaybar,
+  CollectionListHeader,
+  CollectionPlaylist
+} from "./";
 
 const CollectionView = () => {
   return (
@@ -7,6 +13,8 @@ const CollectionView = () => {
       <CollectionTopbar />
       <CollectionHeader />
       <CollectionPlaybar />
+      <CollectionListHeader />
+      <CollectionPlaylist />
     </MainViewContainer>
   );
 };
