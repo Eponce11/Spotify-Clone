@@ -7,6 +7,7 @@ import { Context, MockContext } from "./config/context.config";
 import { refreshSpotifyToken } from "./functions/spotifyApi.functions";
 import authRoutes from "./routes/auth.routes";
 import likeRoutes from "./routes/like.routes";
+import playlistRoutes from "./routes/playlist.routes";
 
 export default (database: Context | MockContext): Application => {
   const app: Application = express();
@@ -21,6 +22,7 @@ export default (database: Context | MockContext): Application => {
 
   authRoutes(app, database);
   likeRoutes(app, database);
+  playlistRoutes(app, database);
 
   return app;
 };
