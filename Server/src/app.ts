@@ -5,6 +5,7 @@ import dotnev from "dotenv";
 import corsOptions from "./config/corsOptions.config";
 import authRoutes from "./routes/auth.routes";
 import { Context, MockContext } from "./config/context.config";
+import { refreshSpotifyToken } from "./functions/spotifyApi.functions";
 
 export default (database: Context | MockContext): Application => {
   const app: Application = express();
@@ -14,6 +15,8 @@ export default (database: Context | MockContext): Application => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cors(corsOptions));
+  
+  refreshSpotifyToken(app);
 
   authRoutes(app, database);
 
