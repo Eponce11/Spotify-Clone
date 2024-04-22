@@ -10,6 +10,7 @@ export default {
         'black': '#000000',
         'secondaryBlack': '#17102D',
         'darkGrey': '#121212',
+        'lightGrey': '#242424',
         'hoverDarkGrey': '#1a1a1a',
         'hoverLightGrey': '#2E2C35',
         'lightGreen': '#1ED760',
