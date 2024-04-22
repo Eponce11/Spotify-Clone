@@ -1,9 +1,10 @@
-import { MainViewContainer, SearchTopbar } from "./";
+import { MainViewContainer, SearchTopResults, SearchTopbar } from "./";
 
 const SearchView = () => {
   return (
     <MainViewContainer>
       <SearchTopbar />
+      <SearchTopResults />
     </MainViewContainer>
   );
 };

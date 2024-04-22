@@ -11,8 +11,9 @@ export default {
         'secondaryBlack': '#17102D',
         'darkGrey': '#121212',
         'lightGrey': '#242424',
+        'secondaryLightGrey': '#181818',
         'hoverDarkGrey': '#1a1a1a',
-        'hoverLightGrey': '#2E2C35',
+        'hoverLightGrey': '#282828',
         'lightGreen': '#1ED760',
         'txtGrey': '#bebebe'
 
@@ -22,6 +23,16 @@ export default {
           lineHeight: '115%',
           letterSpacing: '-5px',
           fontWeight: '700',
+        }],
+        'h3': ['32px', {
+          lineHeight: '115%',
+          letterSpacing: '-1px',
+          fontWeight: '600',
+        }],
+        'h4': ['22px', {
+          lineHeight: '115%',
+          letterSpacing: '-1px',
+          fontWeight: '600',
         }],
         'h5': ['15px', {
           lineHeight: '110%',

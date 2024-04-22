@@ -30,7 +30,7 @@ const SearchTopbar = () => {
   }, [search]);
 
   return (
-    <nav className="w-full h-16 bg-[red] flex justify-between items-center px-6 rounded-t-md">
+    <nav className="w-full h-16 flex justify-between items-center px-6 rounded-t-md absolute">
       <div className="flex gap-2 items-center">
         <div className="h-8 w-8 bg-secondaryBlack rounded-full cursor-pointer" />
         <div className="h-8 w-8 bg-secondaryBlack rounded-full cursor-pointer" />
