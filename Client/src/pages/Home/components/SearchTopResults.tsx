@@ -18,7 +18,7 @@ const SearchTopResults = () => {
         <ul className="w-full">
           {tracks.map((track: any, idx: number) => {
             return (
-              <li className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md">
+              <li className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md" key={idx}>
                 <div className="flex items-center">
                   <div className="h-10 aspect-square rounded bg-[blue] mr-3" />
                   <div className="flex flex-col justify-center">
