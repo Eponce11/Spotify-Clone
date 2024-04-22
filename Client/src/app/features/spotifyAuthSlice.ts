@@ -8,6 +8,11 @@ interface SpotifyAuthState {
   expiresIn: number | null;
 }
 
+interface SpotifyRefreshCredentials {
+  accessToken: string;
+  expiresIn: number;
+}
+
 const initialState: SpotifyAuthState = {
   accessToken: null,
   refreshToken: null,
@@ -26,10 +31,18 @@ const spotifyAuthSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
       state.expiresIn = action.payload.expiresIn;
     },
+    setSpotifyRefreshCredentials: (
+      state: SpotifyAuthState,
+      action: PayloadAction<SpotifyRefreshCredentials>
+    ) => {
+      state.accessToken = action.payload.accessToken;
+      state.expiresIn = action.payload.expiresIn;
+    },
   },
 });
 
-export const { setSpotifyAuthCredentials } = spotifyAuthSlice.actions;
+export const { setSpotifyAuthCredentials, setSpotifyRefreshCredentials } =
+  spotifyAuthSlice.actions;
 
 export const selectSpotifyAuthAccessToken = (state: RootState) =>
   state.spotifyAuth.accessToken;

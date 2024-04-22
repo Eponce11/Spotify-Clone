@@ -31,4 +31,4 @@ export const spotifyApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useSpotifyLoginMutation } = spotifyApiSlice;
+export const { useSpotifyLoginMutation, useSpotifyRefreshTokenMutation } = spotifyApiSlice;
