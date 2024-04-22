@@ -1,9 +1,18 @@
 export interface SpotifyLoginCredentials {
-  code: string
+  code: string;
 }
 
 export interface SpotifyLoginResponse {
-  spotifyAccessToken: string,
-  spotifyRefreshToken: string,
-  expiresIn: number
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+}
+
+export interface SpotifyRefreshCredentials {
+  refreshToken: string;
+}
+
+export interface SpotifyRefreshResponse {
+  accessToken: string;
+  expiresIn: number;
 }
