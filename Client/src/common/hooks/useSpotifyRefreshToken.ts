@@ -5,6 +5,7 @@ import {
   selectSpotifyAuthExpiresIn,
   setSpotifyRefreshCredentials,
 } from "../../app/features/spotifyAuthSlice";
+import { spotifyApi } from "../constants";
 import { useSpotifyRefreshTokenMutation } from "../../api/spotifyApiSlice";
 import { useAppDispatch } from "../../app/hooks";
 
@@ -25,6 +26,7 @@ const useSpotifyRefreshToken = (): void => {
             expiresIn: response.expiresIn,
           })
         );
+        spotifyApi.setAccessToken(response.accessToken);
       }, (expiresIn - 60) * 1000);
       return () => clearInterval(interval);
     };

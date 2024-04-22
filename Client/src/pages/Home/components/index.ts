@@ -6,6 +6,8 @@ import CollectionTopbar from "./CollectionTopbar";
 import CollectionPlaybar from "./CollectionPlaybar";
 import CollectionListHeader from "./CollectionListHeader";
 import CollectionPlaylist from "./CollectionPlaylist";
+import SearchView from "./SearchView";
+import SearchTopbar from "./SearchTopbar";
 
 export {
   LibrarySidebar,
@@ -16,4 +18,6 @@ export {
   CollectionPlaybar,
   CollectionListHeader,
   CollectionPlaylist,
+  SearchView,
+  SearchTopbar,
 };

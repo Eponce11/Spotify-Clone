@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AUTH_URL } from "../constants";
+import { spotifyApi } from "../../../common/constants";
 import { useSpotifyLoginMutation } from "../../../api/spotifyApiSlice";
 import { useAppDispatch } from "../../../app/hooks";
-import { setSpotifyAuthCredentials } from "../../../app/features/spotifyAuthSlice";
+import {
+  setSpotifyAuthCredentials
+} from "../../../app/features/spotifyAuthSlice";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
@@ -23,13 +26,16 @@ const SpotifyLogin = () => {
           expiresIn: response.expiresIn,
         })
       );
+      spotifyApi.setAccessToken(response.accessToken);
       navigate("/home/search");
     };
     fetchData();
   }, [code]);
 
   return (
-    <section><a href={AUTH_URL}>Spotify Login</a></section>
+    <section>
+      <a href={AUTH_URL}>Spotify Login</a>
+    </section>
   );
 };
 

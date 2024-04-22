@@ -1,4 +1,4 @@
-const clientId: string = "d64b18692a0b431cacaf55d015b1d6ad"
+import { clientId } from "../../common/constants";
 const redirectUri: string = "http://localhost:5173";
 
 export const AUTH_URL =

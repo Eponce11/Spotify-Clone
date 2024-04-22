@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { LibrarySidebar, CollectionView } from "./components";
+import { LibrarySidebar, CollectionView, SearchView } from "./components";
 import { useSpotifyRefreshToken } from "../../common/hooks";
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
       <LibrarySidebar />
 
       <Routes>
-        <Route path="/search" element={<div />} />
+        <Route path="/search" element={<SearchView />} />
         <Route path="/*" element={<CollectionView />} />
       </Routes>
     </div>
