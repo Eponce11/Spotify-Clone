@@ -23,13 +23,13 @@ const SpotifyLogin = () => {
           expiresIn: response.expiresIn,
         })
       );
-      navigate("/home");
+      navigate("/home/search");
     };
     fetchData();
   }, [code]);
 
   return (
-    <section>{code ? <></> : <a href={AUTH_URL}>Spotify Login</a>}</section>
+    <section><a href={AUTH_URL}>Spotify Login</a></section>
   );
 };
 
