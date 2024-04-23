@@ -20,7 +20,7 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
   }
 
   return (
-    <section className="w-full h-[600px] px-6 text-white mt-12">
+    <section className="w-full px-6 text-white mt-12">
       <h4 className="text-h4 mb-4">{sectionTitle}</h4>
       <ul className="w-full flex">
         <li className="flex flex-col gap-3 p-3 bg-[green] rounded-lg">

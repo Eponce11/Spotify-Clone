@@ -10,7 +10,7 @@ import SearchView from "./SearchView";
 import SearchTopbar from "./SearchTopbar";
 import SearchTopResults from "./SearchTopResults";
 import SearchResultsRow from "./SearchResultsRow";
-
+import BottomPlaybar from "./BottomPlaybar";
 import ExplicitLabel from "./ExplicitLabel";
 
 export {
@@ -26,5 +26,6 @@ export {
   SearchTopbar,
   SearchTopResults,
   SearchResultsRow,
+  BottomPlaybar,
   ExplicitLabel,
 };
