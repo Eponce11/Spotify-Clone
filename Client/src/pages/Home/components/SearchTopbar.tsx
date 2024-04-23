@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { spotifyApi } from "../../../common/constants";
+import { convertMillisToMinutes } from "../../../common/utils/convertMillisToMinutes";
 
-const SearchTopbar = () => {
+interface SearchTopbarProps {
+  setSearchResults: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const SearchTopbar = (props: SearchTopbarProps) => {
+  const { setSearchResults } = props;
   const [search, setSearch] = useState<string>("");
 
   useEffect((): any => {
@@ -11,20 +17,21 @@ const SearchTopbar = () => {
 
     spotifyApi.searchTracks(search).then((res): void => {
       if (cancel) return;
+      console.log(res.body.tracks?.items);
       const filteredTracks = res.body.tracks?.items.map((track) => {
-        const smallestImg = track.album.images.reduce((smallest, image) => {
-          if (!image.height || !smallest.height) return smallest;
-          if (image.height < smallest.height) return image;
-          return smallest;
-        }, track.album.images[0]);
         return {
           artist: track.artists[0].name,
           title: track.name,
           uri: track.uri,
-          albumUrl: smallestImg.url,
+          albumUrl: track.album.images[0].url,
+          duration: convertMillisToMinutes(track.duration_ms),
         };
       });
       console.log(filteredTracks);
+      if (filteredTracks === undefined) {
+        setSearchResults([]);
+      }
+      setSearchResults(filteredTracks);
     });
     return () => (cancel = true);
   }, [search]);
