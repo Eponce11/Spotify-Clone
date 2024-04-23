@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { spotifyApi } from "../../../common/constants";
+import type { Track } from "../types";
 import { convertMillisToMinutes } from "../../../common/utils/convertMillisToMinutes";
 
 interface SearchTopbarProps {
@@ -18,13 +19,14 @@ const SearchTopbar = (props: SearchTopbarProps) => {
     spotifyApi.searchTracks(search).then((res): void => {
       if (cancel) return;
       console.log(res.body.tracks?.items);
-      const filteredTracks = res.body.tracks?.items.map((track) => {
+      const filteredTracks = res.body.tracks?.items.map((track): Track => {
         return {
           artist: track.artists[0].name,
           title: track.name,
           uri: track.uri,
           albumUrl: track.album.images[0].url,
           duration: convertMillisToMinutes(track.duration_ms),
+          isExplicit: track.explicit
         };
       });
       console.log(filteredTracks);

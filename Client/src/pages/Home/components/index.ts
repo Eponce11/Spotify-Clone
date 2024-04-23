@@ -11,6 +11,8 @@ import SearchTopbar from "./SearchTopbar";
 import SearchTopResults from "./SearchTopResults";
 import SearchResultsRow from "./SearchResultsRow";
 
+import ExplicitLabel from "./ExplicitLabel";
+
 export {
   LibrarySidebar,
   MainViewContainer,
@@ -24,4 +26,5 @@ export {
   SearchTopbar,
   SearchTopResults,
   SearchResultsRow,
+  ExplicitLabel,
 };

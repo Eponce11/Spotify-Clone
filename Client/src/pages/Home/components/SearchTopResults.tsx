@@ -1,13 +1,7 @@
+import type { Track } from "../types";
+import { ExplicitLabel } from "./";
 interface SearchTopResultsProps {
   searchResults: any[];
-}
-
-interface Track {
-  artist: string;
-  title: string;
-  albumUrl: string;
-  uri: string;
-  duration: string;
 }
 
 const SearchTopResults = (props: SearchTopResultsProps) => {
@@ -26,10 +20,13 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
             alt="album img"
           />
           <h2 className="text-h3">{tracks[0].title}</h2>
-          <p className="text-h5">
-            <span className="text-txtGrey">Song - </span>
-            {tracks[0].artist}
-          </p>
+          <div className="flex items-center">
+            {tracks[0].isExplicit && <ExplicitLabel />}
+            <p className="text-h5">
+              <span className="text-txtGrey">Song - </span>
+              {tracks[0].artist}
+            </p>
+          </div>
         </div>
       </div>
       <div className="grow">
@@ -42,13 +39,20 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
                 key={idx}
               >
                 <div className="flex items-center">
-                  <img src={track.albumUrl} alt="track img" className="h-10 w-10 rounded mr-3 "/>
+                  <img
+                    src={track.albumUrl}
+                    alt="track img"
+                    className="h-10 w-10 rounded mr-3 "
+                  />
                   <div className="flex flex-col justify-center">
                     <h5 className="text-h5 mb-1 text-white">{track.title}</h5>
-                    <span className="text-h6">{track.artist}</span>
+                    <div className="flex items-center">
+                      {track.isExplicit && <ExplicitLabel />}
+                      <span className="text-h6">{track.artist}</span>
+                    </div>
                   </div>
                 </div>
-                <p>{track.duration}</p>
+                <p className="text-h5">{track.duration}</p>
               </li>
             );
           })}
