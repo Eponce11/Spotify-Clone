@@ -12,6 +12,7 @@ import SearchTopResults from "./SearchTopResults";
 import SearchResultsRow from "./SearchResultsRow";
 import BottomPlaybar from "./BottomPlaybar";
 import ExplicitLabel from "./ExplicitLabel";
+import GreenPlayButton from "./GreenPlayButton";
 
 export {
   LibrarySidebar,
@@ -28,4 +29,5 @@ export {
   SearchResultsRow,
   BottomPlaybar,
   ExplicitLabel,
+  GreenPlayButton,
 };
