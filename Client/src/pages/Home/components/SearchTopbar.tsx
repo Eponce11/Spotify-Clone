@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { spotifyApi } from "../../../common/constants";
 import type { Track } from "../types";
 import { convertMillisToMinutes } from "../../../common/utils/convertMillisToMinutes";
+import { useSpotifySearch } from "../../../common/hooks";
 
 interface SearchTopbarProps {
   setSearchResults: React.Dispatch<React.SetStateAction<any>>;
@@ -10,32 +11,17 @@ interface SearchTopbarProps {
 const SearchTopbar = (props: SearchTopbarProps) => {
   const { setSearchResults } = props;
   const [search, setSearch] = useState<string>("");
+  const { spotifySearch } = useSpotifySearch();
 
   useEffect((): any => {
     if (!search) return;
-
-    let cancel: boolean = false;
-
-    spotifyApi.searchTracks(search).then((res): void => {
-      if (cancel) return;
-      console.log(res.body.tracks?.items);
-      const filteredTracks = res.body.tracks?.items.map((track): Track => {
-        return {
-          artist: track.artists[0].name,
-          title: track.name,
-          uri: track.uri,
-          albumUrl: track.album.images[0].url,
-          duration: convertMillisToMinutes(track.duration_ms),
-          isExplicit: track.explicit
-        };
+    const fetchData = setTimeout(async () => {
+      spotifySearch(search).then((res: any) => {
+        setSearchResults(res?.tracks)
+        console.log(res);
       });
-      console.log(filteredTracks);
-      if (filteredTracks === undefined) {
-        setSearchResults([]);
-      }
-      setSearchResults(filteredTracks);
-    });
-    return () => (cancel = true);
+    }, 300);
+    return () => clearTimeout(fetchData);
   }, [search]);
 
   return (
