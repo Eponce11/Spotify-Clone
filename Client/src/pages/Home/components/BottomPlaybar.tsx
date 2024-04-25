@@ -1,18 +1,24 @@
-import { useTogglePlayback, usePlayNextTrack } from "../../../common/hooks";
-import usePlayPreviousTrack from "../../../common/hooks/usePlayPreviousTrack";
+import {
+  useTogglePlayback,
+  usePlayNextTrack,
+  usePlayPreviousTrack,
+} from "../../../common/hooks";
+import { useAppSelector } from "../../../app/hooks";
+import { selectSpotifyPlaybackCurrentTrack } from "../../../app/features/spotifyPlaybackSlice";
 
 const BottomPlaybar = () => {
   const { togglePlayback } = useTogglePlayback();
   const { playNextTrack } = usePlayNextTrack();
   const { playPreviousTrack } = usePlayPreviousTrack();
+  const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
 
   return (
-    <footer className="text-white h-[72px] bg-[red] py-2 px-3 flex">
+    <footer className="text-white h-[72px] py-3 px-2 flex items-center">
       <div className="flex items-center w-1/3">
-        <div className="h-14 w-14 bg-[blue] rounded mr-3" />
-        <div className="flex flex-col gap-1">
-          <h5 className="text-h5">Title Name</h5>
-          <p className="text-h6">Artists</p>
+        <img src={currentTrack?.albumUrl} alt="album img" className="h-14 w-14 rounded mr-3"/>
+        <div className="flex flex-col gap-1 mt-1">
+          <h5 className="text-h5">{currentTrack?.title}</h5>
+          <p className="text-h6 text-txtGrey">{currentTrack?.artist}</p>
         </div>
       </div>
       <div className="h-full flex w-1/3 justify-center">

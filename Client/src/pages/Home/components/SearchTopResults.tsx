@@ -28,7 +28,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
               {tracks[0].artist}
             </p>
             <GreenPlayButton
-              uris={[tracks[0].uri]}
+              track={tracks[0]}
               className="absolute right-4 bottom-5 invisible group-hover:visible cursor-pointer"
             />
           </div>
@@ -60,7 +60,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
                 <p className="text-h5">{track.duration}</p>
                 <div
                   className="absolute h-10 w-10 rounded bg-[rgba(0,0,0,0.5)] flex justify-center items-center invisible group-hover:visible cursor-pointer"
-                  onClick={() => playTracks([track.uri])}
+                  onClick={() => playTracks(track)}
                 >
                   <span className="bg-[green] h-3 w-3 opacity-100" />
                 </div>

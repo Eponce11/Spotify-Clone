@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
+import { Track } from "../../pages/Home/types";
 
 interface SpotifyPlaybackState {
   isPlaying: boolean;
+  currentTrack: Track | null;
 }
 
 const initialState: SpotifyPlaybackState = {
   isPlaying: false,
+  currentTrack: null,
 };
 
 const spotifyPlaybackSlice = createSlice({
@@ -20,12 +23,21 @@ const spotifyPlaybackSlice = createSlice({
     ) => {
       state.isPlaying = action.payload;
     },
+    setCurrentTrack: (
+      state: SpotifyPlaybackState,
+      action: PayloadAction<Track>
+    ) => {
+      state.isPlaying = true;
+      state.currentTrack = action.payload;
+    },
   },
 });
 
-export const { setIsPlaying } = spotifyPlaybackSlice.actions;
+export const { setIsPlaying, setCurrentTrack } = spotifyPlaybackSlice.actions;
 
 export const selectSpotifyPlaybackIsPlaying = (state: RootState) =>
   state.spotifyPlayback.isPlaying;
+export const selectSpotifyPlaybackCurrentTrack = (state: RootState) =>
+  state.spotifyPlayback.currentTrack;
 
 export default spotifyPlaybackSlice.reducer;

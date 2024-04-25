@@ -1,17 +1,18 @@
 import { usePlayTracks } from "../../../common/hooks";
+import type { Track } from "../types";
 
 interface GreenPlayButtonProps {
-  uris: string[];
+  track: Track;
   className?: string;
 }
 
 const GreenPlayButton = (props: GreenPlayButtonProps) => {
-  const { uris, className } = props;
+  const { track, className } = props;
   const { playTracks } = usePlayTracks();
   return (
     <div
       className={`h-14 aspect-square rounded-full bg-lightGreen ${className}`}
-      onClick={() => playTracks(uris)}
+      onClick={() => playTracks(track)}
     />
   );
 };
