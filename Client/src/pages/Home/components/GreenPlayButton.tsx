@@ -1,4 +1,4 @@
-import { playTracks } from "../../../common/spotify";
+import { usePlayTracks } from "../../../common/hooks";
 
 interface GreenPlayButtonProps {
   uris: string[];
@@ -7,7 +7,7 @@ interface GreenPlayButtonProps {
 
 const GreenPlayButton = (props: GreenPlayButtonProps) => {
   const { uris, className } = props;
-
+  const { playTracks } = usePlayTracks();
   return (
     <div
       className={`h-14 aspect-square rounded-full bg-lightGreen ${className}`}

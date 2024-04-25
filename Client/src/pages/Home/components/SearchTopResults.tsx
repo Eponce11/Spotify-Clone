@@ -1,13 +1,13 @@
 import type { Track } from "../types";
 import { ExplicitLabel, GreenPlayButton } from "./";
-import { playTracks } from "../../../common/spotify";
+import { usePlayTracks } from "../../../common/hooks";
 interface SearchTopResultsProps {
   searchResults: any[];
 }
 
 const SearchTopResults = (props: SearchTopResultsProps) => {
   const { searchResults } = props;
-
+  const { playTracks } = usePlayTracks();
   const tracks = searchResults.slice(0, 4);
 
   return (
