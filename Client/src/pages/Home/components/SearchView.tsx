@@ -5,14 +5,19 @@ import {
   SearchTopbar,
   SearchResultsRow,
 } from "./";
+import type { SearchResult } from "../types";
 
 const SearchView = () => {
-  const [searchResults, setSearchResults] = useState<any>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult>({});
 
   return (
     <MainViewContainer>
       <SearchTopbar setSearchResults={setSearchResults} />
-      { searchResults.length === 0 ? <></> : <SearchTopResults searchResults={searchResults} />}
+      {!searchResults.tracks || searchResults.tracks.length === 0 ? (
+        <></>
+      ) : (
+        <SearchTopResults tracks={searchResults.tracks} />
+      )}
       <SearchResultsRow rowType="ARTISTS" />
     </MainViewContainer>
   );

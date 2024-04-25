@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { spotifyApi } from "../../../common/constants";
-import type { Track } from "../types";
-import { convertMillisToMinutes } from "../../../common/utils/convertMillisToMinutes";
 import { useSpotifySearch } from "../../../common/hooks";
+import type { SearchResult } from "../types";
 
 interface SearchTopbarProps {
   setSearchResults: React.Dispatch<React.SetStateAction<any>>;
@@ -16,8 +14,8 @@ const SearchTopbar = (props: SearchTopbarProps) => {
   useEffect((): any => {
     if (!search) return;
     const fetchData = setTimeout(async () => {
-      spotifySearch(search).then((res: any) => {
-        setSearchResults(res?.tracks)
+      spotifySearch(search).then((res: SearchResult) => {
+        setSearchResults(res);
         console.log(res);
       });
     }, 300);

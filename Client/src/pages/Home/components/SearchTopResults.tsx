@@ -2,13 +2,13 @@ import type { Track } from "../types";
 import { ExplicitLabel, GreenPlayButton } from "./";
 import { usePlayTracks } from "../../../common/hooks";
 interface SearchTopResultsProps {
-  searchResults: any[];
+  tracks: Track[];
 }
 
 const SearchTopResults = (props: SearchTopResultsProps) => {
-  const { searchResults } = props;
+  const { tracks } = props;
   const { playTracks } = usePlayTracks();
-  const tracks = searchResults.slice(0, 4);
+  const topTracks = tracks.slice(0, 4);
 
   return (
     <section className="w-full px-6 mt-20 text-white flex gap-3">
@@ -16,19 +16,19 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
         <h4 className="text-h4 mb-4">Top Result</h4>
         <div className="w-[400px] bg-secondaryLightGrey rounded-lg p-5 flex flex-col gap-4 hover:bg-hoverLightGrey">
           <img
-            src={tracks[0].albumUrl}
+            src={topTracks[0].albumUrl}
             className="h-[92px] w-[92px] rounded-md"
             alt="album img"
           />
-          <h2 className="text-h3">{tracks[0].title}</h2>
+          <h2 className="text-h3">{topTracks[0].title}</h2>
           <div className="flex items-center">
-            {tracks[0].isExplicit && <ExplicitLabel />}
+            {topTracks[0].isExplicit && <ExplicitLabel />}
             <p className="text-h5">
               <span className="text-txtGrey">Song - </span>
-              {tracks[0].artist}
+              {topTracks[0].artist}
             </p>
             <GreenPlayButton
-              track={tracks[0]}
+              track={topTracks[0]}
               className="absolute right-4 bottom-5 invisible group-hover:visible cursor-pointer"
             />
           </div>
@@ -37,7 +37,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
       <div className="grow">
         <h4 className="text-h4 mb-4 ml-2">Songs</h4>
         <ul className="w-full">
-          {tracks.map((track: Track, idx: number) => {
+          {topTracks.map((track: Track, idx: number) => {
             return (
               <li
                 className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md relative group"
