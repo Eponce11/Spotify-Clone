@@ -10,7 +10,7 @@ export interface Track {
 }
 
 export interface Artist {
-  artistUrl: string;
+  artistUrl: string | null;
   name: string;
   type: ItemType;
 }

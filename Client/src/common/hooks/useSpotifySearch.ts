@@ -54,9 +54,9 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
     }
 
     if (res.body.hasOwnProperty("artists")) {
-      const filteredArtists = res.body.albums?.items.map((artist): Artist => {
+      const filteredArtists = res.body.artists?.items.map((artist): Artist => {
         return {
-          artistUrl: artist.images[0].url,
+          artistUrl: artist.images.length > 0 ? artist.images[0].url : null,
           name: artist.name,
           type: artist.type,
         };

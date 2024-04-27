@@ -2,7 +2,7 @@ import type { Track } from "../types";
 import { ExplicitLabel, GreenPlayButton } from "./";
 import { usePlayTracks } from "../../../common/hooks";
 interface SearchTopResultsProps {
-  tracks: Track[];
+  tracks: Track[] ;
 }
 
 const SearchTopResults = (props: SearchTopResultsProps) => {
