@@ -13,6 +13,7 @@ import SearchResultsRow from "./SearchResultsRow";
 import BottomPlaybar from "./BottomPlaybar";
 import ExplicitLabel from "./ExplicitLabel";
 import GreenPlayButton from "./GreenPlayButton";
+import MainViewContentWrapper from "./MainViewContentWrapper";
 
 export {
   LibrarySidebar,
@@ -30,4 +31,5 @@ export {
   BottomPlaybar,
   ExplicitLabel,
   GreenPlayButton,
+  MainViewContentWrapper,
 };

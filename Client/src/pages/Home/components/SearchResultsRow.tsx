@@ -10,7 +10,7 @@ interface SearchResultsRowProps {
 const SearchResultsRow = (props: SearchResultsRowProps) => {
   const { rowType, data } = props;
 
-  const topData = data.slice(0, 6);
+  const topData = data.slice(0, 10);
 
   let content;
   let sectionTitle;
@@ -88,9 +88,7 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
   return (
     <section className="w-full px-6 text-white mt-12">
       <h4 className="text-h4 mb-4">{sectionTitle}</h4>
-      <ul
-        className={`w-full grid grid-cols-[repeat(4,_minmax(170px,_1fr))] gap-3`}
-      >
+      <ul className="w-full grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] grid-rows-[repeat(1,_1fr)] gap-x-3 auto-rows-[0] overflow-hidden">
         {content}
       </ul>
     </section>
@@ -98,23 +96,3 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
 };
 
 export default SearchResultsRow;
-//h-[186px]
-
-/*
-{rowType === "ARTISTS" &&
-          topData.map((artist: any, idx: number) => (
-            <li className="flex flex-col gap-3 p-3 bg-[green] rounded-lg ">
-              {artist.artistUrl ? (
-                <img
-                  src={artist.artistUrl}
-                  alt=""
-                  className="aspect-square w-full rounded-full"
-                />
-              ) : (
-                <div className="aspect-square w-full rounded-full bg-[blue]" />
-              )}
-              <h5 className="text-h5">{artist.name}</h5>
-              <p className="text-h6 text-txtGrey">Artist</p>
-            </li>
-          ))}
-          */

@@ -6,7 +6,7 @@ interface MainViewContainerProps {
 
 const MainViewContainer = (props: MainViewContainerProps) => {
   const { children } = props;
-  return <div className="grow shrink basis-0 bg-darkGrey relative overflow-y-auto">{children}</div>;
+  return <div className="grow bg-darkGrey relative">{children}</div>;
 };
 
 export default MainViewContainer;

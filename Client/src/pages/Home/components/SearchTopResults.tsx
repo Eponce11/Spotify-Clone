@@ -11,7 +11,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
   const topTracks = tracks.slice(0, 4);
 
   return (
-    <section className="w-full px-6 mt-20 text-white flex gap-3">
+    <section className="w-full px-6 mt-4 text-white flex gap-3">
       <div className="relative group">
         <h4 className="text-h4 mb-4">Top Result</h4>
         <div className="w-[400px] bg-secondaryLightGrey rounded-lg p-5 flex flex-col gap-4 hover:bg-hoverLightGrey">

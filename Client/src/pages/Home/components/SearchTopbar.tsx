@@ -23,7 +23,7 @@ const SearchTopbar = (props: SearchTopbarProps) => {
   }, [search]);
 
   return (
-    <nav className="w-full h-16 flex justify-between items-center px-6 rounded-t-md absolute">
+    <nav className="w-full h-16 flex justify-between items-center px-6 rounded-t-md">
       <div className="flex gap-2 items-center">
         <div className="h-8 w-8 bg-secondaryBlack rounded-full cursor-pointer" />
         <div className="h-8 w-8 bg-secondaryBlack rounded-full cursor-pointer" />
