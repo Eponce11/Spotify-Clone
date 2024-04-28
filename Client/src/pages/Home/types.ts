@@ -17,10 +17,11 @@ export interface Artist {
 
 export interface Album {
   type: ItemType;
-  artists: any[];
+  artist: string;
   albumUrl: string;
   name: string;
   uri: string;
+  releaseDate: string;
 }
 export interface SearchResult {
   tracks?: Track[];

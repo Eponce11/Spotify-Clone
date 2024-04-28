@@ -14,6 +14,8 @@ import BottomPlaybar from "./BottomPlaybar";
 import ExplicitLabel from "./ExplicitLabel";
 import GreenPlayButton from "./GreenPlayButton";
 import MainViewContentWrapper from "./MainViewContentWrapper";
+import AlbumSearchResultCard from "./AlbumSearchResultCard";
+import ArtistSearchResultCard from "./ArtistSearchResultCard";
 
 export {
   LibrarySidebar,
@@ -32,4 +34,6 @@ export {
   ExplicitLabel,
   GreenPlayButton,
   MainViewContentWrapper,
+  AlbumSearchResultCard,
+  ArtistSearchResultCard,
 };

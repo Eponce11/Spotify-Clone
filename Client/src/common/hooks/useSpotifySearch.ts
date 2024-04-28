@@ -1,5 +1,6 @@
 import { spotifyApi } from "../constants";
-import { convertMillisToMinutes } from "../utils/convertMillisToMinutes";
+import { convertMillisToMinutes, getArtistNames } from "../utils";
+
 import type {
   Track,
   Artist,
@@ -27,8 +28,9 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
 
     if (res.body.hasOwnProperty("tracks")) {
       const filteredTracks = res.body.tracks?.items.map((track): Track => {
+        const artistNames = getArtistNames(track.artists);
         return {
-          artist: track.artists[0].name,
+          artist: artistNames,
           title: track.name,
           uri: track.uri,
           albumUrl: track.album.images[0].url,
@@ -42,12 +44,14 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
 
     if (res.body.hasOwnProperty("albums")) {
       const filteredAlbums = res.body.albums?.items.map((album): Album => {
+        const artistNames = getArtistNames(album.artists);
         return {
           type: album.type,
-          artists: album.artists,
+          artist: artistNames,
           albumUrl: album.images[0].url,
           name: album.name,
           uri: album.uri,
+          releaseDate: album.release_date.split("-")[0],
         };
       });
       if (filteredAlbums) searchResult.albums = [...filteredAlbums];
