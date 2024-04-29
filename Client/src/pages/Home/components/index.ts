@@ -16,6 +16,7 @@ import GreenPlayButton from "./GreenPlayButton";
 import MainViewContentWrapper from "./MainViewContentWrapper";
 import AlbumSearchResultCard from "./AlbumSearchResultCard";
 import ArtistSearchResultCard from "./ArtistSearchResultCard";
+import PlaylistSearchResultCard from "./PlaylistSearchResultCard";
 
 export {
   LibrarySidebar,
@@ -36,4 +37,5 @@ export {
   MainViewContentWrapper,
   AlbumSearchResultCard,
   ArtistSearchResultCard,
+  PlaylistSearchResultCard,
 };

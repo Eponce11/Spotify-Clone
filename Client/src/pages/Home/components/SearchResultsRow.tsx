@@ -1,11 +1,14 @@
-import type { Album, Artist } from "../types";
-import { AlbumSearchResultCard, ArtistSearchResultCard } from "./";
-import {} from "../../../common/utils/getArtistNames";
+import type { Album, Artist, Playlist } from "../types";
+import {
+  AlbumSearchResultCard,
+  ArtistSearchResultCard,
+  PlaylistSearchResultCard,
+} from "./";
 
 type RowType = "ALBUMS" | "ARTISTS" | "PLAYLISTS";
 interface SearchResultsRowProps {
   rowType: RowType;
-  data: Album[] | Artist[];
+  data: Album[] | Artist[] | Playlist[];
 }
 
 const SearchResultsRow = (props: SearchResultsRowProps) => {
@@ -31,6 +34,9 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
       break;
     case "PLAYLISTS":
       sectionTitle = "Playlists";
+      content = topData.map((playlist: any, idx: number) => {
+        return <PlaylistSearchResultCard playlist={playlist} idx={idx}/>;
+      });
       break;
   }
 

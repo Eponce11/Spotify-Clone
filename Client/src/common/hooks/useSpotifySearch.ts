@@ -67,6 +67,20 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
       });
       if (filteredArtists) searchResult.artists = [...filteredArtists];
     }
+    
+    if (res.body.hasOwnProperty("playlists")) {
+      const filteredPlaylists = res.body.playlists?.items.map((playlist): any => {
+        return {
+          description: playlist.description,
+          id: playlist.id,
+          playlistUrl: playlist.images[0].url,
+          name: playlist.name,
+          owner: playlist.owner.display_name,
+          type: playlist.type
+        }
+      })
+      if (filteredPlaylists) searchResult.playlists = [...filteredPlaylists]
+    }
 
     return searchResult;
   };

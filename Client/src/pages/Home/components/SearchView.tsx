@@ -26,10 +26,15 @@ const SearchView = () => {
           <SearchResultsRow rowType="ALBUMS" data={searchResults.albums} />
         )}
         {!searchResults.artists || searchResults.artists.length === 0 ? (
-        <></>
-      ) : (
-        <SearchResultsRow rowType="ARTISTS" data={searchResults.artists} />
-      )}
+          <></>
+        ) : (
+          <SearchResultsRow rowType="ARTISTS" data={searchResults.artists} />
+        )}
+        {!searchResults.playlists || searchResults.playlists.length === 0 ? (
+          <></>
+        ) : (
+          <SearchResultsRow rowType="PLAYLISTS" data={searchResults.playlists} />
+        )}
       </MainViewContentWrapper>
     </MainViewContainer>
   );

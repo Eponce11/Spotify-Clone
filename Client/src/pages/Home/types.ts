@@ -23,8 +23,18 @@ export interface Album {
   uri: string;
   releaseDate: string;
 }
+
+export interface Playlist {
+  description: string;
+  id: string;
+  playlistUrl: string;
+  name: string;
+  owner: string;
+  type: ItemType;
+}
 export interface SearchResult {
   tracks?: Track[];
-  artists?: any[];
-  albums?: any[];
+  artists?: Artist[];
+  albums?: Album[];
+  playlists?: Playlist[];
 }
