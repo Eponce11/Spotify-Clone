@@ -1,4 +1,4 @@
-import type { Album, Artist, Playlist } from "../types";
+import type { SearchAlbum, SearchArtist, SearchPlaylist } from "../types";
 import {
   AlbumSearchResultCard,
   ArtistSearchResultCard,
@@ -8,7 +8,7 @@ import {
 type RowType = "ALBUMS" | "ARTISTS" | "PLAYLISTS";
 interface SearchResultsRowProps {
   rowType: RowType;
-  data: Album[] | Artist[] | Playlist[];
+  data: SearchAlbum[] | SearchArtist[] | SearchPlaylist[];
 }
 
 const SearchResultsRow = (props: SearchResultsRowProps) => {
@@ -28,14 +28,14 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
       break;
     case "ALBUMS":
       sectionTitle = "Albums";
-      content = topData.map((album: any, idx: number) => {
-        return <AlbumSearchResultCard album={album} idx={idx} />;
+      content = topData.map((album: any) => {
+        return <AlbumSearchResultCard album={album} />;
       });
       break;
     case "PLAYLISTS":
       sectionTitle = "Playlists";
       content = topData.map((playlist: any, idx: number) => {
-        return <PlaylistSearchResultCard playlist={playlist} idx={idx}/>;
+        return <PlaylistSearchResultCard playlist={playlist} idx={idx} />;
       });
       break;
   }

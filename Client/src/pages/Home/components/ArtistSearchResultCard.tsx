@@ -1,7 +1,7 @@
-import type { Artist } from "../types";
+import type { SearchArtist } from "../types";
 
 interface ArtistSearchResultCardProps {
-  artist: Artist;
+  artist: SearchArtist;
   idx: number;
 }
 
@@ -21,8 +21,12 @@ const ArtistSearchResultCard = (props: ArtistSearchResultCardProps) => {
       ) : (
         <div className="aspect-square w-full rounded-full bg-[blue]" />
       )}
-      <h5 className="text-h5 text-nowrap overflow-hidden text-ellipsis">{artist.name}</h5>
-      <p className="text-h6 text-txtGrey text-nowrap overflow-hidden text-ellipsis">Artist</p>
+      <h5 className="text-h5 text-nowrap overflow-hidden text-ellipsis">
+        {artist.name}
+      </h5>
+      <p className="text-h6 text-txtGrey text-nowrap overflow-hidden text-ellipsis">
+        Artist
+      </p>
     </li>
   );
 };

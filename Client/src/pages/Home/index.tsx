@@ -16,7 +16,7 @@ const Home = () => {
       <LibrarySidebar />
         <Routes>
           <Route path="/search" element={<SearchView />} />
-          <Route path="/*" element={<CollectionView />} />
+          <Route path="/album/:_collectionId" element={<CollectionView />} />
         </Routes>
       </div>
       <BottomPlaybar />
