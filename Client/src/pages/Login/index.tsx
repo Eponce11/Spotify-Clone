@@ -1,5 +1,6 @@
+import { SpotifyLogin } from "./components";
 const Login = () => {
-  return <div>Login</div>;
+  return <SpotifyLogin />;
 };
 
 export default Login;
