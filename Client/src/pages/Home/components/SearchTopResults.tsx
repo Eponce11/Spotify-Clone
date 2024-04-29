@@ -11,7 +11,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
   const topTracks = tracks.slice(0, 4);
 
   return (
-    <section className="w-full px-6 mt-4 text-white flex gap-3">
+    <section className="w-full px-6 mt-4 mb-12 text-white flex gap-3">
       <div className="relative group">
         <h4 className="text-h4 mb-4">Top Result</h4>
         <div className="w-[400px] bg-secondaryLightGrey rounded-lg p-5 flex flex-col gap-4 hover:bg-hoverLightGrey">
@@ -20,10 +20,10 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
             className="h-[92px] w-[92px] rounded-md"
             alt="album img"
           />
-          <h2 className="text-h3">{topTracks[0].title}</h2>
+          <h2 className="text-h3 text-nowrap overflow-hidden text-ellipsis">{topTracks[0].title}</h2>
           <div className="flex items-center">
             {topTracks[0].isExplicit && <ExplicitLabel />}
-            <p className="text-h5">
+            <p className="text-h5 text-nowrap overflow-hidden text-ellipsis">
               <span className="text-txtGrey">Song - </span>
               {topTracks[0].artist}
             </p>
@@ -49,11 +49,11 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
                     alt="track img"
                     className="h-10 w-10 rounded mr-3 "
                   />
-                  <div className="flex flex-col justify-center">
-                    <h5 className="text-h5 mb-1 text-white">{track.title}</h5>
+                  <div className="flex flex-col justify-center overflow-hidden">
+                    <h5 className="text-h5 mb-1 text-white text-nowrap overflow-hidden text-ellipsis">{track.title}</h5>
                     <div className="flex items-center">
                       {track.isExplicit && <ExplicitLabel />}
-                      <span className="text-h6">{track.artist}</span>
+                      <span className="text-h6 text-nowrap overflow-hidden text-ellipsis">{track.artist}</span>
                     </div>
                   </div>
                 </div>

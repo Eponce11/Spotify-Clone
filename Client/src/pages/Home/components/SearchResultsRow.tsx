@@ -41,7 +41,7 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
   }
 
   return (
-    <section className="w-full px-6 text-white mt-12">
+    <section className="w-full px-6 text-white mb-12">
       <h4 className="text-h4 mb-3 ml-3">{sectionTitle}</h4>
       <ul className="w-full grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] grid-rows-[repeat(1,_1fr)] auto-rows-[0] overflow-hidden">
         {content}

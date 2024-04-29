@@ -37,8 +37,8 @@ const PlaylistSearchResultCard = (props: PlaylistSearchResultCardProps) => {
       ) : (
         <div className="aspect-square w-full rounded-md bg-[blue]" />
       )}
-      <h5 className="text-h5">{playlist.name}</h5>
-      <p className="text-h6 text-txtGrey">By {playlist.owner}</p>
+      <h5 className="text-h5 text-nowrap overflow-hidden text-ellipsis">{playlist.name}</h5>
+      <p className="text-h6 text-txtGrey text-nowrap overflow-hidden text-ellipsis">By {playlist.owner}</p>
     </li>
   );
 };

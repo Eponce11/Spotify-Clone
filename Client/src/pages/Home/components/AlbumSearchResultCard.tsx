@@ -38,8 +38,8 @@ const AlbumSearchResultCard = (props: AlbumSearchResultCardProps) => {
       ) : (
         <div className="aspect-square w-full rounded-md bg-[blue]" />
       )}
-      <h5 className="text-h5">{album.name}</h5>
-      <p className="text-h6 text-txtGrey">
+      <h5 className="text-h5 text-nowrap overflow-hidden text-ellipsis">{album.name}</h5>
+      <p className="text-h6 text-txtGrey text-nowrap overflow-hidden text-ellipsis">
         {album.releaseDate} - {album.artist}
       </p>
     </li>
