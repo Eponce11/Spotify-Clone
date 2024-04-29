@@ -1,4 +1,4 @@
-import type { SearchAlbum, SearchArtist, SearchPlaylist } from "../types";
+import type { Album, Artist, Playlist } from "../types";
 import {
   AlbumSearchResultCard,
   ArtistSearchResultCard,
@@ -8,7 +8,7 @@ import {
 type RowType = "ALBUMS" | "ARTISTS" | "PLAYLISTS";
 interface SearchResultsRowProps {
   rowType: RowType;
-  data: SearchAlbum[] | SearchArtist[] | SearchPlaylist[];
+  data: Album[] | Artist[] | Playlist[];
 }
 
 const SearchResultsRow = (props: SearchResultsRowProps) => {

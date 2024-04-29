@@ -2,9 +2,10 @@ import { spotifyApi } from "../constants";
 import { convertMillisToMinutes, getArtistNames } from "../utils";
 
 import type {
-  SearchTrack,
-  SearchArtist,
-  SearchAlbum,
+  Track,
+  Artist,
+  Album,
+  Playlist,
   SearchResult,
 } from "../../pages/Home/types";
 
@@ -28,7 +29,7 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
 
     if (res.body.hasOwnProperty("tracks")) {
       const filteredTracks = res.body.tracks?.items.map(
-        (track): SearchTrack => {
+        (track): Track => {
           const artistNames = getArtistNames(track.artists);
           return {
             artist: artistNames,
@@ -46,7 +47,7 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
 
     if (res.body.hasOwnProperty("albums")) {
       const filteredAlbums = res.body.albums?.items.map(
-        (album): SearchAlbum => {
+        (album): Album => {
           const artistNames = getArtistNames(album.artists);
           return {
             type: album.type,
@@ -64,7 +65,7 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
 
     if (res.body.hasOwnProperty("artists")) {
       const filteredArtists = res.body.artists?.items.map(
-        (artist): SearchArtist => {
+        (artist): Artist => {
           return {
             artistUrl: artist.images.length > 0 ? artist.images[0].url : null,
             name: artist.name,
@@ -77,7 +78,7 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
 
     if (res.body.hasOwnProperty("playlists")) {
       const filteredPlaylists = res.body.playlists?.items.map(
-        (playlist): any => {
+        (playlist): Playlist => {
           return {
             description: playlist.description,
             id: playlist.id,

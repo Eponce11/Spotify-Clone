@@ -1,8 +1,8 @@
-import type { SearchPlaylist } from "../types";
+import type { Playlist } from "../types";
 import { GreenPlayButton } from "./";
 
 interface PlaylistSearchResultCardProps {
-  playlist: SearchPlaylist;
+  playlist: Playlist;
   idx: number;
 }
 

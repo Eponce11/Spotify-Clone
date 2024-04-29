@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import type { SearchAlbum } from "../types";
+import type { Album } from "../types";
 import { GreenPlayButton } from "./";
 
 interface AlbumSearchResultCardProps {
-  album: SearchAlbum;
+  album: Album;
 }
 
 const AlbumSearchResultCard = (props: AlbumSearchResultCardProps) => {

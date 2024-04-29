@@ -1,8 +1,8 @@
-import type { SearchTrack } from "../types";
+import type { Track } from "../types";
 import { ExplicitLabel, GreenPlayButton } from "./";
 import { usePlayTracks } from "../../../common/hooks";
 interface SearchTopResultsProps {
-  tracks: SearchTrack[];
+  tracks: Track[];
 }
 
 const SearchTopResults = (props: SearchTopResultsProps) => {
@@ -39,7 +39,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
       <div className="grow">
         <h4 className="text-h4 mb-4 ml-2">Songs</h4>
         <ul className="w-full">
-          {topTracks.map((track: SearchTrack, idx: number) => {
+          {topTracks.map((track: Track, idx: number) => {
             return (
               <li
                 className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md relative group"

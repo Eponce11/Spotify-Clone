@@ -1,5 +1,5 @@
 type ItemType = "artist" | "album" | "playlist" | "track";
-export interface SearchTrack {
+export interface Track {
   artist: string;
   title: string;
   albumUrl: string;
@@ -9,13 +9,13 @@ export interface SearchTrack {
   type: ItemType;
 }
 
-export interface SearchArtist {
+export interface Artist {
   artistUrl: string | null;
   name: string;
   type: ItemType;
 }
 
-export interface SearchAlbum {
+export interface Album {
   type: ItemType;
   artist: string;
   albumUrl: string;
@@ -25,17 +25,17 @@ export interface SearchAlbum {
   id: string;
 }
 
-export interface SearchPlaylist {
-  description: string;
+export interface Playlist {
+  description: string | null;
   id: string;
   playlistUrl: string;
   name: string;
-  owner: string;
+  owner: string | undefined;
   type: ItemType;
 }
 export interface SearchResult {
-  tracks?: SearchTrack[];
-  artists?: SearchArtist[];
-  albums?: SearchAlbum[];
-  playlists?: SearchPlaylist[];
+  tracks?: Track[];
+  artists?: Artist[];
+  albums?: Album[];
+  playlists?: Playlist[];
 }

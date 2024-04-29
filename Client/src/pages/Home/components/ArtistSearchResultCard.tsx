@@ -1,7 +1,7 @@
-import type { SearchArtist } from "../types";
+import type { Artist } from "../types";
 
 interface ArtistSearchResultCardProps {
-  artist: SearchArtist;
+  artist: Artist;
   idx: number;
 }
 
