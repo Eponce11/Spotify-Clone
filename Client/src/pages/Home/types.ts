@@ -23,6 +23,8 @@ export interface Album {
   uri: string;
   releaseDate: string;
   id: string;
+  totalTracks?: number;
+  tracks?: Track[];
 }
 
 export interface Playlist {

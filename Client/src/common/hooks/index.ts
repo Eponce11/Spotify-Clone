@@ -5,6 +5,7 @@ import usePlayNextTrack from "./usePlayNextTrack";
 import usePlayPreviousTrack from "./usePlayPreviousTrack";
 import useSpotifySearch from "./useSpotifySearch";
 import useSpotifySearchById from "./useSpotifySearchById";
+import useFilterResponse from "./useFilterResponse";
 
 export {
   useSpotifyRefreshToken,
@@ -14,4 +15,5 @@ export {
   usePlayPreviousTrack,
   useSpotifySearch,
   useSpotifySearchById,
+  useFilterResponse,
 };
