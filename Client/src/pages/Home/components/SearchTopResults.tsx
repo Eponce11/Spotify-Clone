@@ -1,6 +1,7 @@
 import type { Track } from "../types";
 import { ExplicitLabel, GreenPlayButton } from "./";
 import { usePlayTracks } from "../../../common/hooks";
+import { FaPlay } from "react-icons/fa";
 interface SearchTopResultsProps {
   tracks: Track[];
 }
@@ -68,7 +69,9 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
                   className="absolute h-10 w-10 rounded bg-[rgba(0,0,0,0.5)] flex justify-center items-center invisible group-hover:visible cursor-pointer"
                   onClick={() => playTracks(track)}
                 >
-                  <span className="bg-[green] h-3 w-3 opacity-100" />
+                  <div className="opacity-100">
+                    <FaPlay size="12px" />
+                  </div>
                 </div>
               </li>
             );

@@ -1,3 +1,4 @@
+import { FaList } from "react-icons/fa6";
 
 const CollectionPlaybar = () => {
   return (
@@ -5,7 +6,7 @@ const CollectionPlaybar = () => {
       <div className="h-14 aspect-square rounded-full bg-lightGreen" />
       <div className="flex">
         <span className="text-h6 mr-3">List</span>
-        <div className="bg-[red] h-4 aspect-square" />
+        <FaList />
       </div>
     </section>
   )

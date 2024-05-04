@@ -1,5 +1,7 @@
 import type { Track } from "../types";
+import { FaPlay } from "react-icons/fa";
 import { ExplicitLabel } from "./";
+import { useState } from "react";
 interface CollectionPlaylistProps {
   tracks: Track[];
 }
@@ -9,10 +11,17 @@ const CollectionPlaylist = (props: CollectionPlaylistProps) => {
   return (
     <ul className="w-full px-6 text-txtGrey text-h5 mb-5">
       {tracks.map((track: Track, idx: number) => {
-        return (
-          <li className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md">
-            <div className="w-[50px] px-4">{idx + 1}</div>
+        const [isHover, setIsHover] = useState(false);
 
+        return (
+          <li
+            className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md"
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+          >
+            <div className="w-[50px] px-4">
+              {isHover ? <FaPlay /> : idx + 1}
+            </div>
             <div className="flex grow items-center">
               <div className="flex flex-col gap-1 justify-center py-1">
                 <span className="text-h5 text-white">{track.title}</span>
