@@ -38,7 +38,7 @@ const CollectionView = () => {
         <CollectionHeader data={currentData} />
         <CollectionPlaybar />
         <CollectionListHeader />
-        <CollectionPlaylist tracks={currentData.tracks} />
+        <CollectionPlaylist data={currentData} />
       </MainViewContentWrapper>
     </MainViewContainer>
   );

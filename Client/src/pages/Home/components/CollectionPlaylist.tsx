@@ -1,25 +1,29 @@
-import type { Track } from "../types";
+import type { Album, Track } from "../types";
 import { FaPlay } from "react-icons/fa";
 import { ExplicitLabel } from "./";
 import { useState } from "react";
+import { usePlayTracks } from "../../../common/hooks";
 interface CollectionPlaylistProps {
-  tracks: Track[];
+  data: Album;
 }
 
 const CollectionPlaylist = (props: CollectionPlaylistProps) => {
-  const { tracks } = props;
+  const { data } = props;
+  const { playTracks } = usePlayTracks();
   return (
     <ul className="w-full px-6 text-txtGrey text-h5 mb-5">
-      {tracks.map((track: Track, idx: number) => {
+      {data.tracks?.map((track: Track, idx: number) => {
         const [isHover, setIsHover] = useState(false);
-
         return (
           <li
             className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
           >
-            <div className="w-[50px] px-4">
+            <div
+              className="w-[50px] px-4 cursor-pointer"
+              onClick={() => playTracks(data, idx)}
+            >
               {isHover ? <FaPlay /> : idx + 1}
             </div>
             <div className="flex grow items-center">
