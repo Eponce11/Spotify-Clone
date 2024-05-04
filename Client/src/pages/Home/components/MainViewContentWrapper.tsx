@@ -2,12 +2,13 @@ import React from "react";
 
 interface MainViewContentWrapperProps {
   children: React.ReactNode;
+  isCollectionView: boolean;
 }
 
 const MainViewContentWrapper = (props: MainViewContentWrapperProps) => {
-  const { children } = props;
+  const { children, isCollectionView } = props;
   return (
-    <div className="top-16 absolute overflow-y-auto bottom-0 w-full">{children}</div>
+    <div className={`${isCollectionView ? 'top-0' : 'top-16'} absolute overflow-y-auto bottom-0 w-full`}>{children}</div>
   );
 };
 

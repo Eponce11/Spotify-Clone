@@ -1,9 +1,40 @@
-const CollectionPlaylist = () => {
-  const songs = new Array(4).fill(0);
+import type { Track } from "../types";
+import { ExplicitLabel } from "./";
+interface CollectionPlaylistProps {
+  tracks: Track[];
+}
 
+const CollectionPlaylist = (props: CollectionPlaylistProps) => {
+  const { tracks } = props;
   return (
-    <ul className="w-full px-6 h-[100px] text-txtGrey text-h5">
-      {songs.map((song: any, idx: number) => {
+    <ul className="w-full px-6 text-txtGrey text-h5 mb-5">
+      {tracks.map((track: Track, idx: number) => {
+        return (
+          <li className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md">
+            <div className="w-[50px] px-4">{idx + 1}</div>
+
+            <div className="flex grow items-center">
+              <div className="flex flex-col gap-1 justify-center py-1">
+                <span className="text-h5 text-white">{track.title}</span>
+                <div className="flex">
+                  {track.isExplicit && <ExplicitLabel />}
+                  <span className="text-h6">{track.artist}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-16 pr-8 text-right">{track.duration}</div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+export default CollectionPlaylist;
+
+/*
+{tracks.map((track: Track, idx: number) => {
         return (
           <li className="flex items-center py-2 hover:bg-hoverLightGrey">
             <div className="w-[50px] px-4">{idx + 1}</div>
@@ -24,8 +55,4 @@ const CollectionPlaylist = () => {
           </li>
         );
       })}
-    </ul>
-  );
-};
-
-export default CollectionPlaylist;
+      */

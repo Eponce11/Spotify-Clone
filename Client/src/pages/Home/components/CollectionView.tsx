@@ -8,24 +8,38 @@ import {
   CollectionPlaybar,
   CollectionListHeader,
   CollectionPlaylist,
+  MainViewContentWrapper,
 } from "./";
 
 const CollectionView = () => {
   const { _collectionId } = useParams();
-  const [currentData, setCurrentData] = useState();
+  const [currentData, setCurrentData] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { spotifySearchById } = useSpotifySearchById();
   useEffect(() => {
     if (!_collectionId) return;
-    spotifySearchById(_collectionId);
+    setIsLoading(true);
+    const fetchData = async (): Promise<void> => {
+      const res = await spotifySearchById(_collectionId);
+      setCurrentData(res);
+      setIsLoading(false);
+    };
+    fetchData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <MainViewContainer>
+      <></>
+    </MainViewContainer>
+  ) : (
     <MainViewContainer>
       <CollectionTopbar />
-      <CollectionHeader />
-      <CollectionPlaybar />
-      <CollectionListHeader />
-      <CollectionPlaylist />
+      <MainViewContentWrapper isCollectionView={true}>
+        <CollectionHeader data={currentData} />
+        <CollectionPlaybar />
+        <CollectionListHeader />
+        <CollectionPlaylist tracks={currentData.tracks} />
+      </MainViewContentWrapper>
     </MainViewContainer>
   );
 };
