@@ -27,6 +27,10 @@ export interface Album {
   tracks?: Track[];
 }
 
+export const isInstanceOfAlbum = (object: any): object is Album => {
+  return object.type === "album";
+};
+
 export interface Playlist {
   description: string | null;
   id: string;

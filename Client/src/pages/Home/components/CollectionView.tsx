@@ -36,7 +36,7 @@ const CollectionView = () => {
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
         <CollectionHeader data={currentData} />
-        <CollectionPlaybar />
+        <CollectionPlaybar data={currentData} />
         <CollectionListHeader />
         <CollectionPlaylist data={currentData} />
       </MainViewContentWrapper>

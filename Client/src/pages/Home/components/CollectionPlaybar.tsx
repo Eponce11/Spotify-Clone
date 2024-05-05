@@ -1,15 +1,23 @@
 import { FaList } from "react-icons/fa6";
+import type { Album } from "../types";
+import { GreenPlayButton } from "./";
 
-const CollectionPlaybar = () => {
+interface CollectionPlaybarProps {
+  data: Album;
+}
+
+const CollectionPlaybar = (props: CollectionPlaybarProps) => {
+  const { data } = props;
+
   return (
     <section className="p-6 h-[100px] w-full flex items-center text-txtGrey justify-between">
-      <div className="h-14 aspect-square rounded-full bg-lightGreen" />
+      <GreenPlayButton track={data} />
       <div className="flex">
         <span className="text-h6 mr-3">List</span>
         <FaList />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CollectionPlaybar
+export default CollectionPlaybar;

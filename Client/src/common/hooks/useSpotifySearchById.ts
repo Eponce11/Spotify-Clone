@@ -11,9 +11,7 @@ const useSpotifySearchById = (): UseSpotifySearchByIdReturn => {
   const { filterAlbum } = useFilterResponse();
   const spotifySearchById = async (id: string): Promise<SpotifySearchByIdReturn> => {
     const res = await spotifyApi.getAlbum(id);
-    console.log(res);
-
-    if (res.body.album_type === "album") {
+    if (res.body.type === "album") {
       const filteredAlbum = filterAlbum([res.body]);
       console.log(filteredAlbum);
       return filteredAlbum[0];
