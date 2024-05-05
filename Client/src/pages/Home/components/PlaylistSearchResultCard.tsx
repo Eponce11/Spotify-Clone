@@ -1,23 +1,27 @@
 import type { Playlist } from "../types";
 import { GreenPlayButton } from "./";
+import { useNavigate } from "react-router-dom";
 
 interface PlaylistSearchResultCardProps {
   playlist: Playlist;
-  idx: number;
 }
 
 const PlaylistSearchResultCard = (props: PlaylistSearchResultCardProps) => {
-  const { playlist, idx } = props;
+  const { playlist } = props;
+
+  const navigate = useNavigate();
+  
   return (
     <li
       className="flex flex-col gap-3 p-3 rounded-lg group hover:bg-secondaryLightGrey"
-      key={idx}
+      key={playlist.id}
+      onClick={() => navigate(`/home/playlist/${playlist.id}`)}
     >
       {playlist.playlistUrl ? (
         <div className="relative">
           <img
             src={playlist.playlistUrl}
-            alt=""
+            alt="playlist img"
             className="aspect-square w-full rounded-md"
           />
           <GreenPlayButton

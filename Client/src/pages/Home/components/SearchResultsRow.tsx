@@ -34,8 +34,8 @@ const SearchResultsRow = (props: SearchResultsRowProps) => {
       break;
     case "PLAYLISTS":
       sectionTitle = "Playlists";
-      content = topData.map((playlist: any, idx: number) => {
-        return <PlaylistSearchResultCard playlist={playlist} idx={idx} />;
+      content = topData.map((playlist: any) => {
+        return <PlaylistSearchResultCard playlist={playlist} />;
       });
       break;
   }
