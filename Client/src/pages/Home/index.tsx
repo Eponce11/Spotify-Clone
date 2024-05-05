@@ -3,6 +3,7 @@ import {
   LibrarySidebar,
   AlbumView,
   SearchView,
+  PlaylistView,
   BottomPlaybar,
 } from "./components";
 import { useSpotifyRefreshToken } from "../../common/hooks";
@@ -13,11 +14,11 @@ const Home = () => {
   return (
     <div className="w-full h-full bg-black p-2 flex flex-col">
       <div className="flex grow gap-2">
-      <LibrarySidebar />
+        <LibrarySidebar />
         <Routes>
           <Route path="/search" element={<SearchView />} />
-          <Route path="/album/:_collectionId" element={<AlbumView />} />
-          <Route path="/playlist/:_collectionId" element={<AlbumView />} />
+          <Route path="/album/:_albumId" element={<AlbumView />} />
+          <Route path="/playlist/:_playlistId" element={<PlaylistView />} />
         </Routes>
       </div>
       <BottomPlaybar />

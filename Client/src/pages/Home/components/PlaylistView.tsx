@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import type { Playlist } from "../types";
 import { useSpotifySearchById } from "../../../common/hooks";
-import { Album } from "../types";
 import {
   MainViewContainer,
-  AlbumHeader,
   CollectionTopbar,
+  MainViewContentWrapper,
+  PlaylistHeader,
   CollectionPlaybar,
   AlbumListHeader,
-  AlbumPlaylist,
-  MainViewContentWrapper,
+  PlaylistPlaylist,
+  PlaylistListHeader,
 } from ".";
 
-const AlbumView = () => {
-  const { _albumId } = useParams();
-  const [currentData, setCurrentData] = useState<Album | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const PlaylistView = () => {
+  const { _playlistId } = useParams();
+  const [currentData, setCurrentData] = useState<Playlist | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { spotifySearchById } = useSpotifySearchById();
   useEffect(() => {
-    if (!_albumId) return;
+    if (!_playlistId) return;
     setIsLoading(true);
     const fetchData = async (): Promise<void> => {
-      const res = await spotifySearchById(_albumId, "album");
-      setCurrentData(res);
-      setIsLoading(false);
+      const res = await spotifySearchById(_playlistId, "playlist");
+      console.log(res);
     };
     fetchData();
   }, []);
@@ -36,13 +36,13 @@ const AlbumView = () => {
     <MainViewContainer>
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
-        <AlbumHeader album={currentData} />
-        <CollectionPlaybar data={currentData} />
-        <AlbumListHeader />
-        <AlbumPlaylist album={currentData} />
+        <PlaylistHeader />
+        <PlaylistListHeader />
+        <PlaylistPlaylist />
       </MainViewContentWrapper>
     </MainViewContainer>
   );
 };
 
-export default AlbumView;
+export default PlaylistView;
+// <CollectionPlaybar data={} />

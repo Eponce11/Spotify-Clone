@@ -17,6 +17,10 @@ import MainViewContentWrapper from "./MainViewContentWrapper";
 import AlbumSearchResultCard from "./AlbumSearchResultCard";
 import ArtistSearchResultCard from "./ArtistSearchResultCard";
 import PlaylistSearchResultCard from "./PlaylistSearchResultCard";
+import PlaylistHeader from "./PlaylistHeader";
+import PlaylistListHeader from "./PlaylistListHeader";
+import PlaylistPlaylist from "./PlaylistPlaylist";
+import PlaylistView from "./PlaylistView";
 
 export {
   LibrarySidebar,
@@ -38,4 +42,8 @@ export {
   AlbumSearchResultCard,
   ArtistSearchResultCard,
   PlaylistSearchResultCard,
+  PlaylistHeader,
+  PlaylistListHeader,
+  PlaylistPlaylist,
+  PlaylistView,
 };
