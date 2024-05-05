@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import {
   LibrarySidebar,
-  CollectionView,
+  AlbumView,
   SearchView,
   BottomPlaybar,
 } from "./components";
@@ -16,8 +16,8 @@ const Home = () => {
       <LibrarySidebar />
         <Routes>
           <Route path="/search" element={<SearchView />} />
-          <Route path="/album/:_collectionId" element={<CollectionView />} />
-          <Route path="/playlist/:_collectionId" element={<CollectionView />} />
+          <Route path="/album/:_collectionId" element={<AlbumView />} />
+          <Route path="/playlist/:_collectionId" element={<AlbumView />} />
         </Routes>
       </div>
       <BottomPlaybar />

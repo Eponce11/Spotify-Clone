@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 import { useSpotifySearchById } from "../../../common/hooks";
 import {
   MainViewContainer,
-  CollectionHeader,
+  AlbumHeader,
   CollectionTopbar,
   CollectionPlaybar,
-  CollectionListHeader,
-  CollectionPlaylist,
+  AlbumListHeader,
+  AlbumPlaylist,
   MainViewContentWrapper,
-} from "./";
+} from ".";
 
 const CollectionView = () => {
   const { _collectionId } = useParams();
@@ -35,10 +35,10 @@ const CollectionView = () => {
     <MainViewContainer>
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
-        <CollectionHeader data={currentData} />
+        <AlbumHeader album={currentData} />
         <CollectionPlaybar data={currentData} />
-        <CollectionListHeader />
-        <CollectionPlaylist data={currentData} />
+        <AlbumListHeader />
+        <AlbumPlaylist album={currentData} />
       </MainViewContentWrapper>
     </MainViewContainer>
   );

@@ -1,6 +1,6 @@
 import type { Album, Track } from "../types";
 import { FaPlay, FaPause } from "react-icons/fa";
-import { ExplicitLabel } from "./";
+import { ExplicitLabel } from ".";
 import { useState } from "react";
 import { usePlayTracks, useTogglePlayback } from "../../../common/hooks";
 import { useAppSelector } from "../../../app/hooks";
@@ -8,12 +8,12 @@ import {
   selectSpotifyPlaybackCurrentTrack,
   selectSpotifyPlaybackIsPlaying,
 } from "../../../app/features/spotifyPlaybackSlice";
-interface CollectionPlaylistProps {
-  data: Album;
+interface AlbumPlaylistProps {
+  album: Album;
 }
 
-const CollectionPlaylist = (props: CollectionPlaylistProps) => {
-  const { data } = props;
+const AlbumPlaylist = (props: AlbumPlaylistProps) => {
+  const { album } = props;
   const { playTracks } = usePlayTracks();
   const { togglePlayback } = useTogglePlayback();
   const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
@@ -21,13 +21,14 @@ const CollectionPlaylist = (props: CollectionPlaylistProps) => {
 
   return (
     <ul className="w-full px-6 text-txtGrey text-h5 mb-5">
-      {data.tracks?.map((track: Track, idx: number) => {
+      {album.tracks?.map((track: Track, idx: number) => {
         const [isHover, setIsHover] = useState(false);
         return (
           <li
             className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
+            key={track.uri}
           >
             {track.uri === currentTrack?.uri && isPlaying ? (
               <div
@@ -38,12 +39,12 @@ const CollectionPlaylist = (props: CollectionPlaylistProps) => {
               </div>
             ) : (
               <div
-                className="w-[50px] px-4 cursor-pointer"
+                className="w-[50px] px-4 cursor-pointer ml-1"
                 onClick={() => {
                   if (track.uri === currentTrack?.uri) {
                     togglePlayback();
                   } else {
-                    playTracks(data, idx);
+                    playTracks(album, idx);
                   }
                 }}
               >
@@ -76,7 +77,7 @@ const CollectionPlaylist = (props: CollectionPlaylistProps) => {
   );
 };
 
-export default CollectionPlaylist;
+export default AlbumPlaylist;
 
 /*
 {tracks.map((track: Track, idx: number) => {

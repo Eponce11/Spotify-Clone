@@ -1,11 +1,11 @@
 import LibrarySidebar from "./LibrarySidebar";
 import MainViewContainer from "./MainViewContainer";
-import CollectionView from "./CollectionView";
-import CollectionHeader from "./CollectionHeader";
+import AlbumView from "./AlbumView";
+import AlbumHeader from "./AlbumHeader";
 import CollectionTopbar from "./CollectionTopbar";
 import CollectionPlaybar from "./CollectionPlaybar";
-import CollectionListHeader from "./CollectionListHeader";
-import CollectionPlaylist from "./CollectionPlaylist";
+import AlbumListHeader from "./AlbumListHeader";
+import AlbumPlaylist from "./AlbumPlaylist";
 import SearchView from "./SearchView";
 import SearchTopbar from "./SearchTopbar";
 import SearchTopResults from "./SearchTopResults";
@@ -21,12 +21,12 @@ import PlaylistSearchResultCard from "./PlaylistSearchResultCard";
 export {
   LibrarySidebar,
   MainViewContainer,
-  CollectionView,
-  CollectionHeader,
+  AlbumView,
+  AlbumHeader,
   CollectionTopbar,
   CollectionPlaybar,
-  CollectionListHeader,
-  CollectionPlaylist,
+  AlbumListHeader,
+  AlbumPlaylist,
   SearchView,
   SearchTopbar,
   SearchTopResults,
