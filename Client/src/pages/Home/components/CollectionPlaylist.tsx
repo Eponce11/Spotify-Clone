@@ -1,8 +1,13 @@
 import type { Album, Track } from "../types";
-import { FaPlay } from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 import { ExplicitLabel } from "./";
 import { useState } from "react";
-import { usePlayTracks } from "../../../common/hooks";
+import { usePlayTracks, useTogglePlayback } from "../../../common/hooks";
+import { useAppSelector } from "../../../app/hooks";
+import {
+  selectSpotifyPlaybackCurrentTrack,
+  selectSpotifyPlaybackIsPlaying,
+} from "../../../app/features/spotifyPlaybackSlice";
 interface CollectionPlaylistProps {
   data: Album;
 }
@@ -10,6 +15,10 @@ interface CollectionPlaylistProps {
 const CollectionPlaylist = (props: CollectionPlaylistProps) => {
   const { data } = props;
   const { playTracks } = usePlayTracks();
+  const { togglePlayback } = useTogglePlayback();
+  const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
+  const isPlaying = useAppSelector(selectSpotifyPlaybackIsPlaying);
+
   return (
     <ul className="w-full px-6 text-txtGrey text-h5 mb-5">
       {data.tracks?.map((track: Track, idx: number) => {
@@ -20,15 +29,38 @@ const CollectionPlaylist = (props: CollectionPlaylistProps) => {
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
           >
-            <div
-              className="w-[50px] px-4 cursor-pointer"
-              onClick={() => playTracks(data, idx)}
-            >
-              {isHover ? <FaPlay /> : idx + 1}
-            </div>
+            {track.uri === currentTrack?.uri && isPlaying ? (
+              <div
+                className="w-[50px] px-4 cursor-pointer"
+                onClick={() => togglePlayback()}
+              >
+                <FaPause />
+              </div>
+            ) : (
+              <div
+                className="w-[50px] px-4 cursor-pointer"
+                onClick={() => {
+                  if (track.uri === currentTrack?.uri) {
+                    togglePlayback();
+                  } else {
+                    playTracks(data, idx);
+                  }
+                }}
+              >
+                {isHover ? <FaPlay /> : idx + 1}
+              </div>
+            )}
             <div className="flex grow items-center">
               <div className="flex flex-col gap-1 justify-center py-1">
-                <span className="text-h5 text-white">{track.title}</span>
+                <span
+                  className={`text-h5 ${
+                    track.uri === currentTrack?.uri
+                      ? "text-lightGreen"
+                      : "text-white"
+                  }`}
+                >
+                  {track.title}
+                </span>
                 <div className="flex">
                   {track.isExplicit && <ExplicitLabel />}
                   <span className="text-h6">{track.artist}</span>

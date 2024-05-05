@@ -14,7 +14,7 @@ const initialState: SpotifyPlaybackState = {
   isPlaying: false,
   currentTrack: null,
   currentAlbum: null,
-  collectionTrackPosition: null
+  collectionTrackPosition: null,
 };
 
 const spotifyPlaybackSlice = createSlice({
@@ -45,5 +45,10 @@ export const selectSpotifyPlaybackIsPlaying = (state: RootState) =>
   state.spotifyPlayback.isPlaying;
 export const selectSpotifyPlaybackCurrentTrack = (state: RootState) =>
   state.spotifyPlayback.currentTrack;
+export const selectSpotifyPlaybackCurrentAlbum = (state: RootState) =>
+  state.spotifyPlayback.currentAlbum;
+export const selectSpotifyPlaybackCollectionTrackPosition = (
+  state: RootState
+) => state.spotifyPlayback.collectionTrackPosition;
 
 export default spotifyPlaybackSlice.reducer;
