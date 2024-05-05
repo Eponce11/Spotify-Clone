@@ -7,6 +7,7 @@ export interface Track {
   duration: string;
   isExplicit: boolean;
   type: ItemType;
+  dateAdded?: string;
 }
 
 export interface Artist {
@@ -38,6 +39,8 @@ export interface Playlist {
   name: string;
   owner: string | undefined;
   type: ItemType;
+  tracks?: Track[];
+  totalTracks?: number;
 }
 export interface SearchResult {
   tracks?: Track[];

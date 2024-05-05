@@ -23,6 +23,7 @@ const useSpotifySearchById = (): UseSpotifySearchByIdReturn => {
 
     if (type === "playlist") {
       const res = await spotifyApi.getPlaylist(id);
+      console.log(res);
       const filteredPlaylist = filterPlaylist([res.body]);
       console.log(filteredPlaylist);
       return filteredPlaylist[0];

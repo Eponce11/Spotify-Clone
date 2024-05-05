@@ -23,7 +23,8 @@ const PlaylistView = () => {
     setIsLoading(true);
     const fetchData = async (): Promise<void> => {
       const res = await spotifySearchById(_playlistId, "playlist");
-      console.log(res);
+      setCurrentData(res);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -36,7 +37,7 @@ const PlaylistView = () => {
     <MainViewContainer>
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
-        <PlaylistHeader />
+        <PlaylistHeader playlist={currentData}/>
         <PlaylistListHeader />
         <PlaylistPlaylist />
       </MainViewContentWrapper>

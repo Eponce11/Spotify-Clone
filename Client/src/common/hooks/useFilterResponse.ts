@@ -62,7 +62,8 @@ const useFilterResponse = (): UseFilterResponseResponse => {
 
   const filterPlaylist = (data: any): Playlist[] => {
     const filteredPlaylists = data.map((playlist: any): Playlist => {
-      return {
+
+      const currentPlaylist: Playlist = {
         description: playlist.description,
         id: playlist.id,
         playlistUrl: playlist.images[0].url,
@@ -70,6 +71,19 @@ const useFilterResponse = (): UseFilterResponseResponse => {
         owner: playlist.owner.display_name,
         type: playlist.type,
       };
+
+      if (playlist.hasOwnProperty("tracks")) {
+        currentPlaylist.totalTracks = playlist.tracks.total;
+        const filteredTracks = playlist.tracks?.items?.map((track: any): Track => {
+          const filteredTrack = filterTrack([track.track]);
+          filteredTrack[0].dateAdded = track.added_at
+          return filteredTrack[0]
+        })
+        
+        currentPlaylist.tracks = filteredTracks;
+      }
+
+      return currentPlaylist
     });
     return filteredPlaylists;
   };
