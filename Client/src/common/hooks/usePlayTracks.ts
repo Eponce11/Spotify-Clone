@@ -1,16 +1,25 @@
 import { spotifyApi } from "../constants";
-import { Track, Album, isInstanceOfAlbum } from "../../pages/Home/types";
+import {
+  Track,
+  Album,
+  Playlist,
+  isInstanceOfAlbum,
+  isInstanceOfPlaylist,
+} from "../../pages/Home/types";
 import { useAppDispatch } from "../../app/hooks";
 import { setCurrentTrack } from "../../app/features/spotifyPlaybackSlice";
 
 interface UsePlayTracksReturn {
-  playTracks: (track: Track | Album, position?: number) => Promise<void>;
+  playTracks: (
+    track: Track | Album | Playlist,
+    position?: number
+  ) => Promise<void>;
 }
 
 const usePlayTracks = (): UsePlayTracksReturn => {
   const dispatch = useAppDispatch();
   const playTracks = async (
-    track: Track | Album,
+    track: Track | Album | Playlist,
     position: number = 0
   ): Promise<void> => {
     const playConfig: any = {
@@ -29,6 +38,7 @@ const usePlayTracks = (): UsePlayTracksReturn => {
       playConfig.uris = [track.uri];
       setTrackConfig.currentTrack = track;
       setTrackConfig.currentAlbum = null;
+      setTrackConfig.currentPlaylist = null;
     }
 
     if (track.type === "album") {
@@ -37,6 +47,16 @@ const usePlayTracks = (): UsePlayTracksReturn => {
         setTrackConfig.currentTrack = track.tracks[position];
       }
       setTrackConfig.currentAlbum = track;
+      setTrackConfig.currentPlaylist = null;
+    }
+
+    if (track.type === "playlist") {
+      playConfig.context_uri = track.uri;
+      if (isInstanceOfPlaylist(track) && track.tracks !== undefined) {
+        setTrackConfig.currentTrack = track.tracks[position];
+      }
+      setTrackConfig.currentAlbum = null;
+      setTrackConfig.currentPlaylist = track;
     }
 
     console.log(track);

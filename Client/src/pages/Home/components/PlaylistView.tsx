@@ -37,9 +37,9 @@ const PlaylistView = () => {
     <MainViewContainer>
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
-        <PlaylistHeader playlist={currentData}/>
+        <PlaylistHeader playlist={currentData} />
         <PlaylistListHeader />
-        <PlaylistPlaylist />
+        <PlaylistPlaylist playlist={currentData} />
       </MainViewContentWrapper>
     </MainViewContainer>
   );

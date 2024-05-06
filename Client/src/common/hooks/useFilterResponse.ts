@@ -40,7 +40,9 @@ const useFilterResponse = (): UseFilterResponseResponse => {
         artist: artistNames,
         title: track.name,
         uri: track.uri,
-        albumUrl: track.hasOwnProperty("album") ? track.album.images[0].url : null,
+        albumUrl: track.hasOwnProperty("album")
+          ? track.album.images[0].url
+          : null,
         duration: convertMillisToMinutes(track.duration_ms),
         isExplicit: track.explicit,
         type: track.type,
@@ -62,7 +64,6 @@ const useFilterResponse = (): UseFilterResponseResponse => {
 
   const filterPlaylist = (data: any): Playlist[] => {
     const filteredPlaylists = data.map((playlist: any): Playlist => {
-
       const currentPlaylist: Playlist = {
         description: playlist.description,
         id: playlist.id,
@@ -70,20 +71,24 @@ const useFilterResponse = (): UseFilterResponseResponse => {
         name: playlist.name,
         owner: playlist.owner.display_name,
         type: playlist.type,
+        uri: playlist.uri,
       };
 
       if (playlist.hasOwnProperty("tracks")) {
         currentPlaylist.totalTracks = playlist.tracks.total;
-        const filteredTracks = playlist.tracks?.items?.map((track: any): Track => {
-          const filteredTrack = filterTrack([track.track]);
-          filteredTrack[0].dateAdded = track.added_at
-          return filteredTrack[0]
-        })
-        
+        const filteredTracks = playlist.tracks?.items?.map(
+          (track: any): Track => {
+            const filteredTrack = filterTrack([track.track]);
+            filteredTrack[0].dateAdded = track.added_at;
+            filteredTrack[0].albumName = track.track.album.name;
+            return filteredTrack[0];
+          }
+        );
+
         currentPlaylist.tracks = filteredTracks;
       }
 
-      return currentPlaylist
+      return currentPlaylist;
     });
     return filteredPlaylists;
   };

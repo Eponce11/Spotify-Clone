@@ -8,6 +8,7 @@ export interface Track {
   isExplicit: boolean;
   type: ItemType;
   dateAdded?: string;
+  albumName?: string | null;
 }
 
 export interface Artist {
@@ -39,9 +40,15 @@ export interface Playlist {
   name: string;
   owner: string | undefined;
   type: ItemType;
+  uri: string;
   tracks?: Track[];
   totalTracks?: number;
 }
+
+export const isInstanceOfPlaylist = (object: any): object is Playlist => {
+  return object.type === "playlist";
+};
+
 export interface SearchResult {
   tracks?: Track[];
   artists?: Artist[];
