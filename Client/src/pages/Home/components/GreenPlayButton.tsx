@@ -12,10 +12,11 @@ import {
 interface GreenPlayButtonProps {
   track: Track | Album | Playlist;
   className?: string;
+  isCollectionView?: boolean;
 }
 
 const GreenPlayButton = (props: GreenPlayButtonProps) => {
-  const { track, className } = props;
+  const { track, className, isCollectionView } = props;
   const { playTracks } = usePlayTracks();
   const { togglePlayback } = useTogglePlayback();
 
@@ -27,6 +28,11 @@ const GreenPlayButton = (props: GreenPlayButtonProps) => {
     currentTrack?.uri === track.uri ||
     currentAlbum?.uri === track.uri ||
     currentPlaylist?.uri === track.uri;
+  const isVisible = isCollectionView
+    ? "visible"
+    : isPlayingThisTrack && isPlaying
+    ? "visible"
+    : "invisible";
 
   const handleOnClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -39,9 +45,8 @@ const GreenPlayButton = (props: GreenPlayButtonProps) => {
 
   return (
     <div
-      className={`h-14 aspect-square rounded-full bg-lightGreen flex items-center justify-center z-10 cursor-pointer ${
-        isPlayingThisTrack && isPlaying ? "visible" : "invisible"
-      } ${className}`}
+      className={`h-14 aspect-square rounded-full bg-lightGreen flex items-center justify-center z-10 cursor-pointer 
+      ${isVisible} ${className}`}
       onClick={handleOnClick}
     >
       {isPlayingThisTrack && isPlaying ? (

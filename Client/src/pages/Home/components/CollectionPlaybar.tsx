@@ -11,7 +11,7 @@ const CollectionPlaybar = (props: CollectionPlaybarProps) => {
 
   return (
     <section className="p-6 h-[100px] w-full flex items-center text-txtGrey justify-between">
-      <GreenPlayButton track={data} className="visible"/>
+      <GreenPlayButton track={data} className="visible" isCollectionView={true}/>
       <div className="flex">
         <span className="text-h6 mr-3">List</span>
         <FaList />
