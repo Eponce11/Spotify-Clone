@@ -25,7 +25,7 @@ const AlbumSearchResultCard = (props: AlbumSearchResultCardProps) => {
             className="aspect-square w-full rounded-md"
           />
           <GreenPlayButton
-            className="absolute right-3 bottom-3 group-hover:visible invisible"
+            className="absolute right-3 bottom-3 group-hover:visible"
             track={album}
           />
         </div>

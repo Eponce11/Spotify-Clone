@@ -1,9 +1,9 @@
 import { FaList } from "react-icons/fa6";
-import type { Album } from "../types";
+import type { Album, Playlist } from "../types";
 import { GreenPlayButton } from "./";
 
 interface CollectionPlaybarProps {
-  data: Album;
+  data: Album | Playlist;
 }
 
 const CollectionPlaybar = (props: CollectionPlaybarProps) => {

@@ -1,7 +1,12 @@
 import type { Track } from "../types";
 import { ExplicitLabel, GreenPlayButton } from "./";
-import { usePlayTracks } from "../../../common/hooks";
-import { FaPlay } from "react-icons/fa";
+import { usePlayTracks, useTogglePlayback } from "../../../common/hooks";
+import { FaPlay, FaPause } from "react-icons/fa";
+import { useAppSelector } from "../../../app/hooks";
+import {
+  selectSpotifyPlaybackCurrentTrack,
+  selectSpotifyPlaybackIsPlaying,
+} from "../../../app/features/spotifyPlaybackSlice";
 interface SearchTopResultsProps {
   tracks: Track[];
 }
@@ -9,7 +14,10 @@ interface SearchTopResultsProps {
 const SearchTopResults = (props: SearchTopResultsProps) => {
   const { tracks } = props;
   const { playTracks } = usePlayTracks();
+  const { togglePlayback } = useTogglePlayback();
   const topTracks = tracks.slice(0, 4);
+  const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
+  const isPlaying = useAppSelector(selectSpotifyPlaybackIsPlaying);
 
   return (
     <section className="w-full px-6 mt-4 mb-12 text-white flex gap-3">
@@ -32,7 +40,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
             </p>
             <GreenPlayButton
               track={topTracks[0]}
-              className="absolute right-4 bottom-5 invisible group-hover:visible cursor-pointer"
+              className="absolute right-4 bottom-5 group-hover:visible cursor-pointer"
             />
           </div>
         </div>
@@ -41,6 +49,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
         <h4 className="text-h4 mb-4 ml-2">Songs</h4>
         <ul className="w-full">
           {topTracks.map((track: Track, idx: number) => {
+            const isPlayingThisTrack = track.uri === currentTrack?.uri;
             return (
               <li
                 className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md relative group"
@@ -53,7 +62,11 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
                     className="h-10 w-10 rounded mr-3 "
                   />
                   <div className="flex flex-col justify-center overflow-hidden">
-                    <h5 className="text-h5 mb-1 text-white text-nowrap overflow-hidden text-ellipsis">
+                    <h5
+                      className={`text-h5 mb-1 ${
+                        isPlayingThisTrack ? "text-lightGreen" : "text-white"
+                      } text-nowrap overflow-hidden text-ellipsis`}
+                    >
                       {track.title}
                     </h5>
                     <div className="flex items-center">
@@ -67,10 +80,20 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
                 <p className="text-h5">{track.duration}</p>
                 <div
                   className="absolute h-10 w-10 rounded bg-[rgba(0,0,0,0.5)] flex justify-center items-center invisible group-hover:visible cursor-pointer"
-                  onClick={() => playTracks(track)}
+                  onClick={() => {
+                    if (isPlayingThisTrack) {
+                      togglePlayback();
+                    } else {
+                      playTracks(track);
+                    }
+                  }}
                 >
                   <div className="opacity-100">
-                    <FaPlay size="12px" />
+                    {isPlayingThisTrack && isPlaying ? (
+                      <FaPause size="12px" />
+                    ) : (
+                      <FaPlay size="12px" />
+                    )}
                   </div>
                 </div>
               </li>
