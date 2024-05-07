@@ -32,7 +32,7 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
           >
             {track.uri === currentTrack?.uri && isPlaying ? (
               <div
-                className="w-[50px] px-4 cursor-pointer"
+                className="w-[50px] px-4 cursor-pointer ml-1"
                 onClick={() => togglePlayback()}
               >
                 <FaPause />

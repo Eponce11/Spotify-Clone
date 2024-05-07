@@ -25,17 +25,8 @@ const PlaylistSearchResultCard = (props: PlaylistSearchResultCardProps) => {
             className="aspect-square w-full rounded-md"
           />
           <GreenPlayButton
-            className="absolute right-3 bottom-3 group-hover:visible invisible"
-            track={{
-              albumUrl:
-                "https://i.scdn.co/image/ab67616d0000b273dc5b182a07d33d3720c869b2",
-              artist: "Peso Pluma",
-              duration: "3:24",
-              isExplicit: true,
-              title: "Rosa Pastel",
-              type: "track",
-              uri: "spotify:track:4LreWoO3cpgiIfrRwbOUSF",
-            }}
+            className="absolute right-3 bottom-3 group-hover:visible"
+            track={playlist}
           />
         </div>
       ) : (

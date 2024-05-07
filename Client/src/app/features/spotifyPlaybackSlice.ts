@@ -51,7 +51,7 @@ export const selectSpotifyPlaybackCurrentTrack = (state: RootState) =>
 export const selectSpotifyPlaybackCurrentAlbum = (state: RootState) =>
   state.spotifyPlayback.currentAlbum;
 export const selectSpotifyPlaybackCurrentPlaylist = (state: RootState) =>
-  state.spotifyPlayback.currentAlbum;
+  state.spotifyPlayback.currentPlaylist;
 export const selectSpotifyPlaybackCollectionTrackPosition = (
   state: RootState
 ) => state.spotifyPlayback.collectionTrackPosition;

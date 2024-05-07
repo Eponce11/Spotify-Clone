@@ -39,9 +39,9 @@ const GreenPlayButton = (props: GreenPlayButtonProps) => {
 
   return (
     <div
-      className={`h-14 aspect-square rounded-full bg-lightGreen ${className} flex items-center justify-center z-10 cursor-pointer ${
+      className={`h-14 aspect-square rounded-full bg-lightGreen flex items-center justify-center z-10 cursor-pointer ${
         isPlayingThisTrack && isPlaying ? "visible" : "invisible"
-      }`}
+      } ${className}`}
       onClick={handleOnClick}
     >
       {isPlayingThisTrack && isPlaying ? (
