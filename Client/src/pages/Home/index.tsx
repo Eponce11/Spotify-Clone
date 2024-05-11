@@ -4,6 +4,7 @@ import {
   AlbumView,
   SearchView,
   PlaylistView,
+  PlaylistOwnView,
   BottomPlaybar,
 } from "./components";
 import { useSpotifyRefreshToken } from "../../common/hooks";
@@ -19,6 +20,7 @@ const Home = () => {
           <Route path="/search" element={<SearchView />} />
           <Route path="/album/:_albumId" element={<AlbumView />} />
           <Route path="/playlist/:_playlistId" element={<PlaylistView />} />
+          <Route path="/own/:_playlistId" element={<PlaylistOwnView />} />
         </Routes>
       </div>
       <BottomPlaybar />

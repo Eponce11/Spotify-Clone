@@ -29,7 +29,7 @@ export const getUserPlaylists = (
   return async (req: Request, res: Response) => {
     try {
       const { _userId } = req.params;
-      if (!_userId) return;
+      if (!_userId) res.sendStatus(400);;
       const playLists = await ctx.prisma.playlist.findMany({
         where: {
           userId: Number(_userId),
@@ -37,6 +37,26 @@ export const getUserPlaylists = (
       });
       console.log(playLists);
       res.json(playLists);
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
+
+export const getPlaylist = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { playlistId } = req.body;
+      if (!playlistId) res.sendStatus(400);
+      const playlist = await ctx.prisma.playlist.findFirst({
+        where: {
+          id: Number(playlistId),
+        },
+      });
+      res.json(playlist);
     } catch (err: any) {
       console.log(err);
       return res.sendStatus(400);

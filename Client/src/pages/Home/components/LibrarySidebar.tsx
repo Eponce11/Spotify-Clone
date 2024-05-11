@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LibraryCreateMenu } from "./";
 import { useGetPlaylistsQuery } from "../../../api/playlistApiSlice";
 import { useAppSelector } from "../../../app/hooks";
@@ -14,6 +15,7 @@ const LibrarySidebar = () => {
   const [isCreatePlaylistMenuOpen, setIsCreatePlaylistMenuOpen] =
     useState<boolean>(false);
   const authId = useAppSelector(selectAuthId);
+  const navigate = useNavigate();
 
   const { currentData, isFetching } = useGetPlaylistsQuery(authId ? authId : 0);
 
@@ -48,6 +50,7 @@ const LibrarySidebar = () => {
               <li
                 key={idx}
                 className="w-16 h-16 flex items-center justify-center cursor-pointer hover:bg-hoverDarkGrey rounded-sm"
+                onClick={() => navigate(`own/${playlist.id}`)}
               >
                 <div className="w-12 h-12 bg-[red] rounded-sm" />
               </li>

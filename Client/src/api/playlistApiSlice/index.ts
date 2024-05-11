@@ -19,7 +19,15 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getOnePlaylist: builder.mutation<any, any>({
+      query: (data: any) => ({
+        url: `/playlist/getOne`,
+        method: "POST",
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
-export const { useCreatePlaylistMutation, useGetPlaylistsQuery } = playlistApiSlice;
+export const { useCreatePlaylistMutation, useGetPlaylistsQuery, useGetOnePlaylistMutation } =
+  playlistApiSlice;
