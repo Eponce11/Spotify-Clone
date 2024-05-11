@@ -3,13 +3,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
 interface AuthState {
-  id: string | null;
+  id: number | null;
   username: string | null;
   token: string | null;
 }
 
 const initialState: AuthState = {
-  id: null,
+  id: 1,
   username: null,
   token: null,
 };

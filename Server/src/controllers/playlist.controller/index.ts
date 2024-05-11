@@ -7,11 +7,11 @@ export const createPlaylist = (
 ): ExpressRouteFunction => {
   return async (req: Request, res: Response) => {
     try {
-      const { name, isPublic, userId } = req.body;
+      const { userId } = req.body;
       const newPlaylist = await ctx.prisma.playlist.create({
         data: {
-          name: name,
-          isPublic: isPublic,
+          name: "somename",
+          isPublic: false,
           userId: userId,
         },
       });
