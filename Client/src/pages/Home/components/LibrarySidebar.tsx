@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { LibraryCreateMenu } from "./";
+import { useGetPlaylistsQuery } from "../../../api/playlistApiSlice";
+import { useAppSelector } from "../../../app/hooks";
+import { selectAuthId } from "../../../app/features/authSlice";
 
 const LibrarySidebar = () => {
   interface Position {
@@ -7,11 +10,12 @@ const LibrarySidebar = () => {
     y: number;
   }
 
-  const playlists = new Array(5).fill(0);
-
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isCreatePlaylistMenuOpen, setIsCreatePlaylistMenuOpen] =
     useState<boolean>(false);
+  const authId = useAppSelector(selectAuthId);
+
+  const { currentData, isFetching } = useGetPlaylistsQuery(authId ? authId : 0);
 
   const openMenu = (e: any) => {
     e.preventDefault();
@@ -37,16 +41,18 @@ const LibrarySidebar = () => {
         <li className="w-12 h-12 flex items-center justify-center cursor-pointer">
           <div className="w-6 h-6 bg-[red]" />
         </li>
-        {playlists.map((playlist: any, idx: number) => {
-          return (
-            <li
-              key={idx}
-              className="w-16 h-16 flex items-center justify-center cursor-pointer hover:bg-hoverDarkGrey rounded-sm"
-            >
-              <div className="w-12 h-12 bg-[red] rounded-sm" />
-            </li>
-          );
-        })}
+
+        {!isFetching &&
+          currentData.map((playlist: any, idx: number) => {
+            return (
+              <li
+                key={idx}
+                className="w-16 h-16 flex items-center justify-center cursor-pointer hover:bg-hoverDarkGrey rounded-sm"
+              >
+                <div className="w-12 h-12 bg-[red] rounded-sm" />
+              </li>
+            );
+          })}
       </ul>
 
       {isCreatePlaylistMenuOpen && (

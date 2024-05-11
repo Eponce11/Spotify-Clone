@@ -13,7 +13,13 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         body: { ...data },
       }),
     }),
+    getPlaylists: builder.query<any, number>({
+      query: (id: number) => ({
+        url: `/playlist/getAll/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreatePlaylistMutation } = playlistApiSlice;
+export const { useCreatePlaylistMutation, useGetPlaylistsQuery } = playlistApiSlice;

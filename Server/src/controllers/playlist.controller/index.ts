@@ -22,3 +22,24 @@ export const createPlaylist = (
     }
   };
 };
+
+export const getUserPlaylists = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { _userId } = req.params;
+      if (!_userId) return;
+      const playLists = await ctx.prisma.playlist.findMany({
+        where: {
+          userId: Number(_userId),
+        },
+      });
+      console.log(playLists);
+      res.json(playLists);
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
