@@ -27,7 +27,8 @@ const PlaylistOwnView = () => {
 
       const res = await getOnePlaylist({ playlistId: _playlistId }).unwrap();
       console.log(res);
-
+      
+      
 
       /*
       const res = await spotifySearchById(_playlistId, "playlist");

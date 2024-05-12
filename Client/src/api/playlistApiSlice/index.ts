@@ -26,8 +26,19 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         body: { ...data },
       }),
     }),
+    addSongToPlaylist: builder.mutation<any, any>({
+      query: (data: any) => ({
+        url: `/playlist/addSong`,
+        method: "POST",
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
-export const { useCreatePlaylistMutation, useGetPlaylistsQuery, useGetOnePlaylistMutation } =
-  playlistApiSlice;
+export const {
+  useCreatePlaylistMutation,
+  useGetPlaylistsQuery,
+  useGetOnePlaylistMutation,
+  useAddSongToPlaylistMutation,
+} = playlistApiSlice;

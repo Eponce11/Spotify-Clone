@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ExpressRouteFunction } from "../../common/types";
 import { Context, MockContext } from "../../config/context.config";
+import { create } from "domain";
 
 export const createPlaylist = (
   ctx: Context | MockContext
@@ -29,7 +30,7 @@ export const getUserPlaylists = (
   return async (req: Request, res: Response) => {
     try {
       const { _userId } = req.params;
-      if (!_userId) res.sendStatus(400);;
+      if (!_userId) res.sendStatus(400);
       const playLists = await ctx.prisma.playlist.findMany({
         where: {
           userId: Number(_userId),
@@ -57,6 +58,44 @@ export const getPlaylist = (
         },
       });
       res.json(playlist);
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
+
+export const addSongToPlaylist = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { spotifyId, playlistId } = req.body;
+
+      const foundSong = await ctx.prisma.song.findFirst({ where: {
+        spotifyId: spotifyId
+      } })
+
+      await ctx.prisma.playlist.update({
+        where: {
+          id: playlistId,
+        },
+        data: {
+          songs: {
+            connectOrCreate: [
+              {
+                create: {
+                  spotifyId: spotifyId,
+                },
+                where: {
+                  id: foundSong?.id,
+                },
+              },
+            ],
+          },
+        },
+      });
+      res.json({ msg: "Success" })
     } catch (err: any) {
       console.log(err);
       return res.sendStatus(400);
