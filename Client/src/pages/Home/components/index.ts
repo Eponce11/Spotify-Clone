@@ -23,6 +23,7 @@ import PlaylistPlaylist from "./PlaylistPlaylist";
 import PlaylistView from "./PlaylistView";
 import LibraryCreateMenu from "./LibraryCreateMenu";
 import PlaylistOwnView from "./PlaylistOwnView";
+import AddSongMenu from "./AddSongMenu";
 
 export {
   LibrarySidebar,
@@ -50,4 +51,5 @@ export {
   PlaylistView,
   LibraryCreateMenu,
   PlaylistOwnView,
+  AddSongMenu,
 };

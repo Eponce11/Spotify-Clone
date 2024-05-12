@@ -46,6 +46,7 @@ const useFilterResponse = (): UseFilterResponseResponse => {
         duration: convertMillisToMinutes(track.duration_ms),
         isExplicit: track.explicit,
         type: track.type,
+        id: track.id
       };
     });
     return filteredTracks;

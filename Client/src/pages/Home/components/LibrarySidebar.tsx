@@ -4,12 +4,9 @@ import { LibraryCreateMenu } from "./";
 import { useGetPlaylistsQuery } from "../../../api/playlistApiSlice";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuthId } from "../../../app/features/authSlice";
+import type { Position } from "../types"
 
 const LibrarySidebar = () => {
-  interface Position {
-    x: number;
-    y: number;
-  }
 
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isCreatePlaylistMenuOpen, setIsCreatePlaylistMenuOpen] =
@@ -19,9 +16,10 @@ const LibrarySidebar = () => {
 
   const { currentData, isFetching } = useGetPlaylistsQuery(authId ? authId : 0);
 
-  const openMenu = (e: any) => {
+  const openMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setIsCreatePlaylistMenuOpen(true);
+    console.log({ x: e.pageY, y: e.pageX })
     setPosition({ x: e.pageY, y: e.pageX });
   };
 

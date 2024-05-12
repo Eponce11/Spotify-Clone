@@ -1,5 +1,6 @@
-import type { Track } from "../types";
-import { ExplicitLabel, GreenPlayButton } from "./";
+import { useState } from "react";
+import type { Track, Position } from "../types";
+import { AddSongMenu, ExplicitLabel, GreenPlayButton } from "./";
 import { usePlayTracks, useTogglePlayback } from "../../../common/hooks";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { useAppSelector } from "../../../app/hooks";
@@ -18,6 +19,16 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
   const topTracks = tracks.slice(0, 4);
   const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
   const isPlaying = useAppSelector(selectSpotifyPlaybackIsPlaying);
+
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isAddSongMenuOpen, setIsAddSongMenuOpen] = useState<boolean>(false);
+
+  const openMenu = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setIsAddSongMenuOpen(true);
+    console.log({ x: e.pageY, y: e.pageX })
+    setPosition({ x: e.pageY, y: e.pageX });
+  };
 
   return (
     <section className="w-full px-6 mt-4 mb-12 text-white flex gap-3">
@@ -51,52 +62,56 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
           {topTracks.map((track: Track, idx: number) => {
             const isPlayingThisTrack = track.uri === currentTrack?.uri;
             return (
-              <li
-                className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md relative group"
-                key={idx}
-              >
-                <div className="flex items-center">
-                  <img
-                    src={track.albumUrl}
-                    alt="track img"
-                    className="h-10 w-10 rounded mr-3 "
-                  />
-                  <div className="flex flex-col justify-center overflow-hidden">
-                    <h5
-                      className={`text-h5 mb-1 ${
-                        isPlayingThisTrack ? "text-lightGreen" : "text-white"
-                      } text-nowrap overflow-hidden text-ellipsis`}
-                    >
-                      {track.title}
-                    </h5>
-                    <div className="flex items-center">
-                      {track.isExplicit && <ExplicitLabel />}
-                      <span className="text-h6 text-nowrap overflow-hidden text-ellipsis">
-                        {track.artist}
-                      </span>
+              <>
+                <li
+                  className="flex text-txtGrey px-3 py-2 items-center justify-between hover:bg-hoverLightGrey rounded-md relative group"
+                  key={idx}
+                  onContextMenu={openMenu}
+                >
+                  <div className="flex items-center">
+                    <img
+                      src={track.albumUrl}
+                      alt="track img"
+                      className="h-10 w-10 rounded mr-3 "
+                    />
+                    <div className="flex flex-col justify-center overflow-hidden">
+                      <h5
+                        className={`text-h5 mb-1 ${
+                          isPlayingThisTrack ? "text-lightGreen" : "text-white"
+                        } text-nowrap overflow-hidden text-ellipsis`}
+                      >
+                        {track.title}
+                      </h5>
+                      <div className="flex items-center">
+                        {track.isExplicit && <ExplicitLabel />}
+                        <span className="text-h6 text-nowrap overflow-hidden text-ellipsis">
+                          {track.artist}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <p className="text-h5">{track.duration}</p>
-                <div
-                  className="absolute h-10 w-10 rounded bg-[rgba(0,0,0,0.5)] flex justify-center items-center invisible group-hover:visible cursor-pointer"
-                  onClick={() => {
-                    if (isPlayingThisTrack) {
-                      togglePlayback();
-                    } else {
-                      playTracks(track);
-                    }
-                  }}
-                >
-                  <div className="opacity-100">
-                    {isPlayingThisTrack && isPlaying ? (
-                      <FaPause size="12px" />
-                    ) : (
-                      <FaPlay size="12px" />
-                    )}
+                  <p className="text-h5">{track.duration}</p>
+                  <div
+                    className="absolute h-10 w-10 rounded bg-[rgba(0,0,0,0.5)] flex justify-center items-center invisible group-hover:visible cursor-pointer"
+                    onClick={() => {
+                      if (isPlayingThisTrack) {
+                        togglePlayback();
+                      } else {
+                        playTracks(track);
+                      }
+                    }}
+                  >
+                    <div className="opacity-100">
+                      {isPlayingThisTrack && isPlaying ? (
+                        <FaPause size="12px" />
+                      ) : (
+                        <FaPlay size="12px" />
+                      )}
+                    </div>
                   </div>
-                </div>
-              </li>
+                </li>
+                {isAddSongMenuOpen && <AddSongMenu style={{ top: position.x -75, left: position.y - 90 }} spotifyId={track.id}/>}
+              </>
             );
           })}
         </ul>

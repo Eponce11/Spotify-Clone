@@ -76,6 +76,8 @@ export const addSongToPlaylist = (
         spotifyId: spotifyId
       } })
 
+      const foundSongId = foundSong ? foundSong.id : 0
+
       await ctx.prisma.playlist.update({
         where: {
           id: playlistId,
@@ -88,7 +90,7 @@ export const addSongToPlaylist = (
                   spotifyId: spotifyId,
                 },
                 where: {
-                  id: foundSong?.id,
+                  id: foundSongId,
                 },
               },
             ],

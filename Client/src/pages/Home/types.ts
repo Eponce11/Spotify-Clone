@@ -9,6 +9,7 @@ export interface Track {
   type: ItemType;
   dateAdded?: string;
   albumName?: string | null;
+  id: string;
 }
 
 export interface Artist {
@@ -54,4 +55,9 @@ export interface SearchResult {
   artists?: Artist[];
   albums?: Album[];
   playlists?: Playlist[];
+}
+
+export interface Position {
+  x: number;
+  y: number;
 }
