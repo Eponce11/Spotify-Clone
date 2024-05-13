@@ -37,11 +37,11 @@ export const isInstanceOfAlbum = (object: any): object is Album => {
 export interface Playlist {
   description: string | null;
   id: string;
-  playlistUrl: string;
+  playlistUrl: string | null;
   name: string;
   owner: string | undefined;
   type: ItemType;
-  uri: string;
+  uri?: string;
   tracks?: Track[];
   totalTracks?: number;
 }

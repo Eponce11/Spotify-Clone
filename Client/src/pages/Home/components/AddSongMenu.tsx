@@ -24,6 +24,7 @@ const AddSongMenu = (props: AddSongMenuProps) => {
       playlistId: playlistId,
     });
     console.log(res);
+    setIsSelectPlaylistOpen(false);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import type { Playlist } from "../types";
-import { useSpotifySearchById } from "../../../common/hooks";
+import { useSpotifyGetManyTracks } from "../../../common/hooks";
 import {
   MainViewContainer,
   CollectionTopbar,
@@ -17,24 +17,33 @@ const PlaylistOwnView = () => {
   const { _playlistId } = useParams();
   const [currentData, setCurrentData] = useState<Playlist | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { spotifySearchById } = useSpotifySearchById();
+  const { spotifyGetManyTracks } = useSpotifyGetManyTracks();
   const [getOnePlaylist] = useGetOnePlaylistMutation();
 
   useEffect(() => {
     if (!_playlistId) return;
     setIsLoading(true);
     const fetchData = async (): Promise<void> => {
-
       const res = await getOnePlaylist({ playlistId: _playlistId }).unwrap();
       console.log(res);
-      
-      
+      const trackIds: string[] = [];
+      res.songs.forEach((track: any) => {
+        trackIds.push(track.spotifyId);
+      });
+      console.log(trackIds);
+      const tracks = await spotifyGetManyTracks(trackIds);
 
-      /*
-      const res = await spotifySearchById(_playlistId, "playlist");
-      setCurrentData(res);
+      setCurrentData({
+        description: res.description,
+        id: res.id,
+        name: res.name,
+        playlistUrl: null,
+        owner: "me",
+        type: "playlist",
+        tracks: tracks,
+        totalTracks: tracks.length,
+      });
       setIsLoading(false);
-      */
     };
     fetchData();
   }, [_playlistId]);
@@ -45,7 +54,13 @@ const PlaylistOwnView = () => {
     </MainViewContainer>
   ) : (
     <MainViewContainer>
-      <></>
+      <CollectionTopbar />
+      <MainViewContentWrapper isCollectionView={true}>
+        <PlaylistHeader playlist={currentData} />
+        <CollectionPlaybar data={currentData} />
+        <PlaylistListHeader />
+        <PlaylistPlaylist playlist={currentData} />
+      </MainViewContentWrapper>
     </MainViewContainer>
   );
 };

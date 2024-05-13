@@ -56,6 +56,9 @@ export const getPlaylist = (
         where: {
           id: Number(playlistId),
         },
+        include: {
+          songs: true,
+        },
       });
       res.json(playlist);
     } catch (err: any) {
@@ -72,11 +75,13 @@ export const addSongToPlaylist = (
     try {
       const { spotifyId, playlistId } = req.body;
 
-      const foundSong = await ctx.prisma.song.findFirst({ where: {
-        spotifyId: spotifyId
-      } })
+      const foundSong = await ctx.prisma.song.findFirst({
+        where: {
+          spotifyId: spotifyId,
+        },
+      });
 
-      const foundSongId = foundSong ? foundSong.id : 0
+      const foundSongId = foundSong ? foundSong.id : 0;
 
       await ctx.prisma.playlist.update({
         where: {
@@ -97,7 +102,7 @@ export const addSongToPlaylist = (
           },
         },
       });
-      res.json({ msg: "Success" })
+      res.json({ msg: "Success" });
     } catch (err: any) {
       console.log(err);
       return res.sendStatus(400);
