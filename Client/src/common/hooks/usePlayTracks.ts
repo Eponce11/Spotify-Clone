@@ -51,15 +51,26 @@ const usePlayTracks = (): UsePlayTracksReturn => {
     }
 
     if (track.type === "playlist") {
-      playConfig.context_uri = track.uri;
-      if (isInstanceOfPlaylist(track) && track.tracks !== undefined) {
-        setTrackConfig.currentTrack = track.tracks[position];
+      if (track.uri) {
+        playConfig.context_uri = track.uri;
+        if (isInstanceOfPlaylist(track) && track.tracks !== undefined) {
+          setTrackConfig.currentTrack = track.tracks[position];
+        }
+        setTrackConfig.currentAlbum = null;
+        setTrackConfig.currentPlaylist = track;
+      } else {
+        if (isInstanceOfPlaylist(track) && track.tracks !== undefined) {
+          const uris: string[] = []
+          track.tracks.forEach((ele: Track) => {
+            uris.push(ele.uri);
+          })
+          playConfig.uris = [...uris];
+          setTrackConfig.currentTrack = track.tracks[position];
+        }
+        setTrackConfig.currentAlbum = null;
+        setTrackConfig.currentPlaylist = track;
       }
-      setTrackConfig.currentAlbum = null;
-      setTrackConfig.currentPlaylist = track;
     }
-
-    console.log(track);
     await spotifyApi.play(playConfig);
 
     dispatch(setCurrentTrack(setTrackConfig));

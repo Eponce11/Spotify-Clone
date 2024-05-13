@@ -4,10 +4,9 @@ import { LibraryCreateMenu } from "./";
 import { useGetPlaylistsQuery } from "../../../api/playlistApiSlice";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuthId } from "../../../app/features/authSlice";
-import type { Position } from "../types"
+import type { Position } from "../types";
 
 const LibrarySidebar = () => {
-
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isCreatePlaylistMenuOpen, setIsCreatePlaylistMenuOpen] =
     useState<boolean>(false);
@@ -19,7 +18,7 @@ const LibrarySidebar = () => {
   const openMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setIsCreatePlaylistMenuOpen(true);
-    console.log({ x: e.pageY, y: e.pageX })
+    console.log({ x: e.pageY, y: e.pageX });
     setPosition({ x: e.pageY, y: e.pageX });
   };
 
@@ -30,7 +29,10 @@ const LibrarySidebar = () => {
           <div className="w-6 h-6 bg-[red] cursor-pointer" />
         </li>
         <li className="w-12 h-12 flex items-center justify-center">
-          <div className="w-6 h-6 bg-[red] cursor-pointer" />
+          <div
+            className="w-6 h-6 bg-[red] cursor-pointer"
+            onClick={() => navigate("/home/search")}
+          />
         </li>
       </ul>
 
