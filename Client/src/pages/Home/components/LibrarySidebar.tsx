@@ -18,7 +18,6 @@ const LibrarySidebar = () => {
   const openMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     setIsCreatePlaylistMenuOpen(true);
-    console.log({ x: e.pageY, y: e.pageX });
     setPosition({ x: e.pageY, y: e.pageX });
   };
 
@@ -59,7 +58,10 @@ const LibrarySidebar = () => {
       </ul>
 
       {isCreatePlaylistMenuOpen && (
-        <LibraryCreateMenu style={{ top: position.x, left: position.y }} />
+        <LibraryCreateMenu
+          style={{ top: position.x, left: position.y }}
+          setIsCreatePlaylistMenuOpen={setIsCreatePlaylistMenuOpen}
+        />
       )}
     </aside>
   );

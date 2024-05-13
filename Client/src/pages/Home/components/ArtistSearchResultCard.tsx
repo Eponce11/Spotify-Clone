@@ -1,3 +1,4 @@
+import { DefaultArtistImage } from "./";
 import type { Artist } from "../types";
 
 interface ArtistSearchResultCardProps {
@@ -15,11 +16,11 @@ const ArtistSearchResultCard = (props: ArtistSearchResultCardProps) => {
       {artist.artistUrl ? (
         <img
           src={artist.artistUrl}
-          alt=""
+          alt="artist img"
           className="aspect-square w-full rounded-full"
         />
       ) : (
-        <div className="aspect-square w-full rounded-full bg-[blue]" />
+        <DefaultArtistImage />
       )}
       <h5 className="text-h5 text-nowrap overflow-hidden text-ellipsis">
         {artist.name}

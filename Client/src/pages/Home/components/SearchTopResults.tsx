@@ -28,7 +28,6 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
   const openMenu = (e: React.MouseEvent<HTMLElement>, trackId: string) => {
     setCurrentSpotifyId(trackId);
     setIsAddSongMenuOpen(true);
-    console.log({ x: e.pageY, y: e.pageX });
     setPosition({ x: e.pageY, y: e.pageX });
   };
 
@@ -126,6 +125,7 @@ const SearchTopResults = (props: SearchTopResultsProps) => {
         <AddSongMenu
           style={{ top: position.x - 75, left: position.y - 90 }}
           spotifyId={currentSpotifyId}
+          setIsAddSongMenuOpen={setIsAddSongMenuOpen}
         />
       )}
     </section>

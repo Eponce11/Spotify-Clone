@@ -7,10 +7,11 @@ import { useAddSongToPlaylistMutation } from "../../../api/playlistApiSlice";
 interface AddSongMenuProps {
   style: { top: number; left: number };
   spotifyId: string;
+  setIsAddSongMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AddSongMenu = (props: AddSongMenuProps) => {
-  const { style, spotifyId } = props;
+  const { style, spotifyId, setIsAddSongMenuOpen } = props;
 
   const [isSelectPlaylistOpen, setIsSelectPlaylistOpen] =
     useState<boolean>(false);
@@ -28,7 +29,11 @@ const AddSongMenu = (props: AddSongMenuProps) => {
   };
 
   return (
-    <div className="bg-lightGrey absolute z-10 p-1 rounded" style={style}>
+    <div
+      className="bg-lightGrey absolute z-10 p-1 rounded"
+      style={style}
+      onMouseLeave={() => setIsAddSongMenuOpen(false)}
+    >
       <div
         className="flex items-center pl-2 pr-4 py-2 hover:bg-hoverLightGrey rounded cursor-pointer"
         onMouseEnter={() => setIsSelectPlaylistOpen(true)}

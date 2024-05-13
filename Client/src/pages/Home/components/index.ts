@@ -24,6 +24,7 @@ import PlaylistView from "./PlaylistView";
 import LibraryCreateMenu from "./LibraryCreateMenu";
 import PlaylistOwnView from "./PlaylistOwnView";
 import AddSongMenu from "./AddSongMenu";
+import DefaultArtistImage from "./DefaultArtistImage";
 
 export {
   LibrarySidebar,
@@ -52,4 +53,5 @@ export {
   LibraryCreateMenu,
   PlaylistOwnView,
   AddSongMenu,
+  DefaultArtistImage,
 };

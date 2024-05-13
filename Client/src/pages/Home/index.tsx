@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import {
   LibrarySidebar,
@@ -11,6 +12,15 @@ import { useSpotifyRefreshToken } from "../../common/hooks";
 
 const Home = () => {
   useSpotifyRefreshToken();
+  useEffect(() => {
+    const handleContextmenu = (e: any) => {
+      e.preventDefault();
+    };
+    document.addEventListener("contextmenu", handleContextmenu);
+    return function cleanup() {
+      document.removeEventListener("contextmenu", handleContextmenu);
+    };
+  }, []);
 
   return (
     <div className="w-full h-full bg-black p-2 flex flex-col">

@@ -43,10 +43,11 @@ const useFilterResponse = (): UseFilterResponseResponse => {
         albumUrl: track.hasOwnProperty("album")
           ? track.album.images[0].url
           : null,
+        albumName: track.hasOwnProperty("album") ? track.album.name : null,
         duration: convertMillisToMinutes(track.duration_ms),
         isExplicit: track.explicit,
         type: track.type,
-        id: track.id
+        id: track.id,
       };
     });
     return filteredTracks;
