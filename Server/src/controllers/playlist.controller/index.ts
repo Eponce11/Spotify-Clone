@@ -109,3 +109,51 @@ export const addSongToPlaylist = (
     }
   };
 };
+
+export const addSpotifyPlaylistOrAlbumToLibrary = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { userId, spotifyId } = req.body;
+
+      console.log(req.body);
+
+      const foundSpotifyPlaylist =
+        await ctx.prisma.spotifyPlaylistOrAlbum.findFirst({
+          where: {
+            spotifyId: spotifyId,
+          },
+        });
+
+      const foundSpotifyPlaylistId = foundSpotifyPlaylist
+        ? foundSpotifyPlaylist.id
+        : 0;
+
+      await ctx.prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          spotifyPlaylistorAlbums: {
+            connectOrCreate: [
+              {
+                create: {
+                  spotifyId: spotifyId,
+                },
+                where: {
+                  id: foundSpotifyPlaylistId,
+                },
+              },
+            ],
+          },
+        },
+      });
+
+      res.json({ msg: "Success" });
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
