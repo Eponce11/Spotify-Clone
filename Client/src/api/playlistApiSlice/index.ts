@@ -19,6 +19,13 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getLibraryPlaylists: builder.mutation<any, any>({
+      query: (data: any) => ({
+        url: `/playlist/getAll/ownAndSpotify`,
+        method: "POST",
+        body: { ...data },
+      }),
+    }),
     getOnePlaylist: builder.mutation<any, any>({
       query: (data: any) => ({
         url: `/playlist/getOne`,
@@ -49,4 +56,5 @@ export const {
   useGetOnePlaylistMutation,
   useAddSongToPlaylistMutation,
   useAddSpotifyCollectionToLibraryMutation,
+  useGetLibraryPlaylistsMutation,
 } = playlistApiSlice;

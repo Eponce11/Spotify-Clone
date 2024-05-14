@@ -36,8 +36,43 @@ export const getUserPlaylists = (
           userId: Number(_userId),
         },
       });
-      console.log(playLists);
       res.json(playLists);
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
+
+export const getUserAndSpotifyPlaylist = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { userId } = req.body;
+      if (!userId) res.sendStatus(400);
+      const playLists = await ctx.prisma.playlist.findMany({
+        where: {
+          userId: Number(userId),
+        },
+      });
+      const user = await ctx.prisma.user.findFirst({
+        where: {
+          id: Number(userId),
+        },
+        include: {
+          spotifyPlaylistorAlbums: true,
+        },
+      });
+
+      let allPlaylists;
+      if (user) {
+        allPlaylists = [...playLists, ...user.spotifyPlaylistorAlbums];
+      } else {
+        allPlaylists = [...playLists];
+      }
+      console.log(allPlaylists);
+      res.json(allPlaylists);
     } catch (err: any) {
       console.log(err);
       return res.sendStatus(400);
@@ -115,7 +150,7 @@ export const addSpotifyPlaylistOrAlbumToLibrary = (
 ): ExpressRouteFunction => {
   return async (req: Request, res: Response) => {
     try {
-      const { userId, spotifyId } = req.body;
+      const { userId, spotifyId, type } = req.body;
 
       console.log(req.body);
 
@@ -140,6 +175,7 @@ export const addSpotifyPlaylistOrAlbumToLibrary = (
               {
                 create: {
                   spotifyId: spotifyId,
+                  type: type,
                 },
                 where: {
                   id: foundSpotifyPlaylistId,

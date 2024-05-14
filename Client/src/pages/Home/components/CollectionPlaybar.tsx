@@ -22,6 +22,7 @@ const CollectionPlaybar = (props: CollectionPlaybarProps) => {
     const res = await addSpotifyCollectionToLibrary({
       userId: authId,
       spotifyId: data.id,
+      type: data.type,
     }).unwrap();
     console.log(res);
   };

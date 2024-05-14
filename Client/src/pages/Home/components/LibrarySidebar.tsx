@@ -1,19 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { LibraryCreateMenu } from "./";
-import { useGetPlaylistsQuery } from "../../../api/playlistApiSlice";
+import { LibraryCreateMenu, DefaultCollectionImage } from "./";
+import { useGetLibraryPlaylistsMutation } from "../../../api/playlistApiSlice";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuthId } from "../../../app/features/authSlice";
-import type { Position } from "../types";
+import type { Album, Position } from "../types";
+import { useSpotifySearchById } from "../../../common/hooks";
 
 const LibrarySidebar = () => {
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [currentData, setCurrentData] = useState<any[]>([]);
   const [isCreatePlaylistMenuOpen, setIsCreatePlaylistMenuOpen] =
     useState<boolean>(false);
   const authId = useAppSelector(selectAuthId);
   const navigate = useNavigate();
+  const { spotifySearchById } = useSpotifySearchById();
+  const [getLibraryPlaylists] = useGetLibraryPlaylistsMutation();
 
-  const { currentData, isFetching } = useGetPlaylistsQuery(authId ? authId : 0);
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      const res = await getLibraryPlaylists({ userId: authId }).unwrap();
+      console.log(res);
+      const libraryCollection = await Promise.all(
+        await res.map(async (collection: any): Promise<Album | void> => {
+          if (!collection.hasOwnProperty("spotifyId")) return collection;
+          return await spotifySearchById(collection.spotifyId, collection.type);
+        })
+      );
+      console.log(libraryCollection);
+      setCurrentData(libraryCollection);
+    };
+    fetchData();
+  }, []);
 
   const openMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -43,18 +61,31 @@ const LibrarySidebar = () => {
           <div className="w-6 h-6 bg-[red]" />
         </li>
 
-        {!isFetching &&
-          currentData.map((playlist: any, idx: number) => {
-            return (
-              <li
-                key={idx}
-                className="w-16 h-16 flex items-center justify-center cursor-pointer hover:bg-hoverDarkGrey rounded-sm"
-                onClick={() => navigate(`own/${playlist.id}`)}
-              >
-                <div className="w-12 h-12 bg-[red] rounded-sm" />
-              </li>
-            );
-          })}
+        {currentData.map((playlist: any, idx: number) => {
+          return (
+            <li
+              key={idx}
+              className="w-16 h-16 flex items-center justify-center cursor-pointer hover:bg-hoverDarkGrey rounded-sm"
+              onClick={() => navigate(`own/${playlist.id}`)}
+            >
+              {!playlist.uri ? (
+                <DefaultCollectionImage />
+              ) : playlist.type === "album" ? (
+                <img
+                  src={playlist.albumUrl}
+                  alt="album img"
+                  className="w-12 h-12 rounded-sm"
+                />
+              ) : (
+                <img
+                  src={playlist.playlistUrl}
+                  alt="album img"
+                  className="w-12 h-12 rounded-sm"
+                />
+              )}
+            </li>
+          );
+        })}
       </ul>
 
       {isCreatePlaylistMenuOpen && (
