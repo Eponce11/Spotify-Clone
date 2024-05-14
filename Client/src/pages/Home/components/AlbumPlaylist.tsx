@@ -1,6 +1,6 @@
-import type { Album, Track } from "../types";
+import type { Album, Track, Position } from "../types";
 import { FaPlay, FaPause } from "react-icons/fa";
-import { ExplicitLabel } from ".";
+import { ExplicitLabel, AddSongMenu } from ".";
 import { useState } from "react";
 import { usePlayTracks, useTogglePlayback } from "../../../common/hooks";
 import { useAppSelector } from "../../../app/hooks";
@@ -19,6 +19,17 @@ const AlbumPlaylist = (props: AlbumPlaylistProps) => {
   const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
   const isPlaying = useAppSelector(selectSpotifyPlaybackIsPlaying);
 
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isAddSongMenuOpen, setIsAddSongMenuOpen] = useState<boolean>(false);
+
+  const [currentSpotifyId, setCurrentSpotifyId] = useState<string>("");
+
+  const openMenu = (e: React.MouseEvent<HTMLElement>, trackId: string) => {
+    setCurrentSpotifyId(trackId);
+    setIsAddSongMenuOpen(true);
+    setPosition({ x: e.pageY, y: e.pageX });
+  };
+
   return (
     <ul className="w-full px-6 text-txtGrey text-h5 mb-5">
       {album.tracks?.map((track: Track, idx: number) => {
@@ -28,6 +39,9 @@ const AlbumPlaylist = (props: AlbumPlaylistProps) => {
             className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
+            onContextMenu={(e: React.MouseEvent<HTMLElement>) =>
+              openMenu(e, track.id)
+            }
             key={track.uri}
           >
             {track.uri === currentTrack?.uri && isPlaying ? (
@@ -73,6 +87,13 @@ const AlbumPlaylist = (props: AlbumPlaylistProps) => {
           </li>
         );
       })}
+      {isAddSongMenuOpen && (
+        <AddSongMenu
+          style={{ top: position.x - 10, left: position.y - 90 }}
+          spotifyId={currentSpotifyId}
+          setIsAddSongMenuOpen={setIsAddSongMenuOpen}
+        />
+      )}
     </ul>
   );
 };
