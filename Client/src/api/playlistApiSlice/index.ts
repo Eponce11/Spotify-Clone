@@ -47,6 +47,13 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         body: { ...data },
       }),
     }),
+    removeSpotifyCollectionFromLibrary: builder.mutation<any, any>({
+      query: (data: any) => ({
+        url: `/playlist/removePlaylist/library`,
+        method: "POST",
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
@@ -57,4 +64,5 @@ export const {
   useAddSongToPlaylistMutation,
   useAddSpotifyCollectionToLibraryMutation,
   useGetLibraryPlaylistsMutation,
+  useRemoveSpotifyCollectionFromLibraryMutation,
 } = playlistApiSlice;

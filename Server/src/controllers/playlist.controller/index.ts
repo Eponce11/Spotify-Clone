@@ -193,3 +193,28 @@ export const addSpotifyPlaylistOrAlbumToLibrary = (
     }
   };
 };
+
+export const removeSpotifyPlaylistFromLibrary = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { userId, collectionId } = req.body;
+      await ctx.prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          spotifyPlaylistorAlbums: {
+            disconnect: [{ id: collectionId }],
+          },
+        },
+      });
+
+      res.json({ Msg: "Success" });
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
