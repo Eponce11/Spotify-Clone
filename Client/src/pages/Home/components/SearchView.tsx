@@ -14,7 +14,7 @@ const SearchView = () => {
   return (
     <MainViewContainer>
       <SearchTopbar setSearchResults={setSearchResults} />
-      <MainViewContentWrapper>
+      <MainViewContentWrapper isCollectionView={false}>
         {!searchResults.tracks || searchResults.tracks.length === 0 ? (
           <></>
         ) : (

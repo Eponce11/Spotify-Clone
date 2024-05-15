@@ -1,11 +1,11 @@
 import LibrarySidebar from "./LibrarySidebar";
 import MainViewContainer from "./MainViewContainer";
-import CollectionView from "./CollectionView";
-import CollectionHeader from "./CollectionHeader";
+import AlbumView from "./AlbumView";
+import AlbumHeader from "./AlbumHeader";
 import CollectionTopbar from "./CollectionTopbar";
 import CollectionPlaybar from "./CollectionPlaybar";
-import CollectionListHeader from "./CollectionListHeader";
-import CollectionPlaylist from "./CollectionPlaylist";
+import AlbumListHeader from "./AlbumListHeader";
+import AlbumPlaylist from "./AlbumPlaylist";
 import SearchView from "./SearchView";
 import SearchTopbar from "./SearchTopbar";
 import SearchTopResults from "./SearchTopResults";
@@ -17,16 +17,27 @@ import MainViewContentWrapper from "./MainViewContentWrapper";
 import AlbumSearchResultCard from "./AlbumSearchResultCard";
 import ArtistSearchResultCard from "./ArtistSearchResultCard";
 import PlaylistSearchResultCard from "./PlaylistSearchResultCard";
+import PlaylistHeader from "./PlaylistHeader";
+import PlaylistListHeader from "./PlaylistListHeader";
+import PlaylistPlaylist from "./PlaylistPlaylist";
+import PlaylistView from "./PlaylistView";
+import LibraryCreateMenu from "./LibraryCreateMenu";
+import PlaylistOwnView from "./PlaylistOwnView";
+import AddSongMenu from "./AddSongMenu";
+import DefaultArtistImage from "./DefaultArtistImage";
+import DefaultCollectionImage from "./DefaultCollectionImage";
+import CollectionEditMenu from "./CollectionEditMenu";
+import PlaylistEdit from "./PlaylistEdit";
 
 export {
   LibrarySidebar,
   MainViewContainer,
-  CollectionView,
-  CollectionHeader,
+  AlbumView,
+  AlbumHeader,
   CollectionTopbar,
   CollectionPlaybar,
-  CollectionListHeader,
-  CollectionPlaylist,
+  AlbumListHeader,
+  AlbumPlaylist,
   SearchView,
   SearchTopbar,
   SearchTopResults,
@@ -38,4 +49,15 @@ export {
   AlbumSearchResultCard,
   ArtistSearchResultCard,
   PlaylistSearchResultCard,
+  PlaylistHeader,
+  PlaylistListHeader,
+  PlaylistPlaylist,
+  PlaylistView,
+  LibraryCreateMenu,
+  PlaylistOwnView,
+  AddSongMenu,
+  DefaultArtistImage,
+  DefaultCollectionImage,
+  CollectionEditMenu,
+  PlaylistEdit,
 };

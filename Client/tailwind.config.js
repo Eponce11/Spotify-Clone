@@ -13,6 +13,7 @@ export default {
         'lightGrey': '#242424',
         'secondaryLightGrey': '#181818',
         'tertiaryLightGrey': '#8f8f8f',
+        'fourthLightGrey': "#4b4b4b",
         'hoverDarkGrey': '#1a1a1a',
         'hoverLightGrey': '#282828',
         'lightGreen': '#1ED760',

@@ -1,14 +1,49 @@
+import { FaList } from "react-icons/fa6";
+import type { Album, Playlist } from "../types";
+import { GreenPlayButton } from "./";
+import { useAddSpotifyCollectionToLibraryMutation } from "../../../api/playlistApiSlice";
+import { useAppSelector } from "../../../app/hooks";
+import { selectAuthId } from "../../../app/features/authSlice";
 
-const CollectionPlaybar = () => {
-  return (
-    <section className="p-6 h-[100px] w-full flex items-center text-txtGrey justify-between">
-      <div className="h-14 aspect-square rounded-full bg-lightGreen" />
-      <div className="flex">
-        <span className="text-h6 mr-3">List</span>
-        <div className="bg-[red] h-4 aspect-square" />
-      </div>
-    </section>
-  )
+interface CollectionPlaybarProps {
+  data: Album | Playlist;
 }
 
-export default CollectionPlaybar
+const CollectionPlaybar = (props: CollectionPlaybarProps) => {
+  const { data } = props;
+  const authId = useAppSelector(selectAuthId);
+  const [addSpotifyCollectionToLibrary] =
+    useAddSpotifyCollectionToLibraryMutation();
+
+  const handleAddCollectionToLibrary = async (
+    e: React.MouseEvent<HTMLElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    const res = await addSpotifyCollectionToLibrary({
+      userId: authId,
+      spotifyId: data.id,
+      type: data.type,
+    }).unwrap();
+    console.log(res);
+  };
+
+  return (
+    <section className="p-6 h-[100px] w-full flex items-center text-txtGrey justify-between">
+      <GreenPlayButton
+        track={data}
+        className="visible"
+        isCollectionView={true}
+      />
+      <div
+        className="bg-[red] h-7 w-7"
+        onClick={handleAddCollectionToLibrary}
+      />
+      <div className="flex">
+        <span className="text-h6 mr-3">List</span>
+        <FaList />
+      </div>
+    </section>
+  );
+};
+
+export default CollectionPlaybar;

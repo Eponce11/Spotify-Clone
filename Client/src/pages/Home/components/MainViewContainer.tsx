@@ -6,7 +6,7 @@ interface MainViewContainerProps {
 
 const MainViewContainer = (props: MainViewContainerProps) => {
   const { children } = props;
-  return <div className="grow bg-darkGrey relative min-w-[860px] overflow-hidden">{children}</div>;
+  return <div className="grow bg-darkGrey relative min-w-[860px] overflow-hidden rounded-md">{children}</div>;
 };
 
 export default MainViewContainer;
