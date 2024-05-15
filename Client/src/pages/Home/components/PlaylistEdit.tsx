@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { DefaultCollectionImage } from "./";
+import { useEditOwnPlaylistMutation } from "../../../api/playlistApiSlice";
 
 interface PlaylistEditProps {
   setIsEditPlaylistOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,7 +11,22 @@ interface PlaylistEditProps {
 const PlaylistEdit = (props: PlaylistEditProps) => {
   const { setIsEditPlaylistOpen, playlist } = props;
   const [name, setName] = useState<string>(playlist.name);
-  const [description, setDescription] = useState<string>(playlist.description);
+  const [description, setDescription] = useState<string>(
+    playlist.description ? playlist.description : ""
+  );
+  const [editOwnPlaylist] = useEditOwnPlaylistMutation();
+
+  const handleEditPlaylist = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    if (name.length === 0) return;
+    const res = await editOwnPlaylist({
+      playlistId: playlist.id,
+      name: name,
+      description: description,
+    }).unwrap();
+    console.log(res);
+    setIsEditPlaylistOpen(false);
+  };
 
   return (
     <div className="bg-[black] w-screen h-screen fixed top-0 left-0 z-10 flex items-center justify-center bg-opacity-70">
@@ -42,7 +58,10 @@ const PlaylistEdit = (props: PlaylistEditProps) => {
           </div>
         </div>
         <div className="flex justify-end mt-3">
-          <button className="bg-white px-8 py-3 rounded-full text-h5">
+          <button
+            className="bg-white px-8 py-3 rounded-full text-h5"
+            onClick={handleEditPlaylist}
+          >
             <strong>Save</strong>
           </button>
         </div>

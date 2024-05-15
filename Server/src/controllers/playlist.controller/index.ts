@@ -237,3 +237,26 @@ export const deleteOwnPlaylist = (
     }
   };
 };
+
+export const editOwnPlaylist = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { playlistId, name, description } = req.body;
+      await ctx.prisma.playlist.update({
+        where: {
+          id: playlistId
+        },
+        data: {
+          name: name,
+          description: description
+        }
+      })
+      res.json({ Msg: "Success" });
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
