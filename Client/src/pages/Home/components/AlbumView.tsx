@@ -26,7 +26,7 @@ const AlbumView = () => {
       setIsLoading(false);
     };
     fetchData();
-  }, []);
+  }, [_albumId]);
 
   return isLoading || !currentData ? (
     <MainViewContainer>

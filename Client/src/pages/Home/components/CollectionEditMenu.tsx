@@ -12,12 +12,18 @@ interface CollectionEditMenuProps {
   style: { top: number; left: number };
   setIsEditCollectionMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isMyPlaylist: boolean;
-  collectionId: number;
+  collection: any;
+  setIsEditPlaylistOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CollectionEditMenu = (props: CollectionEditMenuProps) => {
-  const { style, setIsEditCollectionMenuOpen, isMyPlaylist, collectionId } =
-    props;
+  const {
+    style,
+    setIsEditCollectionMenuOpen,
+    isMyPlaylist,
+    collection,
+    setIsEditPlaylistOpen,
+  } = props;
 
   const authId = useAppSelector(selectAuthId);
   const [removeSpotifyCollectionFromLibrary] =
@@ -32,14 +38,14 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
     e.preventDefault();
     const res = await removeSpotifyCollectionFromLibrary({
       userId: authId,
-      collectionId: collectionId,
+      collectionId: collection.prismaId,
     }).unwrap();
     console.log(res);
   };
 
   const handleDeleteOwnPlaylist = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const res = await deleteOwnPlaylist({ playlistId: collectionId }).unwrap();
+    const res = await deleteOwnPlaylist({ playlistId: collection.id }).unwrap();
     console.log(res);
   };
 
@@ -48,7 +54,7 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
       <div>
         <div
           className="flex items-center pl-2 pr-4 py-2 hover:bg-hoverLightGrey rounded cursor-pointer"
-          onClick={() => {}}
+          onClick={() => setIsEditPlaylistOpen(true)}
         >
           <RiPencilFill color="gray" />
           <span className="text-h5 text-white ml-2">Edit playlist</span>

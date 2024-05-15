@@ -4,6 +4,7 @@ import {
   LibraryCreateMenu,
   DefaultCollectionImage,
   CollectionEditMenu,
+  PlaylistEdit,
 } from "./";
 import { useGetLibraryPlaylistsQuery } from "../../../api/playlistApiSlice";
 import { useAppSelector } from "../../../app/hooks";
@@ -21,11 +22,12 @@ const LibrarySidebar = () => {
     useState<boolean>(false);
   const [isEditCollectionMenuOpen, setIsEditCollectionMenuOpen] =
     useState<boolean>(false);
+  const [isEditPlaylistOpen, setIsEditPlaylistOpen] = useState<boolean>(false);
   const authId = useAppSelector(selectAuthId);
   const navigate = useNavigate();
   const { spotifySearchById } = useSpotifySearchById();
   const [isMyPlaylist, setIsMyPlaylist] = useState<boolean>(false);
-  const [currentCollectionId, setCurrentCollectionId] = useState<number>(0);
+  const [currentCollection, setCurrentCollection] = useState<any>();
 
   const { currentData: libraryPlaylists } = useGetLibraryPlaylistsQuery(authId);
 
@@ -60,13 +62,13 @@ const LibrarySidebar = () => {
   const openEditMenu = (
     e: React.MouseEvent<HTMLElement>,
     myPlaylist: boolean,
-    collectionId: number
+    collection: number
   ) => {
     e.preventDefault();
     e.stopPropagation();
     setIsMyPlaylist(myPlaylist);
     setIsEditCollectionMenuOpen(true);
-    setCurrentCollectionId(collectionId);
+    setCurrentCollection(collection);
     setPosition({ x: e.pageY, y: e.pageX });
   };
 
@@ -105,18 +107,14 @@ const LibrarySidebar = () => {
               }}
               onContextMenu={(e: React.MouseEvent<HTMLElement>) => {
                 if (!playlist.type) {
-                  openEditMenu(e, playlist.type === undefined, playlist.id);
+                  openEditMenu(e, playlist.type === undefined, playlist);
                 } else {
-                  openEditMenu(
-                    e,
-                    playlist.type === undefined,
-                    playlist.prismaId
-                  );
+                  openEditMenu(e, playlist.type === undefined, playlist);
                 }
               }}
             >
               {!playlist.uri ? (
-                <DefaultCollectionImage />
+                <DefaultCollectionImage className="h-12 w-12" />
               ) : playlist.type === "album" ? (
                 <img
                   src={playlist.albumUrl}
@@ -139,7 +137,8 @@ const LibrarySidebar = () => {
           style={{ top: position.x, left: position.y }}
           setIsEditCollectionMenuOpen={setIsEditCollectionMenuOpen}
           isMyPlaylist={isMyPlaylist}
-          collectionId={currentCollectionId}
+          collection={currentCollection}
+          setIsEditPlaylistOpen={setIsEditPlaylistOpen}
         />
       )}
 
@@ -147,6 +146,13 @@ const LibrarySidebar = () => {
         <LibraryCreateMenu
           style={{ top: position.x, left: position.y }}
           setIsCreatePlaylistMenuOpen={setIsCreatePlaylistMenuOpen}
+        />
+      )}
+
+      {isEditPlaylistOpen && (
+        <PlaylistEdit
+          setIsEditPlaylistOpen={setIsEditPlaylistOpen}
+          playlist={currentCollection}
         />
       )}
     </aside>
