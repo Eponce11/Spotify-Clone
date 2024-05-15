@@ -39,7 +39,7 @@ const PlaylistView = () => {
         <PlaylistHeader playlist={currentData} />
         <CollectionPlaybar data={currentData} />
         <PlaylistListHeader />
-        <PlaylistPlaylist playlist={currentData} />
+        <PlaylistPlaylist playlist={currentData} isMyPlaylist={false} />
       </MainViewContentWrapper>
     </MainViewContainer>
   );

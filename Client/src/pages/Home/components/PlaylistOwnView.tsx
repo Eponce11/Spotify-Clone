@@ -26,6 +26,20 @@ const PlaylistOwnView = () => {
     const fetchData = async (): Promise<void> => {
       const res = await getOnePlaylist({ playlistId: _playlistId }).unwrap();
       console.log(res);
+      if (res.songs.length === 0) {
+        setCurrentData({
+          description: res.description,
+          id: res.id,
+          name: res.name,
+          playlistUrl: null,
+          owner: "me",
+          type: "playlist",
+          tracks: [],
+          totalTracks: 0,
+        });
+        setIsLoading(false);
+        return;
+      }
       const trackIds: string[] = [];
       res.songs.forEach((track: any) => {
         trackIds.push(track.spotifyId);
@@ -59,7 +73,7 @@ const PlaylistOwnView = () => {
         <PlaylistHeader playlist={currentData} />
         <CollectionPlaybar data={currentData} />
         <PlaylistListHeader />
-        <PlaylistPlaylist playlist={currentData} />
+        <PlaylistPlaylist playlist={currentData} isMyPlaylist={true} />
       </MainViewContentWrapper>
     </MainViewContainer>
   );

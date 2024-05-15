@@ -28,6 +28,7 @@ import DefaultArtistImage from "./DefaultArtistImage";
 import DefaultCollectionImage from "./DefaultCollectionImage";
 import CollectionEditMenu from "./CollectionEditMenu";
 import PlaylistEdit from "./PlaylistEdit";
+import RemoveSongMenu from "./RemoveSongMenu";
 
 export {
   LibrarySidebar,
@@ -60,4 +61,5 @@ export {
   DefaultCollectionImage,
   CollectionEditMenu,
   PlaylistEdit,
+  RemoveSongMenu,
 };
