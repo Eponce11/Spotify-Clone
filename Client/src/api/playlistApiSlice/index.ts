@@ -12,6 +12,7 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
+      invalidatesTags: ["Collection"],
     }),
     getPlaylists: builder.query<any, number>({
       query: (id: number) => ({
@@ -19,12 +20,12 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    getLibraryPlaylists: builder.mutation<any, any>({
-      query: (data: any) => ({
-        url: `/playlist/getAll/ownAndSpotify`,
-        method: "POST",
-        body: { ...data },
+    getLibraryPlaylists: builder.query<any, any>({
+      query: (id: number) => ({
+        url: `/playlist/getAll/ownAndSpotify/${id}`,
+        method: "GET",
       }),
+      providesTags: ["Collection"],
     }),
     getOnePlaylist: builder.mutation<any, any>({
       query: (data: any) => ({
@@ -46,6 +47,7 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
+      invalidatesTags: ["Collection"],
     }),
     removeSpotifyCollectionFromLibrary: builder.mutation<any, any>({
       query: (data: any) => ({
@@ -53,6 +55,7 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
+      invalidatesTags: ["Collection"],
     }),
     deleteOwnPlaylist: builder.mutation<any, any>({
       query: (data: any) => ({
@@ -60,6 +63,7 @@ export const playlistApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { ...data },
       }),
+      invalidatesTags: ["Collection"],
     }),
   }),
 });
@@ -70,7 +74,7 @@ export const {
   useGetOnePlaylistMutation,
   useAddSongToPlaylistMutation,
   useAddSpotifyCollectionToLibraryMutation,
-  useGetLibraryPlaylistsMutation,
+  useGetLibraryPlaylistsQuery,
   useRemoveSpotifyCollectionFromLibraryMutation,
   useDeleteOwnPlaylistMutation,
 } = playlistApiSlice;

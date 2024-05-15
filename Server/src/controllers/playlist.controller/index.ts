@@ -49,16 +49,16 @@ export const getUserAndSpotifyPlaylist = (
 ): ExpressRouteFunction => {
   return async (req: Request, res: Response) => {
     try {
-      const { userId } = req.body;
-      if (!userId) res.sendStatus(400);
+      const { _userId } = req.params;
+      if (!_userId) res.sendStatus(400);
       const playLists = await ctx.prisma.playlist.findMany({
         where: {
-          userId: Number(userId),
+          userId: Number(_userId),
         },
       });
       const user = await ctx.prisma.user.findFirst({
         where: {
-          id: Number(userId),
+          id: Number(_userId),
         },
         include: {
           spotifyPlaylistorAlbums: true,

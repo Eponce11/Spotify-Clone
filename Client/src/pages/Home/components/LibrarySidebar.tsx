@@ -5,7 +5,7 @@ import {
   DefaultCollectionImage,
   CollectionEditMenu,
 } from "./";
-import { useGetLibraryPlaylistsMutation } from "../../../api/playlistApiSlice";
+import { useGetLibraryPlaylistsQuery } from "../../../api/playlistApiSlice";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuthId } from "../../../app/features/authSlice";
 import type { Album, Position } from "../types";
@@ -24,30 +24,32 @@ const LibrarySidebar = () => {
   const authId = useAppSelector(selectAuthId);
   const navigate = useNavigate();
   const { spotifySearchById } = useSpotifySearchById();
-  const [getLibraryPlaylists] = useGetLibraryPlaylistsMutation();
   const [isMyPlaylist, setIsMyPlaylist] = useState<boolean>(false);
   const [currentCollectionId, setCurrentCollectionId] = useState<number>(0);
 
+  const { currentData: libraryPlaylists } = useGetLibraryPlaylistsQuery(authId);
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const res = await getLibraryPlaylists({ userId: authId }).unwrap();
-      console.log(res);
+      console.log(libraryPlaylists);
       const libraryCollection = await Promise.all(
-        await res.map(async (collection: any): Promise<Album | void> => {
-          if (!collection.hasOwnProperty("spotifyId")) return collection;
-          const response = await spotifySearchById(
-            collection.spotifyId,
-            collection.type
-          );
-          response.prismaId = collection.id;
-          return response;
-        })
+        await libraryPlaylists.map(
+          async (collection: any): Promise<Album | void> => {
+            if (!collection.hasOwnProperty("spotifyId")) return collection;
+            const response = await spotifySearchById(
+              collection.spotifyId,
+              collection.type
+            );
+            response.prismaId = collection.id;
+            return response;
+          }
+        )
       );
       console.log(libraryCollection);
       setCurrentData(libraryCollection);
     };
     fetchData();
-  }, []);
+  }, [libraryPlaylists]);
 
   const openCreateMenu = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -105,7 +107,11 @@ const LibrarySidebar = () => {
                 if (!playlist.type) {
                   openEditMenu(e, playlist.type === undefined, playlist.id);
                 } else {
-                  openEditMenu(e, playlist.type === undefined, playlist.prismaId);
+                  openEditMenu(
+                    e,
+                    playlist.type === undefined,
+                    playlist.prismaId
+                  );
                 }
               }}
             >

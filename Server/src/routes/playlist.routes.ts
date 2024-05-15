@@ -16,8 +16,8 @@ const basePlaylistUrl: string = "/api/playlist";
 const playlistRoutes = (app: Application, database: Context | MockContext) => {
   app.post(`${basePlaylistUrl}/create`, createPlaylist(database));
   app.get(`${basePlaylistUrl}/getAll/:_userId`, getUserPlaylists(database));
-  app.post(
-    `${basePlaylistUrl}/getAll/ownAndSpotify`,
+  app.get(
+    `${basePlaylistUrl}/getAll/ownAndSpotify/:_userId`,
     getUserAndSpotifyPlaylist(database)
   );
   app.post(`${basePlaylistUrl}/getOne`, getPlaylist(database));
