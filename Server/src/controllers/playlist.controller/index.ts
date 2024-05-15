@@ -218,3 +218,22 @@ export const removeSpotifyPlaylistFromLibrary = (
     }
   };
 };
+
+export const deleteOwnPlaylist = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { playlistId } = req.body;
+      await ctx.prisma.playlist.delete({
+        where: {
+          id: playlistId,
+        },
+      });
+      res.json({ Msg: "Success" });
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};

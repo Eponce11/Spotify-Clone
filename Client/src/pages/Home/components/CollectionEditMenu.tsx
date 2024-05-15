@@ -3,7 +3,10 @@ import { FiDelete } from "react-icons/fi";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuthId } from "../../../app/features/authSlice";
-import { useRemoveSpotifyCollectionFromLibraryMutation } from "../../../api/playlistApiSlice";
+import {
+  useRemoveSpotifyCollectionFromLibraryMutation,
+  useDeleteOwnPlaylistMutation,
+} from "../../../api/playlistApiSlice";
 
 interface CollectionEditMenuProps {
   style: { top: number; left: number };
@@ -19,6 +22,7 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
   const authId = useAppSelector(selectAuthId);
   const [removeSpotifyCollectionFromLibrary] =
     useRemoveSpotifyCollectionFromLibraryMutation();
+  const [deleteOwnPlaylist] = useDeleteOwnPlaylistMutation();
 
   let content;
 
@@ -30,6 +34,12 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
       userId: authId,
       collectionId: collectionId,
     }).unwrap();
+    console.log(res);
+  };
+
+  const handleDeleteOwnPlaylist = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const res = await deleteOwnPlaylist({ playlistId: collectionId }).unwrap();
     console.log(res);
   };
 
@@ -45,7 +55,7 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
         </div>
         <div
           className="flex items-center pl-2 pr-4 py-2 hover:bg-hoverLightGrey rounded cursor-pointer"
-          onClick={() => {}}
+          onClick={handleDeleteOwnPlaylist}
         >
           <FiDelete color="gray" />
           <span className="text-h5 text-white ml-2">Delete playlist</span>

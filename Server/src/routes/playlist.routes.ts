@@ -7,6 +7,7 @@ import {
   addSpotifyPlaylistOrAlbumToLibrary,
   getUserAndSpotifyPlaylist,
   removeSpotifyPlaylistFromLibrary,
+  deleteOwnPlaylist,
 } from "../controllers/playlist.controller";
 import { Context, MockContext } from "../config/context.config";
 
@@ -29,6 +30,7 @@ const playlistRoutes = (app: Application, database: Context | MockContext) => {
     `${basePlaylistUrl}/removePlaylist/library`,
     removeSpotifyPlaylistFromLibrary(database)
   );
+  app.post(`${basePlaylistUrl}/delete`, deleteOwnPlaylist(database));
 };
 
 export default playlistRoutes;
