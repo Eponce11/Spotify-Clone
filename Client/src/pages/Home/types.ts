@@ -10,6 +10,7 @@ export interface Track {
   dateAdded?: string;
   albumName?: string | null;
   id: string;
+  prismaId?: string;
 }
 
 export interface Artist {
@@ -44,6 +45,7 @@ export interface Playlist {
   uri?: string;
   tracks?: Track[];
   totalTracks?: number;
+  prismaId?: number;
 }
 
 export const isInstanceOfPlaylist = (object: any): object is Playlist => {

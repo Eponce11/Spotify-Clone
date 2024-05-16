@@ -26,6 +26,7 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
     useState<boolean>(false);
 
   const [currentSpotifyId, setCurrentSpotifyId] = useState<string>("");
+  const [currentPrismaId, setCurrentPrismaId] = useState<string>("");
 
   const openMenu = (e: React.MouseEvent<HTMLElement>, trackId: string) => {
     setCurrentSpotifyId(trackId);
@@ -39,6 +40,7 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
   ) => {
     setCurrentSpotifyId(trackId);
     setIsRemoveSongMenuOpen(true);
+    setCurrentPrismaId(trackId)
     setPosition({ x: e.pageY, y: e.pageX });
   };
 
@@ -53,7 +55,8 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
             onMouseLeave={() => setIsHover(false)}
             onContextMenu={(e: React.MouseEvent<HTMLElement>) => {
               if (isMyPlaylist) {
-                openRemoveSongMenu(e, track.id);
+                if (!track.prismaId) return
+                openRemoveSongMenu(e, track.prismaId);
               } else {
                 openMenu(e, track.id);
               }
@@ -124,7 +127,8 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
         <RemoveSongMenu
           style={{ top: position.x - 10, left: position.y - 90 }}
           setIsRemoveSongMenuOpen={setIsRemoveSongMenuOpen}
-          spotifyId={currentSpotifyId}
+          prismaId={currentPrismaId}
+          playlistId={playlist.id}
         />
       )}
     </ul>

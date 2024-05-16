@@ -246,13 +246,38 @@ export const editOwnPlaylist = (
       const { playlistId, name, description } = req.body;
       await ctx.prisma.playlist.update({
         where: {
-          id: playlistId
+          id: playlistId,
         },
         data: {
           name: name,
-          description: description
-        }
-      })
+          description: description,
+        },
+      });
+      res.json({ Msg: "Success" });
+    } catch (err: any) {
+      console.log(err);
+      return res.sendStatus(400);
+    }
+  };
+};
+
+export const removeSongFromOwnPlaylist = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    try {
+      const { playlistId, prismaId } = req.body;
+      await ctx.prisma.playlist.update({
+        where: {
+          id: playlistId,
+        },
+        data: {
+          songs: {
+            disconnect: [{ id: prismaId }],
+          },
+        },
+      });
+      console.log(req.body);
       res.json({ Msg: "Success" });
     } catch (err: any) {
       console.log(err);

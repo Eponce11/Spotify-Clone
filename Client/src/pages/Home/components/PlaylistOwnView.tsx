@@ -40,12 +40,26 @@ const PlaylistOwnView = () => {
         setIsLoading(false);
         return;
       }
+      const tracks: any = [];
       const trackIds: string[] = [];
       res.songs.forEach((track: any) => {
         trackIds.push(track.spotifyId);
+        tracks.push({ prismaId: track.id, id: track.spotifyId });
       });
       console.log(trackIds);
-      const tracks = await spotifyGetManyTracks(trackIds);
+      const filteredTracks = await spotifyGetManyTracks(trackIds);
+
+      const completeTracks = tracks.map((track: any) => {
+        const foundTrack = filteredTracks.find(
+          (ele: any) => track.id === ele.id
+        );
+        return {
+          ...track,
+          ...foundTrack,
+        };
+      });
+
+      console.log(completeTracks)
 
       setCurrentData({
         description: res.description,
@@ -54,7 +68,7 @@ const PlaylistOwnView = () => {
         playlistUrl: null,
         owner: "me",
         type: "playlist",
-        tracks: tracks,
+        tracks: completeTracks,
         totalTracks: tracks.length,
       });
       setIsLoading(false);
