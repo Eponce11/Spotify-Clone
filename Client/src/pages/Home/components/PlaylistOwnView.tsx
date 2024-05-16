@@ -22,45 +22,14 @@ const PlaylistOwnView = () => {
 
   useEffect(() => {
     if (!_playlistId) return;
+    fetchData();
+  }, [_playlistId]);
+
+  const fetchData = async (): Promise<void> => {
     setIsLoading(true);
-    const fetchData = async (): Promise<void> => {
-      const res = await getOnePlaylist({ playlistId: _playlistId }).unwrap();
-      console.log(res);
-      if (res.songs.length === 0) {
-        setCurrentData({
-          description: res.description,
-          id: res.id,
-          name: res.name,
-          playlistUrl: null,
-          owner: "me",
-          type: "playlist",
-          tracks: [],
-          totalTracks: 0,
-        });
-        setIsLoading(false);
-        return;
-      }
-      const tracks: any = [];
-      const trackIds: string[] = [];
-      res.songs.forEach((track: any) => {
-        trackIds.push(track.spotifyId);
-        tracks.push({ prismaId: track.id, id: track.spotifyId });
-      });
-      console.log(trackIds);
-      const filteredTracks = await spotifyGetManyTracks(trackIds);
-
-      const completeTracks = tracks.map((track: any) => {
-        const foundTrack = filteredTracks.find(
-          (ele: any) => track.id === ele.id
-        );
-        return {
-          ...track,
-          ...foundTrack,
-        };
-      });
-
-      console.log(completeTracks)
-
+    const res = await getOnePlaylist({ playlistId: _playlistId }).unwrap();
+    console.log(res);
+    if (res.songs.length === 0) {
       setCurrentData({
         description: res.description,
         id: res.id,
@@ -68,13 +37,43 @@ const PlaylistOwnView = () => {
         playlistUrl: null,
         owner: "me",
         type: "playlist",
-        tracks: completeTracks,
-        totalTracks: tracks.length,
+        tracks: [],
+        totalTracks: 0,
       });
       setIsLoading(false);
-    };
-    fetchData();
-  }, [_playlistId]);
+      return;
+    }
+    const tracks: any = [];
+    const trackIds: string[] = [];
+    res.songs.forEach((track: any) => {
+      trackIds.push(track.spotifyId);
+      tracks.push({ prismaId: track.id, id: track.spotifyId });
+    });
+    console.log(trackIds);
+    const filteredTracks = await spotifyGetManyTracks(trackIds);
+
+    const completeTracks = tracks.map((track: any) => {
+      const foundTrack = filteredTracks.find((ele: any) => track.id === ele.id);
+      return {
+        ...track,
+        ...foundTrack,
+      };
+    });
+
+    console.log(completeTracks);
+
+    setCurrentData({
+      description: res.description,
+      id: res.id,
+      name: res.name,
+      playlistUrl: null,
+      owner: "me",
+      type: "playlist",
+      tracks: completeTracks,
+      totalTracks: tracks.length,
+    });
+    setIsLoading(false);
+  };
 
   return isLoading || !currentData ? (
     <MainViewContainer>
@@ -87,20 +86,14 @@ const PlaylistOwnView = () => {
         <PlaylistHeader playlist={currentData} />
         <CollectionPlaybar data={currentData} />
         <PlaylistListHeader />
-        <PlaylistPlaylist playlist={currentData} isMyPlaylist={true} />
+        <PlaylistPlaylist
+          playlist={currentData}
+          isMyPlaylist={true}
+          fetchData={fetchData}
+        />
       </MainViewContentWrapper>
     </MainViewContainer>
   );
 };
 
 export default PlaylistOwnView;
-
-/*<MainViewContainer>
-<CollectionTopbar />
-<MainViewContentWrapper isCollectionView={true}>
-  <PlaylistHeader playlist={currentData} />
-  <CollectionPlaybar data={currentData} />
-  <PlaylistListHeader />
-  <PlaylistPlaylist playlist={currentData} />
-</MainViewContentWrapper>
-</MainViewContainer>*/

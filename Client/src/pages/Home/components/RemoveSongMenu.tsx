@@ -6,10 +6,12 @@ interface RemoveSongMenuProps {
   setIsRemoveSongMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
   prismaId: string;
   playlistId: string;
+  fetchData?: () => Promise<void>;
 }
 
 const RemoveSongMenu = (props: RemoveSongMenuProps) => {
-  const { style, setIsRemoveSongMenuOpen, prismaId, playlistId } = props;
+  const { style, setIsRemoveSongMenuOpen, prismaId, playlistId, fetchData } =
+    props;
   const [removeSongOwnPlaylist] = useRemoveSongOwnPlaylistMutation();
   const handleRemoveSongFromPlaylist = async (
     e: React.MouseEvent<HTMLElement>
@@ -20,6 +22,9 @@ const RemoveSongMenu = (props: RemoveSongMenuProps) => {
       playlistId: playlistId,
       prismaId: prismaId,
     });
+    if (fetchData !== undefined) {
+      fetchData();
+    }
     console.log(res);
   };
 

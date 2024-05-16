@@ -11,10 +11,11 @@ import {
 interface PlaylistPlaylistProps {
   playlist: Playlist;
   isMyPlaylist: boolean;
+  fetchData?: () => Promise<void> 
 }
 
 const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
-  const { playlist, isMyPlaylist } = props;
+  const { playlist, isMyPlaylist, fetchData } = props;
   const { playTracks } = usePlayTracks();
   const { togglePlayback } = useTogglePlayback();
   const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
@@ -129,6 +130,7 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
           setIsRemoveSongMenuOpen={setIsRemoveSongMenuOpen}
           prismaId={currentPrismaId}
           playlistId={playlist.id}
+          fetchData={fetchData}
         />
       )}
     </ul>
