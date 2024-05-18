@@ -37,7 +37,7 @@ const AlbumView = () => {
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
         <AlbumHeader album={currentData} />
-        <CollectionPlaybar data={currentData} />
+        <CollectionPlaybar data={currentData} isMyPlaylist={false}/>
         <AlbumListHeader />
         <AlbumPlaylist album={currentData} />
       </MainViewContentWrapper>

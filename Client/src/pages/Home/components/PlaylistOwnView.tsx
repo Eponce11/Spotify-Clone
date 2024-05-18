@@ -84,7 +84,7 @@ const PlaylistOwnView = () => {
       <CollectionTopbar />
       <MainViewContentWrapper isCollectionView={true}>
         <PlaylistHeader playlist={currentData} />
-        <CollectionPlaybar data={currentData} />
+        <CollectionPlaybar data={currentData} isMyPlaylist={true} />
         <PlaylistListHeader />
         <PlaylistPlaylist
           playlist={currentData}
