@@ -7,6 +7,8 @@ import useSpotifySearch from "./useSpotifySearch";
 import useSpotifySearchById from "./useSpotifySearchById";
 import useFilterResponse from "./useFilterResponse";
 import useSpotifyGetManyTracks from "./useSpotifyGetManyTracks";
+import useAdjustVolume from "./useAdjustVolume";
+import useToggleMute from "./useToggleMute";
 
 export {
   useSpotifyRefreshToken,
@@ -18,4 +20,6 @@ export {
   useSpotifySearchById,
   useFilterResponse,
   useSpotifyGetManyTracks,
+  useAdjustVolume,
+  useToggleMute,
 };

@@ -1,20 +1,32 @@
+import { useState, useEffect } from "react";
 import {
   useTogglePlayback,
   usePlayNextTrack,
   usePlayPreviousTrack,
+  useAdjustVolume,
+  useToggleMute,
 } from "../../../common/hooks";
 import { useAppSelector } from "../../../app/hooks";
+import { FaPlay, FaPause } from "react-icons/fa";
+import { GiPreviousButton, GiNextButton } from "react-icons/gi";
 import {
   selectSpotifyPlaybackCurrentTrack,
   selectSpotifyPlaybackCurrentAlbum,
+  selectSpotifyPlaybackIsPlaying,
 } from "../../../app/features/spotifyPlaybackSlice";
 
 const BottomPlaybar = () => {
+  const [volume, setVolume] = useState<number>(50);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+
   const { togglePlayback } = useTogglePlayback();
   const { playNextTrack } = usePlayNextTrack();
   const { playPreviousTrack } = usePlayPreviousTrack();
+  const { adjustVolume } = useAdjustVolume();
+  const { toggleMute } = useToggleMute();
   const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
   const currentAlbum = useAppSelector(selectSpotifyPlaybackCurrentAlbum);
+  const isPlaying = useAppSelector(selectSpotifyPlaybackIsPlaying);
 
   const albumUrl = currentTrack?.albumUrl
     ? currentTrack.albumUrl
@@ -22,14 +34,22 @@ const BottomPlaybar = () => {
     ? currentAlbum.albumUrl
     : undefined;
 
+  useEffect(() => {
+    setVolume(volume);
+  }, []);
+
   return (
     <footer className="text-white h-[72px] py-3 px-2 flex items-center">
       <div className="flex items-center w-1/3">
-        <img
-          src={albumUrl}
-          alt="album img"
-          className="h-14 w-14 rounded mr-3"
-        />
+        {albumUrl ? (
+          <img
+            src={albumUrl}
+            alt="album img"
+            className="h-14 w-14 rounded mr-3"
+          />
+        ) : (
+          <></>
+        )}
         <div className="flex flex-col gap-1 mt-1">
           <h5 className="text-h5">{currentTrack?.title}</h5>
           <p className="text-h6 text-txtGrey">{currentTrack?.artist}</p>
@@ -40,20 +60,52 @@ const BottomPlaybar = () => {
           className="h-8 w-8 flex justify-center items-center"
           onClick={playPreviousTrack}
         >
-          <div className="h-4 w-4 bg-[white]" />
+          <GiPreviousButton size={"80%"} />
         </div>
         <div
-          className="h-8 w-8 rounded-full bg-[white] mx-5"
+          className="h-8 w-8 mx-8 flex items-center justify-center cursor-pointer bg-white rounded-full"
           onClick={togglePlayback}
-        />
+        >
+          {isPlaying ? (
+            <FaPause size={"50%"} color="black" />
+          ) : (
+            <span className="w-full h-full flex items-center justify-center pl-[2px]">
+              <FaPlay size={"50%"} color="black" />
+            </span>
+          )}
+        </div>
         <div
           className="h-8 w-8 flex justify-center items-center"
           onClick={playNextTrack}
         >
-          <div className="h-4 w-4 bg-[white]" />
+          <GiNextButton size={"80%"} />
         </div>
       </div>
-      <div className="h-full w-1/3"></div>
+      <div className="h-full w-1/3">
+        <button
+          onClick={() => {
+            if (isMuted) {
+              toggleMute(true, volume);
+              setIsMuted(false);
+            } else {
+              toggleMute(false);
+              setIsMuted(true);
+            }
+          }}
+        >
+          {isMuted ? "Muted" : "Unmuted"}
+        </button>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          onMouseUp={(e: any) => {
+            setVolume(e.target.value);
+            adjustVolume(e.target.value);
+          }}
+          className="accent-slate-500"
+        />
+      </div>
     </footer>
   );
 };
