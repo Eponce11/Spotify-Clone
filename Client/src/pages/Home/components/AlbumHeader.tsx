@@ -5,7 +5,7 @@ interface AlbumHeaderProps {
 const AlbumHeader = (props: AlbumHeaderProps) => {
   const { album } = props;
   return (
-    <section className="bg-[rgb(32,87,100)] w-full pb-5 flex pt-20 px-6 bg-gradient-to-b from-[#487797] to-[#0e6b91dc]">
+    <section className="bg-[rgb(32,87,100)] w-full pb-5 flex pt-20 px-6 bg-gradient-to-b from-[#60f360] to-[#085a11]">
       <img src={album.albumUrl} alt="album img" className="w-[232px] aspect-square rounded-md"/>
       <div className="flex flex-col justify-end text-white ml-7">
         <p className="text-h6">Album</p>
