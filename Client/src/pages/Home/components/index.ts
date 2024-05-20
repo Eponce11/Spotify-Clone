@@ -29,6 +29,8 @@ import DefaultCollectionImage from "./DefaultCollectionImage";
 import CollectionEditMenu from "./CollectionEditMenu";
 import PlaylistEdit from "./PlaylistEdit";
 import RemoveSongMenu from "./RemoveSongMenu";
+import PreviousPageButton from "./PreviousPageButton";
+import NextPageButton from "./NextPageButton";
 
 export {
   LibrarySidebar,
@@ -62,4 +64,6 @@ export {
   CollectionEditMenu,
   PlaylistEdit,
   RemoveSongMenu,
+  PreviousPageButton,
+  NextPageButton,
 };
