@@ -1,4 +1,4 @@
-import { LoginCard, SpotifyLogin, Container, Header, BodyWrapper } from "./components";
+import { LoginCard, Container, Header, BodyWrapper } from "./components";
 
 const Login = () => {
   return (
