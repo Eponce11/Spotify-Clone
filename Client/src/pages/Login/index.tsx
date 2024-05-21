@@ -1,6 +1,14 @@
-import { SpotifyLogin } from "./components";
+import { LoginCard, SpotifyLogin, Container, Header, BodyWrapper } from "./components";
+
 const Login = () => {
-  return <SpotifyLogin />;
+  return (
+    <Container>
+      <Header />
+      <BodyWrapper>
+        <LoginCard />
+      </BodyWrapper>
+    </Container>
+  );
 };
 
 export default Login;
