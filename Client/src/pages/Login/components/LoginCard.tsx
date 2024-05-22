@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../api/authApiSlice";
 import { useAppDispatch } from "../../../app/hooks";
 import { setCredentials } from "../../../app/features/authSlice";
@@ -9,6 +10,7 @@ const LoginCard = () => {
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (
     e: React.MouseEvent<HTMLElement>
@@ -21,6 +23,7 @@ const LoginCard = () => {
       }).unwrap();
       console.log(res);
       dispatch(setCredentials(res));
+      navigate("/");
     } catch (err: any) {
       console.log(err.data.error);
       setError(err.data.error);

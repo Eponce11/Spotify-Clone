@@ -8,10 +8,10 @@ function App() {
     <div className="App h-screen w-screen">
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<SpotifyLogin />} />
           <Route path="/register" element={<Register />} />
           <Route element={<RequireAuth />}>
-            <Route path="/spotify/login" element={<SpotifyLogin />} />
+            <Route path="/login" element={<Login />} />
             <Route path="home/*" element={<Home />} />
           </Route>
         </Routes>
