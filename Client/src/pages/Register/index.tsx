@@ -1,12 +1,12 @@
 import { Container, Header, BodyWrapper } from "../Login/components";
-import { EmailCard, PasswordCard } from "./components";
+import { EmailCard, PasswordCard, UsernameCard } from "./components";
 
 const Register = () => {
   return (
     <Container>
       <Header />
       <BodyWrapper>
-        <PasswordCard />
+        <UsernameCard />
       </BodyWrapper>
     </Container>
   );

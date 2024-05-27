@@ -1,4 +1,5 @@
 import EmailCard from "./EmailCard";
 import PasswordCard from "./PasswordCard";
+import UsernameCard from "./UsernameCard";
 
-export { EmailCard, PasswordCard };
+export { EmailCard, PasswordCard, UsernameCard };
