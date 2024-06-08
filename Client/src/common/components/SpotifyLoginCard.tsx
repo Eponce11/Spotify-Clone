@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AUTH_URL } from "../constants";
-import { spotifyApi } from "../../../common/constants";
-import { useSpotifyLoginMutation } from "../../../api/spotifyApiSlice";
-import { useAppDispatch } from "../../../app/hooks";
-import {
-  setSpotifyAuthCredentials
-} from "../../../app/features/spotifyAuthSlice";
+import { AUTH_URL } from "../../pages/Login/constants";
+import { spotifyApi } from "../constants";
+import { useSpotifyLoginMutation } from "../../api/spotifyApiSlice";
+import { useAppDispatch } from "../../app/hooks";
+import { setSpotifyAuthCredentials } from "../../app/features/spotifyAuthSlice";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
-const SpotifyLogin = () => {
+const SpotifyLoginCard = () => {
   const [spotifyLogin] = useSpotifyLoginMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -33,10 +31,15 @@ const SpotifyLogin = () => {
   }, [code]);
 
   return (
-    <section>
-      <a href={AUTH_URL}>Spotify Login</a>
+    <section className="bg-[#0f0f0f] text-white p-24 w-[600px] flex flex-col items-center rounded-lg">
+      <a
+        href={AUTH_URL}
+        className="w-[300px] bg-lightGreen text-black text-h5 py-4 rounded-full text-center"
+      >
+        <strong>Spotify Login</strong>
+      </a>
     </section>
   );
 };
 
-export default SpotifyLogin;
+export default SpotifyLoginCard;

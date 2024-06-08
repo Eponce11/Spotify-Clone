@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { Playlist, Track, Position } from "../types";
 import { FaPlay, FaPause } from "react-icons/fa";
-import { ExplicitLabel, AddSongMenu } from ".";
+import { ExplicitLabel, AddSongMenu, RemoveSongMenu } from ".";
 import { usePlayTracks, useTogglePlayback } from "../../../common/hooks";
 import { useAppSelector } from "../../../app/hooks";
 import {
@@ -10,10 +10,12 @@ import {
 } from "../../../app/features/spotifyPlaybackSlice";
 interface PlaylistPlaylistProps {
   playlist: Playlist;
+  isMyPlaylist: boolean;
+  fetchData?: () => Promise<void> 
 }
 
 const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
-  const { playlist } = props;
+  const { playlist, isMyPlaylist, fetchData } = props;
   const { playTracks } = usePlayTracks();
   const { togglePlayback } = useTogglePlayback();
   const currentTrack = useAppSelector(selectSpotifyPlaybackCurrentTrack);
@@ -21,12 +23,25 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
 
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [isAddSongMenuOpen, setIsAddSongMenuOpen] = useState<boolean>(false);
+  const [isRemoveSongMenuOpen, setIsRemoveSongMenuOpen] =
+    useState<boolean>(false);
 
   const [currentSpotifyId, setCurrentSpotifyId] = useState<string>("");
+  const [currentPrismaId, setCurrentPrismaId] = useState<string>("");
 
   const openMenu = (e: React.MouseEvent<HTMLElement>, trackId: string) => {
     setCurrentSpotifyId(trackId);
     setIsAddSongMenuOpen(true);
+    setPosition({ x: e.pageY, y: e.pageX });
+  };
+
+  const openRemoveSongMenu = (
+    e: React.MouseEvent<HTMLElement>,
+    trackId: string
+  ) => {
+    setCurrentSpotifyId(trackId);
+    setIsRemoveSongMenuOpen(true);
+    setCurrentPrismaId(trackId)
     setPosition({ x: e.pageY, y: e.pageX });
   };
 
@@ -39,9 +54,14 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
             className="flex items-center py-2 hover:bg-hoverLightGrey rounded-md"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
-            onContextMenu={(e: React.MouseEvent<HTMLElement>) =>
-              openMenu(e, track.id)
-            }
+            onContextMenu={(e: React.MouseEvent<HTMLElement>) => {
+              if (isMyPlaylist) {
+                if (!track.prismaId) return
+                openRemoveSongMenu(e, track.prismaId);
+              } else {
+                openMenu(e, track.id);
+              }
+            }}
             key={track.uri}
           >
             {track.uri === currentTrack?.uri && isPlaying ? (
@@ -97,11 +117,20 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
           </li>
         );
       })}
-      {isAddSongMenuOpen && (
+      {isAddSongMenuOpen && !isMyPlaylist && (
         <AddSongMenu
           style={{ top: position.x - 0, left: position.y - 0 }}
           spotifyId={currentSpotifyId}
           setIsAddSongMenuOpen={setIsAddSongMenuOpen}
+        />
+      )}
+      {isRemoveSongMenuOpen && isMyPlaylist && (
+        <RemoveSongMenu
+          style={{ top: position.x - 10, left: position.y - 90 }}
+          setIsRemoveSongMenuOpen={setIsRemoveSongMenuOpen}
+          prismaId={currentPrismaId}
+          playlistId={playlist.id}
+          fetchData={fetchData}
         />
       )}
     </ul>

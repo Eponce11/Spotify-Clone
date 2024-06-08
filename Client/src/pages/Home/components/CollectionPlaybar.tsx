@@ -1,4 +1,5 @@
 import { FaList } from "react-icons/fa6";
+import { IoAdd } from "react-icons/io5";
 import type { Album, Playlist } from "../types";
 import { GreenPlayButton } from "./";
 import { useAddSpotifyCollectionToLibraryMutation } from "../../../api/playlistApiSlice";
@@ -7,10 +8,11 @@ import { selectAuthId } from "../../../app/features/authSlice";
 
 interface CollectionPlaybarProps {
   data: Album | Playlist;
+  isMyPlaylist: boolean;
 }
 
 const CollectionPlaybar = (props: CollectionPlaybarProps) => {
-  const { data } = props;
+  const { data, isMyPlaylist } = props;
   const authId = useAppSelector(selectAuthId);
   const [addSpotifyCollectionToLibrary] =
     useAddSpotifyCollectionToLibraryMutation();
@@ -29,15 +31,20 @@ const CollectionPlaybar = (props: CollectionPlaybarProps) => {
 
   return (
     <section className="p-6 h-[100px] w-full flex items-center text-txtGrey justify-between">
-      <GreenPlayButton
-        track={data}
-        className="visible"
-        isCollectionView={true}
-      />
-      <div
-        className="bg-[red] h-7 w-7"
-        onClick={handleAddCollectionToLibrary}
-      />
+      <div className="flex items-center">
+        <GreenPlayButton
+          track={data}
+          className="visible mr-3"
+          isCollectionView={true}
+        />
+        {isMyPlaylist ? (
+          <></>
+        ) : (
+          <span className="h-7 w-7 cursor-pointer" onClick={handleAddCollectionToLibrary}>
+            <IoAdd size={"100%"}/>
+          </span>
+        )}
+      </div>
       <div className="flex">
         <span className="text-h6 mr-3">List</span>
         <FaList />
