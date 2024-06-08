@@ -1,11 +1,24 @@
 import { IoIosArrowBack } from "react-icons/io";
+interface PasswordCardProps {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const PasswordCard = () => {
+const PasswordCard = (props: PasswordCardProps) => {
+  const { setStep } = props;
+
+  const handlePassword = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    setStep((prev: number) => prev + 1);
+  };
+
   return (
     <section className="bg-[#0f0f0f] text-white p-24 w-[600px] flex flex-col items-center rounded-lg relative">
       <div className="w-[300px] mb-10 relative">
-        <div className="h-10 w-10 absolute left-[-50px] cursor-pointer">
-          <IoIosArrowBack size={"100%"} color="grey"/>
+        <div
+          className="h-10 w-10 absolute left-[-50px] cursor-pointer"
+          onClick={() => setStep((prev: number) => prev - 1)}
+        >
+          <IoIosArrowBack size={"100%"} color="grey" />
         </div>
         <h5 className="text-h5 text-txtGrey mb-1">Step 1 of 2</h5>
         <h4 className="text-h4">Create a password</h4>
@@ -30,7 +43,10 @@ const PasswordCard = () => {
           <span className="text-h6">10 characters</span>
         </div>
       </div>
-      <button className="w-[300px] bg-lightGreen text-black text-h5 mt-8 py-4 rounded-full">
+      <button
+        className="w-[300px] bg-lightGreen text-black text-h5 mt-8 py-4 rounded-full"
+        onClick={handlePassword}
+      >
         <strong>Next</strong>
       </button>
     </section>
