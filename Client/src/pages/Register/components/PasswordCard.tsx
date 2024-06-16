@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { containsAnyLetters, containsAnyNumbers } from "../../../common/utils";
 import { IoIosArrowBack } from "react-icons/io";
 interface PasswordCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -6,9 +8,34 @@ interface PasswordCardProps {
 const PasswordCard = (props: PasswordCardProps) => {
   const { setStep } = props;
 
+  const [password, setPassword] = useState<string>("");
+  const [hasLetter, setHasLetter] = useState<boolean>(false);
+  const [hasNumber, setHasNumber] = useState<boolean>(false);
+  const [hasTenChars, setHasTenChars] = useState<boolean>(false);
+
   const handlePassword = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
     setStep((prev: number) => prev + 1);
+  };
+
+  const handleChangePassword = (e: any): void => {
+    e.preventDefault();
+    setPassword(e.target.value);
+    if (e.target.value.length >= 10) {
+      setHasTenChars(true);
+    } else {
+      setHasTenChars(false);
+    }
+    if (containsAnyLetters(e.target.value)) {
+      setHasLetter(true);
+    } else {
+      setHasLetter(false);
+    }
+    if (containsAnyNumbers(e.target.value)) {
+      setHasNumber(true);
+    } else {
+      setHasNumber(false);
+    }
   };
 
   return (
@@ -29,18 +56,36 @@ const PasswordCard = (props: PasswordCardProps) => {
           type="text"
           className="w-[300px] h-12 rounded-sm bg-transparent border px-2 text-h6"
           placeholder="Password"
+          value={password}
+          onChange={handleChangePassword}
         />
       </div>
 
       <div className="flex flex-col items-start w-[300px] mt-5 gap-2">
         <p className="text-h5">Your password must contain at least</p>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full border" />
-          <span className="text-h6">1 letter</span>
+          {hasLetter ? (
+            <div className="w-3 h-3 rounded-full border bg-lightGreen" />
+          ) : (
+            <div className="w-3 h-3 rounded-full border" />
+          )}
+          <span className="text-h6">1 Letter</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full border" />
-          <span className="text-h6">10 characters</span>
+          {hasNumber ? (
+            <div className="w-3 h-3 rounded-full border bg-lightGreen" />
+          ) : (
+            <div className="w-3 h-3 rounded-full border" />
+          )}
+          <span className="text-h6">1 Number</span>
+        </div>
+        <div className="flex items-center gap-2">
+          {hasTenChars ? (
+            <div className="w-3 h-3 rounded-full border bg-lightGreen" />
+          ) : (
+            <div className="w-3 h-3 rounded-full border" />
+          )}
+          <span className="text-h6">10 Characters</span>
         </div>
       </div>
       <button
