@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useAppDispatch } from "../../../app/hooks";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRegisterMutation } from "../../../api/authApiSlice";
+import { setCredentials } from "../../../app/features/authSlice";
 
 interface UsernameCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -14,8 +17,10 @@ const UsernameCard = (props: UsernameCardProps) => {
   const { setStep, username, setUsername, email, password } = props;
 
   const [isError, setIsError] = useState<boolean>(false);
-
   const [register] = useRegisterMutation();
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername("");
@@ -40,6 +45,8 @@ const UsernameCard = (props: UsernameCardProps) => {
         password: password,
         username: username,
       }).unwrap();
+      dispatch(setCredentials(res));
+      navigate("/")
       console.log(res);
     } catch (err: any) {
       console.log(err.data);

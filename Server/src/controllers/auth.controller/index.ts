@@ -18,7 +18,7 @@ export const register = (ctx: Context | MockContext): ExpressRouteFunction => {
     const errors = await registerValidator({ ...req.body, dob }, ctx);
     if (errors) return res.status(400).json(errors);
 
-    const date = new Date(dob);
+    const date = new Date();
 
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
