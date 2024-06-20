@@ -12,9 +12,10 @@ import { generateToken } from "../../functions/token.functions";
 
 export const register = (ctx: Context | MockContext): ExpressRouteFunction => {
   return async (req: Request, res: Response) => {
-    const { username, email, password, dob } = req.body;
+    const { username, email, password } = req.body;
+    const dob = "00-17-02"
 
-    const errors = await registerValidator(req.body, ctx);
+    const errors = await registerValidator({ ...req.body, dob }, ctx);
     if (errors) return res.status(400).json(errors);
 
     const date = new Date(dob);

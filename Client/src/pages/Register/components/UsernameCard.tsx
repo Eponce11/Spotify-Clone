@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import { useRegisterMutation } from "../../../api/authApiSlice";
 
 interface UsernameCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -14,22 +15,36 @@ const UsernameCard = (props: UsernameCardProps) => {
 
   const [isError, setIsError] = useState<boolean>(false);
 
+  const [register] = useRegisterMutation();
+
   useEffect(() => {
     setUsername("");
   }, []);
 
-  const usernameValidation = (): boolean => {
+  const isUsernameValid = (): boolean => {
     if (username.length < 2) {
       setIsError(true);
-      return false
+      return false;
     }
-    return true
+    return true;
   };
 
-  const handleRegister = (e: React.MouseEvent<HTMLElement>): void => {
+  const handleRegister = async (
+    e: React.MouseEvent<HTMLElement>
+  ): Promise<void> => {
     e.preventDefault();
-    console.log(usernameValidation());
-  }
+    if (!isUsernameValid) return;
+    try {
+      const res = await register({
+        email: email,
+        password: password,
+        username: username,
+      }).unwrap();
+      console.log(res);
+    } catch (err: any) {
+      console.log(err.data);
+    }
+  };
 
   return (
     <section className="bg-[#0f0f0f] text-white p-24 w-[600px] flex flex-col items-center rounded-lg relative">
