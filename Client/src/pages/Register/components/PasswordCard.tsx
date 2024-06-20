@@ -15,7 +15,9 @@ const PasswordCard = (props: PasswordCardProps) => {
 
   const handlePassword = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    setStep((prev: number) => prev + 1);
+    if (hasLetter && hasNumber && hasTenChars) {
+      setStep((prev: number) => prev + 1);
+    }
   };
 
   const handleChangePassword = (e: any): void => {
