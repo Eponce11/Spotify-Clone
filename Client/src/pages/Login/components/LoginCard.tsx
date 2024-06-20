@@ -69,7 +69,12 @@ const LoginCard = () => {
       <div className="h-[1px] w-full bg-lightGrey my-12" />
       <p className="text-txtGrey text-h5">
         Don't Have an account?{" "}
-        <span className="text-white underline">Sign up for Spotify</span>
+        <span
+          className="text-white underline cursor-pointer"
+          onClick={() => navigate("/register")}
+        >
+          Sign up for Spotify
+        </span>
       </p>
     </section>
   );
