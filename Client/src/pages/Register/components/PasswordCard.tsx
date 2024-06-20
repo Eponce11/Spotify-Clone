@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { containsAnyLetters, containsAnyNumbers } from "../../../common/utils";
 import { IoIosArrowBack } from "react-icons/io";
 interface PasswordCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  password: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PasswordCard = (props: PasswordCardProps) => {
-  const { setStep } = props;
+  const { setStep, password, setPassword } = props;
 
-  const [password, setPassword] = useState<string>("");
   const [hasLetter, setHasLetter] = useState<boolean>(false);
   const [hasNumber, setHasNumber] = useState<boolean>(false);
   const [hasTenChars, setHasTenChars] = useState<boolean>(false);
+
+  useEffect(() => {
+    setPassword("");
+  }, [])
 
   const handlePassword = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();

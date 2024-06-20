@@ -1,23 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
 interface UsernameCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  password: string;
 }
 
 const UsernameCard = (props: UsernameCardProps) => {
-  const { setStep } = props;
+  const { setStep, username, setUsername, email, password } = props;
 
-  const [username, setUsername] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
 
-  const handleUsername = (e: React.MouseEvent<HTMLElement>): void => {
-    e.preventDefault();
+  useEffect(() => {
+    setUsername("");
+  }, []);
+
+  const usernameValidation = (): boolean => {
     if (username.length < 2) {
       setIsError(true);
-      return
+      return false
     }
+    return true
   };
+
+  const handleRegister = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    console.log(usernameValidation());
+  }
 
   return (
     <section className="bg-[#0f0f0f] text-white p-24 w-[600px] flex flex-col items-center rounded-lg relative">
@@ -48,7 +60,7 @@ const UsernameCard = (props: UsernameCardProps) => {
       </div>
       <button
         className="w-[300px] bg-lightGreen text-black text-h5 mt-8 py-4 rounded-full"
-        onClick={handleUsername}
+        onClick={handleRegister}
       >
         <strong>Next</strong>
       </button>

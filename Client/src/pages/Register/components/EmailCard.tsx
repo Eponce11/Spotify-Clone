@@ -4,12 +4,13 @@ import { useEmailValidationMutation } from "../../../api/authApiSlice";
 
 interface EmailCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const EmailCard = (props: EmailCardProps) => {
-  const { setStep } = props;
+  const { setStep, email, setEmail } = props;
 
-  const [email, setEmail] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
   const [emailValidation] = useEmailValidationMutation();
   const navigate = useNavigate();
