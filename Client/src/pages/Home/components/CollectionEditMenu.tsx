@@ -7,6 +7,7 @@ import {
   useRemoveSpotifyCollectionFromLibraryMutation,
   useDeleteOwnPlaylistMutation,
 } from "../../../api/playlistApiSlice";
+import { useNavigate } from "react-router-dom";
 
 interface CollectionEditMenuProps {
   style: { top: number; left: number };
@@ -29,6 +30,7 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
   const [removeSpotifyCollectionFromLibrary] =
     useRemoveSpotifyCollectionFromLibraryMutation();
   const [deleteOwnPlaylist] = useDeleteOwnPlaylistMutation();
+  const navigate = useNavigate();
 
   let content;
 
@@ -47,6 +49,7 @@ const CollectionEditMenu = (props: CollectionEditMenuProps) => {
     e.preventDefault();
     const res = await deleteOwnPlaylist({ playlistId: collection.id }).unwrap();
     console.log(res);
+    navigate("/home/search")
   };
 
   if (isMyPlaylist) {
