@@ -110,7 +110,7 @@ const PlaylistPlaylist = (props: PlaylistPlaylistProps) => {
                 </div>
               </div>
               <div className="w-1/3 text-h6">{track.albumName}</div>
-              <div className="w-1/3 text-h6">2 Weeks Ago</div>
+              <div className="w-1/3 text-h6">{track ? track.dateAdded?.split("T")[0] : ""}</div>
             </div>
 
             <div className="w-16 pr-8 text-right">{track.duration}</div>

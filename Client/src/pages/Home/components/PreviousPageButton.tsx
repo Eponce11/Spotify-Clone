@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+
 const PreviousPageButton = () => {
   const navigate = useNavigate();
 
@@ -11,7 +13,9 @@ const PreviousPageButton = () => {
     <div
       className="h-8 w-8 bg-secondaryBlack rounded-full cursor-pointer"
       onClick={handleGoBackPage}
-    />
+    >
+      <MdOutlineKeyboardArrowLeft size={"100%"} color="grey"/>
+    </div>
   );
 };
 

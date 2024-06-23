@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from "../../../app/hooks";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { GiPreviousButton, GiNextButton } from "react-icons/gi";
+import { HiMiniSpeakerWave, HiMiniSpeakerXMark  } from "react-icons/hi2";
 import {
   selectSpotifyPlaybackCurrentTrack,
   selectSpotifyPlaybackCurrentAlbum,
@@ -81,7 +82,7 @@ const BottomPlaybar = () => {
           <GiNextButton size={"80%"} />
         </div>
       </div>
-      <div className="h-full w-1/3">
+      <div className="h-full w-1/3 flex items-center justify-end">
         <button
           onClick={() => {
             if (isMuted) {
@@ -93,7 +94,7 @@ const BottomPlaybar = () => {
             }
           }}
         >
-          {isMuted ? "Muted" : "Unmuted"}
+          {isMuted ? <HiMiniSpeakerXMark size={"20px"} /> : <HiMiniSpeakerWave size={"20px"}/>}
         </button>
         <input
           type="range"
@@ -103,7 +104,7 @@ const BottomPlaybar = () => {
             setVolume(e.target.value);
             adjustVolume(e.target.value);
           }}
-          className="accent-slate-500"
+          className="accent-slate-500 ml-1"
         />
       </div>
     </footer>
