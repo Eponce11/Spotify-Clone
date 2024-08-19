@@ -8,7 +8,7 @@ interface MainViewContentWrapperProps {
 const MainViewContentWrapper = (props: MainViewContentWrapperProps) => {
   const { children, isCollectionView } = props;
   return (
-    <div className={`${isCollectionView ? 'top-0' : 'top-16'} absolute overflow-y-auto bottom-0 w-full`}>{children}</div>
+    <div className={`${isCollectionView ? 'top-0' : 'top-16'} absolute overflow-y-auto bottom-0 w-full scrollbar`}>{children}</div>
   );
 };
 

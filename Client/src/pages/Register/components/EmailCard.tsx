@@ -1,25 +1,43 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEmailValidationMutation } from "../../../api/authApiSlice";
 
 interface EmailCardProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const EmailCard = (props: EmailCardProps) => {
-  const { setStep } = props;
+  const { setStep, email, setEmail } = props;
 
-  const [email, setEmail] = useState<string>("");
+  const [isError, setIsError] = useState<boolean>(false);
+  const [emailValidation] = useEmailValidationMutation();
   const navigate = useNavigate();
 
-  const handleSubmitEmail = (e: React.MouseEvent<HTMLElement>): void => {
+  const handleSubmitEmail = async (
+    e: React.MouseEvent<HTMLElement>
+  ): Promise<void> => {
     e.preventDefault();
-    setStep((prev: number) => prev + 1);
+    try {
+      const res = await emailValidation({ email: email }).unwrap();
+      console.log(res);
+      setStep((prev: number) => prev + 1);
+    } catch (err: any) {
+      console.log(err);
+      setIsError(true);
+    }
   };
 
   return (
     <section className="bg-[#0f0f0f] text-white p-24 w-[600px] flex flex-col items-center rounded-lg relative">
       <h3 className="text-h3 mb-12">Sign up to Start Listening</h3>
       <div className="h-[1px] w-full bg-lightGrey mb-12" />
+      {isError && (
+        <span className="text-[red] text-h5 absolute top-52">
+          Invalid Email
+        </span>
+      )}
       <div className="flex flex-col">
         <label className="text-h5 mb-2">Email Address</label>
         <input

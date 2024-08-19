@@ -9,9 +9,15 @@ export const createPlaylist = (
   return async (req: Request, res: Response) => {
     try {
       const { userId } = req.body;
+      const allUserPlaylists = await ctx.prisma.playlist.findMany({
+        where: {
+          userId: Number(userId),
+        },
+      });
+      const newPlaylistName = `My Playlist #${allUserPlaylists.length + 1}`;
       const newPlaylist = await ctx.prisma.playlist.create({
         data: {
-          name: "somename",
+          name: newPlaylistName,
           isPublic: false,
           userId: userId,
         },

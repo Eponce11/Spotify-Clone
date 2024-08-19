@@ -3,17 +3,22 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Context, MockContext } from "../../config/context.config";
 import type { ExpressRouteFunction } from "../../common/types";
-import { loginValidator, registerValidator } from "./validation";
+import {
+  loginValidator,
+  registerValidator,
+  emailValidator,
+} from "./validation";
 import { generateToken } from "../../functions/token.functions";
 
 export const register = (ctx: Context | MockContext): ExpressRouteFunction => {
   return async (req: Request, res: Response) => {
-    const { username, email, password, dob } = req.body;
+    const { username, email, password } = req.body;
+    const dob = "00-17-02"
 
-    const errors = await registerValidator(req.body, ctx);
+    const errors = await registerValidator({ ...req.body, dob }, ctx);
     if (errors) return res.status(400).json(errors);
 
-    const date = new Date(dob);
+    const date = new Date();
 
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -120,5 +125,25 @@ export const handleRefreshToken = (
       console.log(err);
       return res.sendStatus(400);
     }
+  };
+};
+
+export const registerEmailValidation = (
+  ctx: Context | MockContext
+): ExpressRouteFunction => {
+  return async (req: Request, res: Response) => {
+    const { email } = req.body;
+
+    if (!emailValidator(email)) return res.sendStatus(400);
+
+    const emailUsed = await ctx.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (emailUsed) return res.sendStatus(400);
+
+    return res.json({ Msg: "Valid" });
   };
 };
