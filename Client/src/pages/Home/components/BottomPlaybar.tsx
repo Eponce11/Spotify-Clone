@@ -9,7 +9,7 @@ import {
 import { useAppSelector } from "../../../app/hooks";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { GiPreviousButton, GiNextButton } from "react-icons/gi";
-import { HiMiniSpeakerWave, HiMiniSpeakerXMark  } from "react-icons/hi2";
+import { HiMiniSpeakerWave, HiMiniSpeakerXMark } from "react-icons/hi2";
 import {
   selectSpotifyPlaybackCurrentTrack,
   selectSpotifyPlaybackCurrentAlbum,
@@ -56,32 +56,49 @@ const BottomPlaybar = () => {
           <p className="text-h6 text-txtGrey">{currentTrack?.artist}</p>
         </div>
       </div>
-      <div className="h-full flex w-1/3 justify-center">
-        <div
-          className="h-8 w-8 flex justify-center items-center"
-          onClick={playPreviousTrack}
-        >
-          <GiPreviousButton size={"80%"} />
+
+
+
+      <div className="h-full flex w-1/3 flex-col items-center">
+        <div className="flex w-full justify-center">
+          <div
+            className="h-8 w-8 flex justify-center items-center"
+            onClick={playPreviousTrack}
+          >
+            <GiPreviousButton size={"80%"} />
+          </div>
+          <div
+            className="h-8 w-8 mx-8 flex items-center justify-center cursor-pointer bg-white rounded-full"
+            onClick={togglePlayback}
+          >
+            {isPlaying ? (
+              <FaPause size={"50%"} color="black" />
+            ) : (
+              <span className="w-full h-full flex items-center justify-center pl-[2px]">
+                <FaPlay size={"50%"} color="black" />
+              </span>
+            )}
+          </div>
+          <div
+            className="h-8 w-8 flex justify-center items-center"
+            onClick={playNextTrack}
+          >
+            <GiNextButton size={"80%"} />
+          </div>
         </div>
-        <div
-          className="h-8 w-8 mx-8 flex items-center justify-center cursor-pointer bg-white rounded-full"
-          onClick={togglePlayback}
-        >
-          {isPlaying ? (
-            <FaPause size={"50%"} color="black" />
-          ) : (
-            <span className="w-full h-full flex items-center justify-center pl-[2px]">
-              <FaPlay size={"50%"} color="black" />
-            </span>
-          )}
-        </div>
-        <div
-          className="h-8 w-8 flex justify-center items-center"
-          onClick={playNextTrack}
-        >
-          <GiNextButton size={"80%"} />
-        </div>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          onMouseUp={(e: any) => {
+            setVolume(e.target.value);
+            adjustVolume(e.target.value);
+          }}
+          className="accent-slate-500 ml-1 max-w-[400px]"
+        />
       </div>
+
+
       <div className="h-full w-1/3 flex items-center justify-end">
         <button
           onClick={() => {
@@ -94,7 +111,11 @@ const BottomPlaybar = () => {
             }
           }}
         >
-          {isMuted ? <HiMiniSpeakerXMark size={"20px"} /> : <HiMiniSpeakerWave size={"20px"}/>}
+          {isMuted ? (
+            <HiMiniSpeakerXMark size={"20px"} />
+          ) : (
+            <HiMiniSpeakerWave size={"20px"} />
+          )}
         </button>
         <input
           type="range"
