@@ -13,7 +13,7 @@ const PlaylistSearchResultCard = (props: PlaylistSearchResultCardProps) => {
   
   return (
     <li
-      className="flex flex-col gap-3 p-3 rounded-lg group hover:bg-secondaryLightGrey"
+      className="flex flex-col gap-3 p-3 rounded-lg group hover:bg-secondaryLightGrey cursor-pointer"
       key={playlist.id}
       onClick={() => navigate(`/home/playlist/${playlist.id}`)}
     >

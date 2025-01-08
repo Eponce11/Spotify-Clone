@@ -94,7 +94,7 @@ const BottomPlaybar = () => {
             setVolume(e.target.value);
             adjustVolume(e.target.value);
           }}
-          className="accent-slate-500 ml-1 max-w-[400px]"
+          className="accent-slate-500 ml-1 max-w-[400px] mt-2 w-72"
         />
       </div>
 
