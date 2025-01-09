@@ -19,7 +19,7 @@ const useSpotifySearch = (): UseSpotifySearchReturn => {
     searchTypes: SearchType[] = ["album", "artist", "playlist", "track"]
   ): Promise<SearchResult> => {
     const res = await spotifyApi.search(search, [...searchTypes]);
-    console.log(res);
+    console.log(res.body);
     let searchResult: SearchResult = {};
 
     if (res.body.hasOwnProperty("tracks")) {

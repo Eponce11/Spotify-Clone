@@ -10,14 +10,14 @@ const ArtistSearchResultCard = (props: ArtistSearchResultCardProps) => {
   const { artist, idx } = props;
   return (
     <li
-      className="flex flex-col gap-3 p-3 rounded-lg hover:bg-secondaryLightGrey"
+      className="flex flex-col gap-3 p-3 rounded-lg hover:bg-secondaryLightGrey cursor-pointer"
       key={idx}
     >
       {artist.artistUrl ? (
         <img
           src={artist.artistUrl}
           alt="artist img"
-          className="aspect-square w-full rounded-full"
+          className="aspect-square w-full rounded-full object-cover"
         />
       ) : (
         <DefaultArtistImage />

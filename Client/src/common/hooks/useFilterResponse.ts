@@ -65,7 +65,10 @@ const useFilterResponse = (): UseFilterResponseResponse => {
   };
 
   const filterPlaylist = (data: any): Playlist[] => {
-    const filteredPlaylists = data.map((playlist: any): Playlist => {
+
+    const removedPlaylistNull = data.filter((playlist: any) => playlist !== null);
+
+    const filteredPlaylists = removedPlaylistNull.map((playlist: any): Playlist => {
       const currentPlaylist: Playlist = {
         description: playlist.description,
         id: playlist.id,
