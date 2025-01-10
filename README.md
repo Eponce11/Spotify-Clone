@@ -23,7 +23,7 @@ This is a project to replicate the popular music streaming service spotify. The 
 - `MockDatabase`
 - `Dependency Injection`
 
-![Login Page](/imgs/login.png)
+![Login Page](/imgs/login.png?raw=true "Login Page")
 ![Search Page](./imgs/search.png)
 ![Album Page](./imgs/album.png)
 
