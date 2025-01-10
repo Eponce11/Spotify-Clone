@@ -3,8 +3,6 @@
 ## Summary
 This is a project to replicate the popular music streaming service spotify. The goal was to work with the spotify api and create a full stack application replicating common features of the official spotify application allowing for complete usability. Used common technologies and libraries with best practices in ensure code readability.
 
-
-
 ## Technologies
 - `Typescript`
 - `React`
@@ -25,9 +23,9 @@ This is a project to replicate the popular music streaming service spotify. The 
 - `MockDatabase`
 - `Dependency Injection`
 
-![Login Page](./imgs/login.png)
-![Login Page](./imgs/search.png)
-![Login Page](./imgs/album.png)
+![Login Page](imgs/login.png)
+![Login Page](imgs/search.png)
+![Login Page](imgs/album.png)
 
 ## Features
 - Login and Registration
