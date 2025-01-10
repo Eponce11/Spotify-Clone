@@ -22,10 +22,11 @@ This is a project to replicate the popular music streaming service spotify. The 
 ## Other 
 - `MockDatabase`
 - `Dependency Injection`
+-
 
-![Login Page](/imgs/login.png?raw=true "Login Page")
-![Search Page](./imgs/search.png)
-![Album Page](./imgs/album.png)
+![login](https://github.com/user-attachments/assets/9b2b7ea9-9446-495d-a70c-6513f31e8b25)
+![search](https://github.com/user-attachments/assets/db93904e-8da5-4ae4-a2e9-ae668354bc42)
+![album](https://github.com/user-attachments/assets/1d2826a2-a77a-4f29-ac15-b9735b396a1a)
 
 ## Features
 - Login and Registration
